@@ -1,5 +1,9 @@
+"use client"
+
+import { useEffect, useState } from "react";
+
 export default function Home() {
-  const colors = [
+  const [colors, setColors] = useState([
     "#f44336",
     "#e91e63",
     "#9c27b0",
@@ -19,16 +23,21 @@ export default function Home() {
     "#795548",
     "#9e9e9e",
     "#607d8b",
-  ];
+  ])
 
-  const sectionMeme = () => {
-    return colors.map((color, index, array) => (
+  useEffect(() => {
+    
+  }, [])
+
+  return <main className="flex-auto flex-col w-full ">{
+    colors.map((color, index, array) => (
       <section
         key={index}
-        className={`flex flex-1 w-full h-screen bg-gradient-to-b from-[${color}] to-[${array[index + 1]}]`}
+        className={`flex w-full h-screen`}
+        style={{backgroundImage: `linear-gradient(${color}, ${
+          index == array.length-1 ? "#000000" : array[index+1]
+        })`}}
       ></section>
-    ));
-  };
-
-  return <main className="flex-auto flex-col w-full ">{sectionMeme()}</main>;
+    ))
+  }</main>;
 }
