@@ -26,7 +26,11 @@ export default function Home() {
     "#607d8b",
   ]);
 
-  useEffect(() => {}, []);
+  const clickTeste = () => {
+    document.getElementById("sections")?.scrollTo({top:0, behavior:"smooth"});
+  }
+
+  //useEffect(() => {}, []);
 
   return (
     <>
@@ -34,8 +38,8 @@ export default function Home() {
         <title>Color Gradient</title>
         <div className="flex fixed w-full h-16 top-0 bg-slate-500 border-black border-b-2 drop-shadow-[0_0px_5px_rgba(0,0,0,1)]"></div>
       </header>
-      <main className="flex h-screen pt-16">
-        <div className="flex-auto flex-col w-full h-fill overflow-y-scroll scroll-smooth snap-y snap-mandatory px-2 py-16">
+      <main id="main" className="flex h-screen pt-16" >
+        <div id="sections" className="flex-auto flex-col w-full h-fill overflow-y-scroll scroll-smooth snap-y snap-mandatory px-2 py-16">
           {colors.map((color, index, array) => (
             <div
               key={index}
@@ -61,9 +65,7 @@ export default function Home() {
                 transition={{ delay: 0.5, duration: 0.5 }}
               >
                 <button
-                  onClick={() => {
-                    window.scroll(0, 0);
-                  }}
+                  onClick={clickTeste}
                 >
                   teste
                 </button>
