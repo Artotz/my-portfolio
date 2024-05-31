@@ -26,8 +26,12 @@ export default function Home() {
     "#607d8b",
   ]);
 
-  const clickTeste = () => {
+  const clickTeste2 = () => {
     document.getElementById("sections")?.scrollTo({top:0, behavior:"smooth"});
+  }
+
+  const clickTeste = () => {
+    document.getElementById("#e91e63")?.scrollIntoView({behavior:"smooth"});
   }
 
   //useEffect(() => {}, []);
@@ -42,6 +46,7 @@ export default function Home() {
         <div id="sections" className="flex-auto flex-col w-full h-fill overflow-y-scroll scroll-smooth snap-y snap-mandatory px-2 py-16">
           {colors.map((color, index, array) => (
             <div
+              id={color}
               key={index}
               className={`flex flex-row gap-4 w-full h-[80vh] border-black border-2 my-1 snap-center align-middle items-center justify-center`}
               style={{
