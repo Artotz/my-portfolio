@@ -1,10 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 export default function Home() {
   const [colors, setColors] = useState([
+    "#ffffff",
     "#f44336",
     "#e91e63",
     "#9c27b0",
@@ -25,6 +26,8 @@ export default function Home() {
     "#9e9e9e",
     "#607d8b",
   ]);
+  const [headerColor, setHeaderColor] = useState('transparent');
+  const [scrollRatio, setScrollRatio] = useState(0);
 
   const clickTeste2 = () => {
     document.getElementById("sections")?.scrollTo({top:0, behavior:"smooth"});
@@ -34,21 +37,68 @@ export default function Home() {
     document.getElementById("#e91e63")?.scrollIntoView({behavior:"smooth"});
   }
 
+  const onScroll = useCallback((_event: Event) => {
+    //const { scrollY } = window;
+    //console.log("scrollY", _event);
+
+    const scrollTop = document.getElementById("sections")?.scrollTop;
+    const scrollHeight = document.getElementById("sections")?.scrollHeight;
+    
+    if(scrollTop)
+      if(scrollTop > 10)
+        setHeaderColor("#333");
+      
+      else
+        setHeaderColor("transparent");
+
+    //console.log("top", scrollTop)
+    if(scrollTop && scrollHeight){
+      setScrollRatio(Math.floor(scrollTop/scrollHeight * 100 * (100/93)))
+      console.log("ratio", Math.floor(scrollTop/scrollHeight * 100 * (100/93)))
+    }
+  }, []);
+
+  useEffect(() => {
+    //add eventlistener to window
+    document.getElementById("sections")?.addEventListener("scroll", onScroll, { passive: true });
+    // remove event on unmount to prevent a memory leak with the cleanup
+    return () => {
+      document.getElementById("sections")?.removeEventListener("scroll", onScroll, { passive: true } as EventListenerOptions);
+    }
+  }, []);
+
   //useEffect(() => {}, []);
 
   return (
     <>
       <header>
         <title>Color Gradient</title>
-        <div className="flex fixed w-full h-16 top-0 bg-slate-500 border-black border-b-2 drop-shadow-[0_0px_5px_rgba(0,0,0,1)]"></div>
+        <div className="flex flex-col fixed w-full h-12 top-0"
+          style={{
+            backgroundColor: headerColor,
+            zIndex: 999,
+            transition: "1s"
+          }}
+        >
+          <div className="flex flex-grow w-full h-fill justify-around items-center text-xs">
+            <div className="flex p-1 bg-slate-500 border-black border-2 rounded-full">bruh</div>
+            <div className="flex p-1 bg-slate-500 border-black border-2 rounded-full">bruh</div>
+            <div className="flex p-1 bg-slate-500 border-black border-2 rounded-full">bruh</div>
+          </div>
+          <div className="flex h-2 bg-red-400"
+          style={{
+            width: `${scrollRatio}%`,
+            transition: "1s"
+          }}></div>
+        </div>
       </header>
-      <main id="main" className="flex h-screen pt-16" >
-        <div id="sections" className="flex-auto flex-col w-full h-fill overflow-y-scroll scroll-smooth snap-y snap-mandatory px-2 py-16">
+      <main id="main" className="flex w-full h-screen" >
+        <div id="sections" className="flex-auto flex-col w-full h-fill no-scrollbar overflow-y-scroll scroll-smooth snap-y snap-mandatory px-2 py-16">
           {colors.map((color, index, array) => (
             <div
               id={color}
               key={index}
-              className={`flex flex-row gap-4 w-full h-[80vh] border-black border-2 my-1 snap-center align-middle items-center justify-center`}
+              className={`flex flex-row gap-4 w-full h-[80vh] my-1 snap-center align-middle items-center justify-center`}
               style={{
                 backgroundImage: `linear-gradient(${color}, ${
                   index == array.length - 1 ? "#000000" : array[index + 1]
