@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import PortfolioSection from "@/components/PortfolioSection";
 
 export default function Home() {
   const [colors, setColors] = useState([
@@ -26,16 +26,18 @@ export default function Home() {
     "#9e9e9e",
     "#607d8b",
   ]);
-  const [headerColor, setHeaderColor] = useState('transparent');
+  const [headerColor, setHeaderColor] = useState("transparent");
   const [scrollRatio, setScrollRatio] = useState(0);
 
   const clickTeste2 = () => {
-    document.getElementById("sections")?.scrollTo({top:0, behavior:"smooth"});
-  }
+    document
+      .getElementById("sections")
+      ?.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   const clickTeste = () => {
-    document.getElementById("#e91e63")?.scrollIntoView({behavior:"smooth"});
-  }
+    document.getElementById("#e91e63")?.scrollIntoView({ behavior: "smooth" });
+  };
 
   const onScroll = useCallback((_event: Event) => {
     //const { scrollY } = window;
@@ -43,28 +45,38 @@ export default function Home() {
 
     const scrollTop = document.getElementById("sections")?.scrollTop;
     const scrollHeight = document.getElementById("sections")?.scrollHeight;
-    
-    if(scrollTop)
-      if(scrollTop > 10)
-        setHeaderColor("#333");
-      
-      else
-        setHeaderColor("transparent");
+    let ratio;
+
+    // if (scrollTop) {
+    //   if (scrollTop > 10) setHeaderColor("#333");
+    //   else setHeaderColor("transparent");
+    // }
 
     //console.log("top", scrollTop)
-    if(scrollTop && scrollHeight){
-      setScrollRatio(Math.floor(scrollTop/scrollHeight * 100 * (100/93)))
-      console.log("ratio", Math.floor(scrollTop/scrollHeight * 100 * (100/93)))
+    if (scrollTop && scrollHeight) {
+      ratio = Math.floor((scrollTop / scrollHeight) * 100 * (100 / 93));
+      setScrollRatio(ratio);
+
+      if (ratio > 0) setHeaderColor("#333");
+      else setHeaderColor("transparent");
+
+      console.log("ratio", ratio);
     }
   }, []);
 
   useEffect(() => {
     //add eventlistener to window
-    document.getElementById("sections")?.addEventListener("scroll", onScroll, { passive: true });
+    document
+      .getElementById("sections")
+      ?.addEventListener("scroll", onScroll, { passive: true });
     // remove event on unmount to prevent a memory leak with the cleanup
     return () => {
-      document.getElementById("sections")?.removeEventListener("scroll", onScroll, { passive: true } as EventListenerOptions);
-    }
+      document
+        .getElementById("sections")
+        ?.removeEventListener("scroll", onScroll, {
+          passive: true,
+        } as EventListenerOptions);
+    };
   }, []);
 
   //useEffect(() => {}, []);
@@ -73,27 +85,39 @@ export default function Home() {
     <>
       <header>
         <title>Color Gradient</title>
-        <div className="flex flex-col fixed w-full h-12 top-0"
+        <div
+          className="flex flex-col fixed w-full h-12 top-0"
           style={{
             backgroundColor: headerColor,
             zIndex: 999,
-            transition: "1s"
+            transition: "1s",
           }}
         >
           <div className="flex flex-grow w-full h-fill justify-around items-center text-xs">
-            <div className="flex p-1 bg-slate-500 border-black border-2 rounded-full">bruh</div>
-            <div className="flex p-1 bg-slate-500 border-black border-2 rounded-full">bruh</div>
-            <div className="flex p-1 bg-slate-500 border-black border-2 rounded-full">bruh</div>
+            <button className="flex p-1 bg-slate-500 border-black border-2 rounded-full">
+              teste
+            </button>
+            <button className="flex p-1 bg-slate-500 border-black border-2 rounded-full">
+              teste
+            </button>
+            <button className="flex p-1 bg-slate-500 border-black border-2 rounded-full">
+              teste
+            </button>
           </div>
-          <div className="flex h-2 bg-red-400"
-          style={{
-            width: `${scrollRatio}%`,
-            transition: "1s"
-          }}></div>
+          <div
+            className="flex h-2 bg-red-400"
+            style={{
+              width: `${scrollRatio}%`,
+              transition: "1s",
+            }}
+          ></div>
         </div>
       </header>
-      <main id="main" className="flex w-full h-screen" >
-        <div id="sections" className="flex-auto flex-col w-full h-fill no-scrollbar overflow-y-scroll scroll-smooth snap-y snap-mandatory px-2 py-16">
+      <main id="main" className="flex w-full h-screen">
+        <div
+          id="sections"
+          className="flex-auto flex-col w-full h-fill no-scrollbar overflow-y-scroll scroll-smooth snap-y snap-mandatory px-2 py-16"
+        >
           {colors.map((color, index, array) => (
             <div
               id={color}
@@ -105,34 +129,7 @@ export default function Home() {
                 })`,
               }}
             >
-              <motion.div
-                className="text-3xl font-bold text-white"
-                initial={{ opacity: 0, x: -50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.5, duration: 0.5 }}
-              >
-                teste
-              </motion.div>
-              <motion.div
-                className="text-3xl font-bold text-white"
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5, duration: 0.5 }}
-              >
-                <button
-                  onClick={clickTeste}
-                >
-                  teste
-                </button>
-              </motion.div>
-              <motion.div
-                className="text-3xl font-bold text-white"
-                initial={{ opacity: 0, x: 50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.5, duration: 0.5 }}
-              >
-                teste
-              </motion.div>
+              <PortfolioSection />
             </div>
           ))}
         </div>
