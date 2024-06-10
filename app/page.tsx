@@ -13,31 +13,11 @@ export default function Home() {
     "#3f51b5",
     "#2196f3",
     "#03a9f4",
-    "#00bcd4",
-    "#009688",
-    "#4caf50",
-    "#8bc34a",
-    "#cddc39",
-    "#ffeb3b",
-    "#ffc107",
-    "#ff9800",
-    "#ff5722",
-    "#795548",
-    "#9e9e9e",
-    "#607d8b",
+    "#00bcd4"
   ]);
   const [headerColor, setHeaderColor] = useState("transparent");
   const [scrollRatio, setScrollRatio] = useState(0);
-
-  const clickTeste2 = () => {
-    document
-      .getElementById("sections")
-      ?.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
-  const clickTeste = () => {
-    document.getElementById("#e91e63")?.scrollIntoView({ behavior: "smooth" });
-  };
+  
 
   const onScroll = useCallback((_event: Event) => {
     //const { scrollY } = window;
@@ -47,12 +27,8 @@ export default function Home() {
     const scrollHeight = document.getElementById("sections")?.scrollHeight;
     let ratio;
 
-    // if (scrollTop) {
-    //   if (scrollTop > 10) setHeaderColor("#333");
-    //   else setHeaderColor("transparent");
-    // }
+    console.log("bruh", scrollTop, "bruh", scrollHeight);
 
-    //console.log("top", scrollTop)
     if (scrollTop && scrollHeight) {
       ratio = Math.floor((scrollTop / scrollHeight) * 100 * (100 / 93));
       setScrollRatio(ratio);
@@ -60,7 +36,7 @@ export default function Home() {
       if (ratio > 0) setHeaderColor("#333");
       else setHeaderColor("transparent");
 
-      console.log("ratio", ratio);
+      ;//console.log("ratio", ratio);
     }
   }, []);
 
@@ -79,6 +55,11 @@ export default function Home() {
     };
   }, []);
 
+  
+  useEffect(() => {
+    console.log("emems");
+  }, []);
+
   //useEffect(() => {}, []);
 
   return (
@@ -93,7 +74,7 @@ export default function Home() {
             transition: "1s",
           }}
         >
-          <div className="flex flex-grow w-full h-fill justify-around items-center text-xs">
+          <div className="flex flex-grow w-full h-full justify-around items-center text-xs">
             <button className="flex p-1 bg-slate-500 border-black border-2 rounded-full">
               teste
             </button>
@@ -116,7 +97,7 @@ export default function Home() {
       <main id="main" className="flex w-full h-screen">
         <div
           id="sections"
-          className="flex-auto flex-col w-full h-fill no-scrollbar overflow-y-scroll scroll-smooth snap-y snap-mandatory px-2 py-16"
+          className="flex-auto flex-col w-full h-full no-scrollbar overflow-y-scroll scroll-smooth snap-y snap-mandatory px-2 py-16"
         >
           {colors.map((color, index, array) => (
             <div
