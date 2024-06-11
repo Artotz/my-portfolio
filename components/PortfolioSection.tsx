@@ -1,9 +1,19 @@
 import { motion } from "framer-motion";
 
-export default function PortfolioSection() {
+type PortfolioSectionProps = {
+  topColor: string;
+  bottomColor: string;
+};
+
+export default function PortfolioSection(props: PortfolioSectionProps) {
   return (
-    <div className="flex flex-row w-full h-full">
-      
+    <div
+      className={`flex flex-row gap-4 w-full h-[80vh] my-1 snap-start justify-center items-center`}
+      style={{
+        backgroundImage: `linear-gradient(${props.topColor}, ${props.bottomColor})`,
+      }}
+    >
+      <div className="flex flex-row w-full h-full">
         {/* DIV ESQUERDA */}
         <div className="flex flex-grow w-full h-full bg-slate-400 justify-center items-center">
           <motion.div
@@ -17,8 +27,7 @@ export default function PortfolioSection() {
         </div>
 
         {/* DIV DIREITA */}
-        <div className="flex flex-col w-full h-full justify-center items-center">
-          
+        <div className="flex flex-col w-full h-full  justify-center items-center">
           {/* METADE DE CIMA */}
           <div className="flex flex-row w-full h-full justify-center items-center">
             <motion.div
@@ -59,6 +68,7 @@ export default function PortfolioSection() {
             </motion.div>
           </div>
         </div>
+      </div>
     </div>
   );
 }

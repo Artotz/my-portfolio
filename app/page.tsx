@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import PortfolioSection from "@/components/PortfolioSection";
+import Header from "@/components/Header";
 
 export default function Home() {
   const [colors, setColors] = useState([
@@ -13,107 +14,110 @@ export default function Home() {
     "#3f51b5",
     "#2196f3",
     "#03a9f4",
-    "#00bcd4"
+    "#00bcd4",
   ]);
   const [headerColor, setHeaderColor] = useState("transparent");
   const [scrollRatio, setScrollRatio] = useState(0);
-  
 
-  const onScroll = useCallback((_event: Event) => {
-    //const { scrollY } = window;
-    //console.log("scrollY", _event);
+  const [scrollTop, setScrollTop] = useState(0);
+  const [scrollHeight, setScrollHeight] = useState(0);
 
-    const scrollTop = document.getElementById("sections")?.scrollTop;
-    const scrollHeight = document.getElementById("sections")?.scrollHeight;
-    let ratio;
+  const clamp = (num: number, min: number, max: number) =>
+    Math.min(Math.max(num, min), max);
 
-    console.log("bruh", scrollTop, "bruh", scrollHeight);
+  const onScroll = useCallback(
+    (_event: Event) => {
+      let ratio;
 
-    if (scrollTop && scrollHeight) {
-      ratio = Math.floor((scrollTop / scrollHeight) * 100 * (100 / 93));
-      setScrollRatio(ratio);
+      const _scrollTop = document.getElementById("sections")?.scrollTop;
 
-      if (ratio > 0) setHeaderColor("#333");
-      else setHeaderColor("transparent");
+      if (_scrollTop) setScrollTop(_scrollTop);
 
-      ;//console.log("ratio", ratio);
-    }
+      if (_scrollTop) {
+        ratio = clamp(
+          Math.floor(
+            ((_scrollTop - window.innerHeight / 2) /
+              (scrollHeight - window.innerHeight * 2)) *
+              100,
+          ),
+          0,
+          100,
+        );
+        setScrollRatio(ratio);
+
+        if (ratio > 10) setHeaderColor("#333");
+        else setHeaderColor("transparent");
+      }
+      console.log(
+        "Top",
+        scrollTop - window.innerHeight / 2,
+        "Height",
+        scrollHeight - window.innerHeight * 2,
+        "Ratio",
+        scrollRatio,
+      );
+    },
+    [scrollTop, scrollHeight, scrollRatio],
+  );
+
+  useEffect(() => {
+    setScrollHeight(document.getElementsByTagName("section")[0].scrollHeight);
   }, []);
 
   useEffect(() => {
     //add eventlistener to window
     document
-      .getElementById("sections")
-      ?.addEventListener("scroll", onScroll, { passive: true });
+      .getElementsByTagName("section")[0]
+      .addEventListener("scroll", onScroll, { passive: true });
     // remove event on unmount to prevent a memory leak with the cleanup
     return () => {
       document
-        .getElementById("sections")
-        ?.removeEventListener("scroll", onScroll, {
+        .getElementsByTagName("section")[0]
+        .removeEventListener("scroll", onScroll, {
           passive: true,
         } as EventListenerOptions);
     };
-  }, []);
-
-  
-  useEffect(() => {
-    console.log("emems");
-  }, []);
-
-  //useEffect(() => {}, []);
+  });
 
   return (
     <>
-      <header>
-        <title>Color Gradient</title>
-        <div
-          className="flex flex-col fixed w-full h-12 top-0"
-          style={{
-            backgroundColor: headerColor,
-            zIndex: 999,
-            transition: "1s",
-          }}
-        >
-          <div className="flex flex-grow w-full h-full justify-around items-center text-xs">
-            <button className="flex p-1 bg-slate-500 border-black border-2 rounded-full">
-              teste
-            </button>
-            <button className="flex p-1 bg-slate-500 border-black border-2 rounded-full">
-              teste
-            </button>
-            <button className="flex p-1 bg-slate-500 border-black border-2 rounded-full">
-              teste
-            </button>
-          </div>
-          <div
-            className="flex h-2 bg-red-400"
-            style={{
-              width: `${scrollRatio}%`,
-              transition: "1s",
-            }}
-          ></div>
-        </div>
-      </header>
+      <Header
+        title="My Portfolio"
+        headerColor={headerColor}
+        scrollRatio={scrollRatio}
+        onClick={() => {
+          document.getElementById("bruh2")?.scrollIntoView();
+        }}
+      />
       <main id="main" className="flex w-full h-screen">
-        <div
+        <section
           id="sections"
-          className="flex-auto flex-col w-full h-full no-scrollbar overflow-y-scroll scroll-smooth snap-y snap-mandatory px-2 py-16"
+          className="flex-auto flex-col w-full h-full no-scrollbar bg-slate-500 overflow-y-scroll scroll-pt-32 scroll-smooth snap-y snap-mandatory px-2 "
         >
-          {colors.map((color, index, array) => (
-            <div
-              id={color}
-              key={index}
-              className={`flex flex-row gap-4 w-full h-[80vh] my-1 snap-center align-middle items-center justify-center`}
-              style={{
-                backgroundImage: `linear-gradient(${color}, ${
-                  index == array.length - 1 ? "#000000" : array[index + 1]
-                })`,
-              }}
-            >
-              <PortfolioSection />
-            </div>
-          ))}
-        </div>
+          {/* PADDING ARTIFICIAL */}
+          <div className="flex w-full h-[50vh]"></div>
+
+          <div
+            id="bruh"
+            className="flex w-full justify-center items-center text-7xl font-bold text-white"
+          >
+            Titulo
+          </div>
+          <PortfolioSection topColor={colors[0]} bottomColor={colors[1]} />
+          <PortfolioSection topColor={colors[1]} bottomColor={colors[2]} />
+          <PortfolioSection topColor={colors[2]} bottomColor={colors[3]} />
+          <div
+            id="bruh2"
+            className="flex w-full justify-center items-center text-7xl font-bold text-white"
+          >
+            Titulo
+          </div>
+          <PortfolioSection topColor={colors[3]} bottomColor={colors[4]} />
+          <PortfolioSection topColor={colors[4]} bottomColor={colors[5]} />
+
+          {/* PADDING ARTIFICIAL */}
+          <div className="flex w-full h-[50vh]"></div>
+        </section>
       </main>
     </>
   );
