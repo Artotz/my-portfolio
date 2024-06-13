@@ -2,10 +2,23 @@ type HeaderProps = {
   title: string;
   headerColor: string;
   scrollRatio: number;
-  onClick: () => void;
+  itemList: string[];
 };
 
 export default function Header(props: HeaderProps) {
+  const headerItemList = (id: string) => {
+    return (
+      <button
+        className="flex p-1 px-2 bg-slate-100 border-black border-2 rounded-full"
+        onClick={() => {
+          document.getElementById(id)?.scrollIntoView();
+        }}
+      >
+        {id}
+      </button>
+    );
+  };
+
   return (
     <header>
       <title>{props.title}</title>
@@ -17,20 +30,12 @@ export default function Header(props: HeaderProps) {
           transition: "1s",
         }}
       >
+        {/* ITEMS */}
         <div className="flex flex-grow w-full h-full justify-around items-center text-xs">
-          <button
-            className="flex p-1 bg-slate-500 border-black border-2 rounded-full"
-            onClick={props.onClick}
-          >
-            teste
-          </button>
-          <button className="flex p-1 bg-slate-500 border-black border-2 rounded-full">
-            teste
-          </button>
-          <button className="flex p-1 bg-slate-500 border-black border-2 rounded-full">
-            teste
-          </button>
+          {props.itemList.map((i) => headerItemList(i))}
         </div>
+
+        {/* SCROLL PROGRESS BAR */}
         <div
           className="flex h-2 bg-red-400"
           style={{

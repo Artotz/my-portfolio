@@ -8,7 +8,7 @@ type PortfolioSectionProps = {
 export default function PortfolioSection(props: PortfolioSectionProps) {
   return (
     <div
-      className={`flex flex-row gap-4 w-full h-[80vh] my-1 snap-start justify-center items-center`}
+      className={`flex flex-row gap-4 w-full h-[80vh] snap-center snap-always justify-center items-center`}
       style={{
         backgroundImage: `linear-gradient(${props.topColor}, ${props.bottomColor})`,
       }}

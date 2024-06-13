@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import PortfolioSection from "@/components/PortfolioSection";
 import Header from "@/components/Header";
+import SectionTitle from "@/components/SectionTitle";
 
 export default function Home() {
   const [colors, setColors] = useState([
@@ -22,6 +23,8 @@ export default function Home() {
   const [scrollTop, setScrollTop] = useState(0);
   const [scrollHeight, setScrollHeight] = useState(0);
 
+  const sectionScrollPadding = 25;
+
   const clamp = (num: number, min: number, max: number) =>
     Math.min(Math.max(num, min), max);
 
@@ -29,30 +32,34 @@ export default function Home() {
     (_event: Event) => {
       let ratio;
 
-      const _scrollTop = document.getElementById("sections")?.scrollTop;
+      const sectionHelper = document.getElementsByTagName("section")[0];
 
-      if (_scrollTop) setScrollTop(_scrollTop);
+      setScrollHeight(sectionHelper.scrollHeight);
+      setScrollTop(sectionHelper.scrollTop);
 
-      if (_scrollTop) {
-        ratio = clamp(
-          Math.floor(
-            ((_scrollTop - window.innerHeight / 2) /
-              (scrollHeight - window.innerHeight * 2)) *
-              100,
-          ),
-          0,
-          100,
-        );
-        setScrollRatio(ratio);
+      ratio = clamp(
+        Math.floor(
+          ((scrollTop - window.innerHeight * (sectionScrollPadding / 100)) /
+            (scrollHeight -
+              window.innerHeight -
+              window.innerHeight * ((2 * sectionScrollPadding) / 100))) *
+            100,
+        ),
+        0,
+        100,
+      );
+      setScrollRatio(ratio);
 
-        if (ratio > 10) setHeaderColor("#333");
-        else setHeaderColor("transparent");
-      }
+      if (ratio > 0) setHeaderColor("#333");
+      else setHeaderColor("transparent");
+
       console.log(
         "Top",
-        scrollTop - window.innerHeight / 2,
+        scrollTop - window.innerHeight * (sectionScrollPadding / 100),
         "Height",
-        scrollHeight - window.innerHeight * 2,
+        scrollHeight -
+          window.innerHeight -
+          window.innerHeight * ((2 * sectionScrollPadding) / 100),
         "Ratio",
         scrollRatio,
       );
@@ -60,9 +67,9 @@ export default function Home() {
     [scrollTop, scrollHeight, scrollRatio],
   );
 
-  useEffect(() => {
-    setScrollHeight(document.getElementsByTagName("section")[0].scrollHeight);
-  }, []);
+  // useEffect(() => {
+  //   setScrollHeight(document.getElementsByTagName("section")[0].scrollHeight);
+  // }, []);
 
   useEffect(() => {
     //add eventlistener to window
@@ -80,45 +87,44 @@ export default function Home() {
   });
 
   return (
-    <>
+    <main id="main" className="flex w-full h-screen">
       <Header
         title="My Portfolio"
         headerColor={headerColor}
         scrollRatio={scrollRatio}
-        onClick={() => {
-          document.getElementById("bruh2")?.scrollIntoView();
-        }}
+        itemList={["bruh1", "bruh2"]}
       />
-      <main id="main" className="flex w-full h-screen">
-        <section
-          id="sections"
-          className="flex-auto flex-col w-full h-full no-scrollbar bg-slate-500 overflow-y-scroll scroll-pt-32 scroll-smooth snap-y snap-mandatory px-2 "
-        >
-          {/* PADDING ARTIFICIAL */}
-          <div className="flex w-full h-[50vh]"></div>
 
-          <div
-            id="bruh"
-            className="flex w-full justify-center items-center text-7xl font-bold text-white"
-          >
-            Titulo
-          </div>
+      <section
+        id="sections"
+        className="flex-auto flex-col w-full h-full no-scrollbar bg-slate-500 overflow-y-scroll scroll-pt-12 scroll-smooth snap-y snap-mandatory px-2"
+      >
+        <div className="flex flex-col gap-8">
+          {/* PADDING ARTIFICIAL */}
+          <div className={`flex w-full h-[${sectionScrollPadding}vh]`}></div>
+
           <PortfolioSection topColor={colors[0]} bottomColor={colors[1]} />
+
+          <div id="bruh1" className="flex">
+            <SectionTitle title="Titulo 1" />
+          </div>
+
           <PortfolioSection topColor={colors[1]} bottomColor={colors[2]} />
           <PortfolioSection topColor={colors[2]} bottomColor={colors[3]} />
-          <div
-            id="bruh2"
-            className="flex w-full justify-center items-center text-7xl font-bold text-white"
-          >
-            Titulo
-          </div>
           <PortfolioSection topColor={colors[3]} bottomColor={colors[4]} />
+
+          <div id="bruh2" className="flex">
+            <SectionTitle title="Titulo 2" />
+          </div>
+
           <PortfolioSection topColor={colors[4]} bottomColor={colors[5]} />
+          <PortfolioSection topColor={colors[5]} bottomColor={colors[6]} />
+          <PortfolioSection topColor={colors[6]} bottomColor={colors[7]} />
 
           {/* PADDING ARTIFICIAL */}
-          <div className="flex w-full h-[50vh]"></div>
-        </section>
-      </main>
-    </>
+          <div className={`flex w-full h-[${sectionScrollPadding}vh]`}></div>
+        </div>
+      </section>
+    </main>
   );
 }
