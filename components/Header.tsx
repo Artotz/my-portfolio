@@ -6,9 +6,10 @@ type HeaderProps = {
 };
 
 export default function Header(props: HeaderProps) {
-  const headerItemList = (id: string) => {
+  const headerItemList = (id: string, i: number) => {
     return (
       <button
+        key={i}
         className="flex p-1 px-2 bg-slate-100 border-black border-2 rounded-full"
         onClick={() => {
           document.getElementById(id)?.scrollIntoView();
@@ -32,7 +33,7 @@ export default function Header(props: HeaderProps) {
       >
         {/* ITEMS */}
         <div className="flex flex-grow w-full h-full justify-around items-center text-xs">
-          {props.itemList.map((i) => headerItemList(i))}
+          {props.itemList.map((v, i) => headerItemList(v, i))}
         </div>
 
         {/* SCROLL PROGRESS BAR */}

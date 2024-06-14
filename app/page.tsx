@@ -17,59 +17,52 @@ export default function Home() {
     "#03a9f4",
     "#00bcd4",
   ]);
+
   const [headerColor, setHeaderColor] = useState("transparent");
   const [scrollRatio, setScrollRatio] = useState(0);
 
   const [scrollTop, setScrollTop] = useState(0);
   const [scrollHeight, setScrollHeight] = useState(0);
 
-  const sectionScrollPadding = 25;
+  const [sectionScrollPadding, setSectionScrollPadding] = useState(25);
 
   const clamp = (num: number, min: number, max: number) =>
     Math.min(Math.max(num, min), max);
 
   const onScroll = useCallback(
     (_event: Event) => {
-      let ratio;
+      let _ratio = 0;
 
       const sectionHelper = document.getElementsByTagName("section")[0];
 
-      setScrollHeight(sectionHelper.scrollHeight);
+      setScrollHeight(sectionHelper.children[1].clientHeight);
       setScrollTop(sectionHelper.scrollTop);
 
-      ratio = clamp(
-        Math.floor(
-          ((scrollTop - window.innerHeight * (sectionScrollPadding / 100)) /
-            (scrollHeight -
-              window.innerHeight -
-              window.innerHeight * ((2 * sectionScrollPadding) / 100))) *
-            100,
-        ),
+      _ratio = clamp(
+        Math.floor((scrollTop / (scrollHeight - window.innerHeight)) * 100),
         0,
-        100,
+        100
       );
-      setScrollRatio(ratio);
 
-      if (ratio > 0) setHeaderColor("#333");
+      _ratio = _ratio < 5 ? 0 : _ratio;
+      _ratio = _ratio > 95 ? 100 : _ratio;
+
+      if (_ratio > 0) setHeaderColor("#333");
       else setHeaderColor("transparent");
+
+      setScrollRatio(_ratio);
 
       console.log(
         "Top",
-        scrollTop - window.innerHeight * (sectionScrollPadding / 100),
+        scrollTop,
         "Height",
-        scrollHeight -
-          window.innerHeight -
-          window.innerHeight * ((2 * sectionScrollPadding) / 100),
+        scrollHeight - window.innerHeight,
         "Ratio",
-        scrollRatio,
+        scrollRatio
       );
     },
-    [scrollTop, scrollHeight, scrollRatio],
+    [scrollTop, scrollHeight, scrollRatio]
   );
-
-  // useEffect(() => {
-  //   setScrollHeight(document.getElementsByTagName("section")[0].scrollHeight);
-  // }, []);
 
   useEffect(() => {
     //add eventlistener to window
@@ -99,10 +92,10 @@ export default function Home() {
         id="sections"
         className="flex-auto flex-col w-full h-full no-scrollbar bg-slate-500 overflow-y-scroll scroll-pt-12 scroll-smooth snap-y snap-mandatory px-2"
       >
-        <div className="flex flex-col gap-8">
-          {/* PADDING ARTIFICIAL */}
-          <div className={`flex w-full h-[${sectionScrollPadding}vh]`}></div>
+        {/* PADDING ARTIFICIAL */}
+        <div className={`flex w-full h-[${sectionScrollPadding}vh]`}></div>
 
+        <div id="gapDiv" className="flex flex-col gap-8">
           <PortfolioSection topColor={colors[0]} bottomColor={colors[1]} />
 
           <div id="bruh1" className="flex">
@@ -120,10 +113,11 @@ export default function Home() {
           <PortfolioSection topColor={colors[4]} bottomColor={colors[5]} />
           <PortfolioSection topColor={colors[5]} bottomColor={colors[6]} />
           <PortfolioSection topColor={colors[6]} bottomColor={colors[7]} />
-
-          {/* PADDING ARTIFICIAL */}
-          <div className={`flex w-full h-[${sectionScrollPadding}vh]`}></div>
+          <PortfolioSection topColor={colors[7]} bottomColor={colors[8]} />
         </div>
+
+        {/* PADDING ARTIFICIAL */}
+        <div className={`flex w-full h-[${sectionScrollPadding}vh]`}></div>
       </section>
     </main>
   );
