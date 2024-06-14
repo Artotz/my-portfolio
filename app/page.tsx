@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import PortfolioSection from "@/components/PortfolioSection";
 import Header from "@/components/Header";
 import SectionTitle from "@/components/SectionTitle";
+import { projects } from "@/utils/projects/projectsList-br";
 
 export default function Home() {
   const [colors, setColors] = useState([
@@ -18,13 +19,17 @@ export default function Home() {
     "#00bcd4",
   ]);
 
-  const [headerColor, setHeaderColor] = useState("transparent");
+  const [headerColor, setHeaderColor] = useState<"filled" | "transparent">(
+    "transparent",
+  );
   const [scrollRatio, setScrollRatio] = useState(0);
 
   const [scrollTop, setScrollTop] = useState(0);
   const [scrollHeight, setScrollHeight] = useState(0);
 
-  const [sectionScrollPadding, setSectionScrollPadding] = useState(25);
+  const titles = ["Início", "Habilidades", "Projetos"];
+
+  const projectsList = projects;
 
   const clamp = (num: number, min: number, max: number) =>
     Math.min(Math.max(num, min), max);
@@ -41,13 +46,13 @@ export default function Home() {
       _ratio = clamp(
         Math.floor((scrollTop / (scrollHeight - window.innerHeight)) * 100),
         0,
-        100
+        100,
       );
 
       _ratio = _ratio < 5 ? 0 : _ratio;
       _ratio = _ratio > 95 ? 100 : _ratio;
 
-      if (_ratio > 0) setHeaderColor("#333");
+      if (_ratio > 0) setHeaderColor("filled");
       else setHeaderColor("transparent");
 
       setScrollRatio(_ratio);
@@ -58,10 +63,10 @@ export default function Home() {
         "Height",
         scrollHeight - window.innerHeight,
         "Ratio",
-        scrollRatio
+        scrollRatio,
       );
     },
-    [scrollTop, scrollHeight, scrollRatio]
+    [scrollTop, scrollHeight, scrollRatio],
   );
 
   useEffect(() => {
@@ -85,7 +90,7 @@ export default function Home() {
         title="My Portfolio"
         headerColor={headerColor}
         scrollRatio={scrollRatio}
-        itemList={["bruh1", "bruh2"]}
+        itemList={[...titles]}
       />
 
       <section
@@ -93,31 +98,47 @@ export default function Home() {
         className="flex-auto flex-col w-full h-full no-scrollbar bg-slate-500 overflow-y-scroll scroll-pt-12 scroll-smooth snap-y snap-mandatory px-2"
       >
         {/* PADDING ARTIFICIAL */}
-        <div className={`flex w-full h-[${sectionScrollPadding}vh]`}></div>
+        <div className="flex w-full h-[25vh]"></div>
 
-        <div id="gapDiv" className="flex flex-col gap-8">
-          <PortfolioSection topColor={colors[0]} bottomColor={colors[1]} />
-
-          <div id="bruh1" className="flex">
-            <SectionTitle title="Titulo 1" />
+        <div id="gapDiv" className="flex flex-col gap-4">
+          {/* INÍCIO */}
+          <div id={titles[0]} className="flex">
+            <PortfolioSection
+              topColor={colors[0]}
+              bottomColor={colors[1]}
+              project={projectsList[0]}
+            />
           </div>
 
-          <PortfolioSection topColor={colors[1]} bottomColor={colors[2]} />
-          <PortfolioSection topColor={colors[2]} bottomColor={colors[3]} />
-          <PortfolioSection topColor={colors[3]} bottomColor={colors[4]} />
-
-          <div id="bruh2" className="flex">
-            <SectionTitle title="Titulo 2" />
+          {/* HABILIDADES */}
+          <div id={titles[1]} className="flex">
+            <SectionTitle title={titles[1]} />
           </div>
 
-          <PortfolioSection topColor={colors[4]} bottomColor={colors[5]} />
-          <PortfolioSection topColor={colors[5]} bottomColor={colors[6]} />
-          <PortfolioSection topColor={colors[6]} bottomColor={colors[7]} />
-          <PortfolioSection topColor={colors[7]} bottomColor={colors[8]} />
+          <PortfolioSection
+            topColor={colors[1]}
+            bottomColor={colors[2]}
+            project={projectsList[0]}
+          />
+
+          {/* PROJETOS */}
+          <div id={titles[2]} className="flex">
+            <SectionTitle title={titles[2]} />
+          </div>
+
+          {projects.map((v, i) => {
+            return (
+              <PortfolioSection
+                key={i}
+                topColor={colors[2 + i]}
+                bottomColor={colors[3 + i]}
+                project={projectsList[i]}
+              />
+            );
+          })}
         </div>
-
         {/* PADDING ARTIFICIAL */}
-        <div className={`flex w-full h-[${sectionScrollPadding}vh]`}></div>
+        <div className="flex w-full h-[25vh]"></div>
       </section>
     </main>
   );
