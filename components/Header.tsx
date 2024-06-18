@@ -24,7 +24,7 @@ export default function Header(props: HeaderProps) {
     <header>
       <title>{props.title}</title>
       <div
-        className="flex flex-col fixed w-full h-12 top-0 border-black border-b-2 duration-1000 z-999"
+        className="flex flex-col fixed w-full h-12 top-0 border-black border-b-2 duration-1000 z-[999]"
         style={
           props.headerColor == "filled"
             ? {
