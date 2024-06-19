@@ -1,12 +1,7 @@
 import { motion } from "framer-motion";
 import { useRef } from "react";
 
-type SkillsSectionProps = {
-  topColor: string;
-  bottomColor: string;
-};
-
-export default function SkillsSection(props: SkillsSectionProps) {
+export default function SkillsSection() {
   const svgs = [
     <svg key="Typescript" viewBox="0 0 128 128">
       <path

@@ -1,10 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import {
-  PortfolioSectionL,
-  PortfolioSectionR,
-} from "@/components/PortfolioSection";
+import { PortfolioSection } from "@/components/PortfolioSection";
 import Header from "@/components/Header";
 import SectionTitle from "@/components/SectionTitle";
 import { projects } from "@/utils/projects/projectsList-br";
@@ -100,36 +97,31 @@ export default function Home() {
 
       <section
         id="sections"
-        className="flex-auto flex-col w-full h-full no-scrollbar bg-slate-500 overflow-y-scroll scroll-pb-4 px-2 scroll-smooth snap-y snap-mandatory"
+        className="flex-auto flex-col w-full h-full no-scrollbar overflow-y-scroll scroll-pb-4 scroll-smooth snap-y snap-mandatory"
       >
         {/* PADDING ARTIFICIAL */}
-        <div className="flex w-full h-[25vh]"></div>
+        <div className="flex w-full h-[25vh] bg-red-300"></div>
 
-        <div id="gapDiv" className="flex flex-col gap-2">
+        <div
+          id="gapDiv"
+          className="flex flex-col gap-2 bg-gradient-to-b from-red-300 to-blue-300"
+        >
           {/* INÍCIO */}
           <div id={titles[0]} className="flex">
-            <PortfolioSectionL
-              topColor={colors[0]}
-              bottomColor={colors[1]}
-              project={projectsList[0]}
-            />
+            <PortfolioSection project={projectsList[0]} />
           </div>
 
           {/* SOBRE */}
           <div id={titles[1]} className="flex">
             <SectionTitle title={titles[1]} />
           </div>
-          <PortfolioSectionL
-            topColor={colors[1]}
-            bottomColor={colors[2]}
-            project={projectsList[0]}
-          />
+          <PortfolioSection project={projectsList[0]} />
 
           {/* HABILIDADES */}
           <div id={titles[2]} className="flex">
             <SectionTitle title={titles[2]} />
           </div>
-          <SkillsSection topColor={colors[2]} bottomColor={colors[3]} />
+          <SkillsSection />
 
           {/* PROJETOS */}
           <div id={titles[3]} className="flex">
@@ -137,32 +129,23 @@ export default function Home() {
           </div>
           {projects.map((v, i) => {
             if (i % 2 == 0) {
-              return (
-                <PortfolioSectionL
-                  key={i}
-                  topColor={colors[3 + i]}
-                  bottomColor={colors[4 + i]}
-                  project={projectsList[i]}
-                />
-              );
+              return <PortfolioSection key={i} project={projectsList[i]} />;
             } else {
-              return (
-                <PortfolioSectionR
-                  key={i}
-                  topColor={colors[3 + i]}
-                  bottomColor={colors[4 + i]}
-                  project={projectsList[i]}
-                />
-              );
+              return <PortfolioSection key={i} project={projectsList[i]} />;
             }
           })}
-        </div>
 
-        {/* PADDING ARTIFICIAL */}
-        <div className="flex w-full h-[25vh]"></div>
-
-        <div className="flex flex-col w-full h-8 border-black border-2 justify-center items-center text-sm font-bold text-black text-center">
-          bruh
+          {/* END */}
+          <div
+            className={`flex flex-col gap-4 w-full h-[80vh] snap-end snap-always`}
+          >
+            <div className="flex flex-grow text-7xl font-bold text-white justify-center items-center">
+              THANKS FOR WATCHING
+            </div>
+            <div className="flex flex-col w-full h-8 justify-center items-center bg-black text-sm font-bold text-white text-center">
+              BRUH
+            </div>
+          </div>
         </div>
       </section>
     </main>
