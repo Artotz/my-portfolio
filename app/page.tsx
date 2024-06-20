@@ -1,29 +1,22 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { PortfolioSection } from "@/components/PortfolioSection";
+import PortfolioSection from "@/components/PortfolioSection";
 import Header from "@/components/Header";
 import SectionTitle from "@/components/SectionTitle";
 import { projects } from "@/utils/projects/projectsList-br";
 import { translations } from "@/utils/translations";
 import SkillsSection from "@/components/SkillsSection";
+import { ScrollSnapContainer } from "@/components/ScrollSnapContainer";
 
 export default function Home() {
-  const [colors, setColors] = useState([
-    "#ffffff",
-    "#f44336",
-    "#e91e63",
-    "#9c27b0",
-    "#673ab7",
-    "#3f51b5",
-    "#2196f3",
-    "#03a9f4",
-    "#00bcd4",
-  ]);
+  const [inicialColor, setInitialColor] = useState("#CCF");
+  const [finalColor, setFinalColor] = useState("#004");
 
   const [headerColor, setHeaderColor] = useState<"filled" | "transparent">(
     "transparent",
   );
+
   const [scrollRatio, setScrollRatio] = useState(0);
 
   const [scrollTop, setScrollTop] = useState(0);
@@ -42,7 +35,7 @@ export default function Home() {
 
       const sectionHelper = document.getElementsByTagName("section")[0];
 
-      setScrollHeight(sectionHelper.children[1].clientHeight);
+      setScrollHeight(sectionHelper.scrollHeight);
       setScrollTop(sectionHelper.scrollTop);
 
       _ratio = clamp(
@@ -87,66 +80,81 @@ export default function Home() {
   }, [onScroll]);
 
   return (
-    <main id="main" className="flex flex-col w-full h-screen">
+    <main
+      id="main"
+      className="flex flex-col w-full h-screen"
+      style={{
+        backgroundColor: `${inicialColor}`,
+      }}
+    >
       <Header
         title="My Portfolio"
         headerColor={headerColor}
         scrollRatio={scrollRatio}
         itemList={[...titles]}
-      />
+      ></Header>
 
       <section
         id="sections"
-        className="flex-auto flex-col w-full h-full no-scrollbar overflow-y-scroll scroll-pb-4 scroll-smooth snap-y snap-mandatory"
+        className="flex-auto flex-col w-full h-full no-scrollbar overflow-y-scroll scroll-smooth snap-y snap-mandatory duration-1000 bg-gradient-to-b from-transparent to-[#000A]"
+        style={{
+          backgroundColor: `${finalColor}${Math.floor(15 * (scrollRatio / 100)).toString(16)}`,
+        }}
       >
-        {/* PADDING ARTIFICIAL */}
-        <div className="flex w-full h-[25vh] bg-red-300"></div>
-
-        <div
-          id="gapDiv"
-          className="flex flex-col gap-2 bg-gradient-to-b from-red-300 to-blue-300"
-        >
-          {/* INÍCIO */}
-          <div id={titles[0]} className="flex">
-            <PortfolioSection project={projectsList[0]} />
+        {/* INÍCIO */}
+        <div id={titles[0]} className="flex"></div>
+        <ScrollSnapContainer>
+          <div className="flex flex-grow text-7xl font-bold text-white text-center justify-center items-center">
+            HERO
           </div>
+        </ScrollSnapContainer>
 
-          {/* SOBRE */}
+        {/* SOBRE */}
+        <ScrollSnapContainer>
           <div id={titles[1]} className="flex">
             <SectionTitle title={titles[1]} />
           </div>
-          <PortfolioSection project={projectsList[0]} />
+          <div className="flex flex-grow text-3xl font-bold text-white text-center justify-center items-center">
+            é sobre
+          </div>
+        </ScrollSnapContainer>
 
-          {/* HABILIDADES */}
+        {/* HABILIDADES */}
+        <ScrollSnapContainer>
           <div id={titles[2]} className="flex">
             <SectionTitle title={titles[2]} />
           </div>
           <SkillsSection />
+        </ScrollSnapContainer>
 
-          {/* PROJETOS */}
+        {/* PROJETOS */}
+
+        {/* LISTA DE PROJETOS */}
+        <ScrollSnapContainer>
           <div id={titles[3]} className="flex">
             <SectionTitle title={titles[3]} />
           </div>
-          {projects.map((v, i) => {
-            if (i % 2 == 0) {
-              return <PortfolioSection key={i} project={projectsList[i]} />;
-            } else {
-              return <PortfolioSection key={i} project={projectsList[i]} />;
-            }
-          })}
+          <PortfolioSection project={projectsList[0]} />;
+        </ScrollSnapContainer>
 
-          {/* END */}
-          <div
-            className={`flex flex-col gap-4 w-full h-[80vh] snap-end snap-always`}
-          >
-            <div className="flex flex-grow text-7xl font-bold text-white justify-center items-center">
-              THANKS FOR WATCHING
-            </div>
-            <div className="flex flex-col w-full h-8 justify-center items-center bg-black text-sm font-bold text-white text-center">
-              BRUH
-            </div>
+        <ScrollSnapContainer>
+          <PortfolioSection project={projectsList[1]} />;
+        </ScrollSnapContainer>
+
+        <ScrollSnapContainer>
+          <PortfolioSection project={projectsList[2]} />;
+        </ScrollSnapContainer>
+
+        {/* END */}
+        <ScrollSnapContainer>
+          <div className="flex flex-grow text-7xl font-bold text-white text-center justify-center items-center">
+            END
           </div>
-        </div>
+          {/* FOOTER */}
+          <div className="flex flex-col w-full h-8 justify-center items-center bg-black text-sm font-bold text-white text-center">
+            BRUH
+          </div>
+        </ScrollSnapContainer>
       </section>
     </main>
   );

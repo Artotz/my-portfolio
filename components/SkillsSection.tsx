@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import { useRef } from "react";
 
 export default function SkillsSection() {
   const svgs = [
@@ -132,7 +131,7 @@ export default function SkillsSection() {
   ];
 
   return (
-    <div className="flex overflow-hidden no-scrollbar w-full h-[80vh] snap-end snap-always">
+    <div className="flex overflow-hidden no-scrollbar w-full h-full items-center">
       <motion.div
         className="flex"
         animate={{
@@ -146,9 +145,7 @@ export default function SkillsSection() {
       >
         {svgs.map((slide, index) => (
           <div key={index} className="flex-shrink-0 w-32">
-            <div className="flex flex-col items-center justify-center h-full mx-4">
-              {slide}
-            </div>
+            <div className="flex mx-4">{slide}</div>
           </div>
         ))}
       </motion.div>
@@ -166,9 +163,7 @@ export default function SkillsSection() {
       >
         {svgs.map((slide, index) => (
           <div key={index} className="flex-shrink-0 w-32">
-            <div className="flex flex-col items-center justify-center h-full mx-4">
-              {slide}
-            </div>
+            <div className="flex mx-4">{slide}</div>
           </div>
         ))}
       </motion.div>
