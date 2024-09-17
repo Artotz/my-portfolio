@@ -144,7 +144,7 @@ export default function SkillsSection() {
         }}
       >
         {svgs.map((slide, index) => (
-          <div key={index} className="flex-shrink-0 w-32">
+          <div key={index} className="flex-shrink-0 w-[10vw]">
             <div className="flex mx-4">{slide}</div>
           </div>
         ))}
@@ -162,7 +162,7 @@ export default function SkillsSection() {
         }}
       >
         {svgs.map((slide, index) => (
-          <div key={index} className="flex-shrink-0 w-32">
+          <div key={index} className="flex-shrink-0 w-[10vw]">
             <div className="flex mx-4">{slide}</div>
           </div>
         ))}

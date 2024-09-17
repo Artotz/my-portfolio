@@ -9,12 +9,14 @@ import { translations } from "@/utils/translations";
 import SkillsSection from "@/components/SkillsSection";
 import { ScrollSnapContainer } from "@/components/ScrollSnapContainer";
 
+import prismaWebSS from "../assets/prismaweb.png";
+
 export default function Home() {
   const [inicialColor, setInitialColor] = useState("#CCF");
   const [finalColor, setFinalColor] = useState("#004");
 
   const [headerColor, setHeaderColor] = useState<"filled" | "transparent">(
-    "transparent",
+    "transparent"
   );
 
   const [scrollRatio, setScrollRatio] = useState(0);
@@ -33,7 +35,7 @@ export default function Home() {
     (_event: Event) => {
       let _ratio = 0;
 
-      const sectionHelper = document.getElementsByTagName("section")[0];
+      const sectionHelper = document.getElementsByTagName("main")[0];
 
       setScrollHeight(sectionHelper.scrollHeight);
       setScrollTop(sectionHelper.scrollTop);
@@ -41,10 +43,10 @@ export default function Home() {
       _ratio = clamp(
         Math.floor((scrollTop / (scrollHeight - window.innerHeight)) * 100),
         0,
-        100,
+        100
       );
 
-      _ratio = _ratio < 5 ? 0 : _ratio;
+      // _ratio = _ratio < 5 ? 0 : _ratio;
       _ratio = _ratio > 95 ? 100 : _ratio;
 
       if (_ratio > 0) setHeaderColor("filled");
@@ -58,21 +60,21 @@ export default function Home() {
         "Height",
         scrollHeight - window.innerHeight,
         "Ratio",
-        scrollRatio,
+        scrollRatio
       );
     },
-    [scrollTop, scrollHeight, scrollRatio],
+    [scrollTop, scrollHeight, scrollRatio]
   );
 
   useEffect(() => {
     //add eventlistener to window
     document
-      .getElementsByTagName("section")[0]
+      .getElementsByTagName("main")[0]
       .addEventListener("scroll", onScroll, { passive: true });
     // remove event on unmount to prevent a memory leak with the cleanup
     return () => {
       document
-        .getElementsByTagName("section")[0]
+        .getElementsByTagName("main")[0]
         .removeEventListener("scroll", onScroll, {
           passive: true,
         } as EventListenerOptions);
@@ -82,24 +84,19 @@ export default function Home() {
   return (
     <main
       id="main"
-      className="flex flex-col w-full h-screen"
-      style={{
-        backgroundColor: `${inicialColor}`,
-      }}
+      className="flex flex-col w-full h-screen no-scrollbar scroll-smooth overflow-y-scroll"
     >
       <Header
         title="My Portfolio"
         headerColor={headerColor}
         scrollRatio={scrollRatio}
         itemList={[...titles]}
+        scrollFunction={onScroll}
       ></Header>
 
       <section
         id="sections"
-        className="flex-auto flex-col w-full h-full no-scrollbar overflow-y-scroll scroll-smooth snap-y snap-mandatory duration-1000 bg-gradient-to-b from-transparent to-[#000A]"
-        style={{
-          backgroundColor: `${finalColor}${Math.floor(15 * (scrollRatio / 100)).toString(16)}`,
-        }}
+        className="flex-auto flex-col w-full no-scrollbar scroll-smooth bg-gradient-to-b from-transparent to-[#000]"
       >
         {/* INÍCIO */}
         <div id={titles[0]} className="flex"></div>
@@ -134,25 +131,25 @@ export default function Home() {
           <div id={titles[3]} className="flex">
             <SectionTitle title={titles[3]} />
           </div>
-          <PortfolioSection project={projectsList[0]} />;
+          <PortfolioSection project={projectsList[0]} />
         </ScrollSnapContainer>
 
         <ScrollSnapContainer>
-          <PortfolioSection project={projectsList[1]} />;
+          <PortfolioSection project={projectsList[1]} />
         </ScrollSnapContainer>
 
         <ScrollSnapContainer>
-          <PortfolioSection project={projectsList[2]} />;
+          <PortfolioSection project={projectsList[2]} />
         </ScrollSnapContainer>
 
         {/* END */}
         <ScrollSnapContainer>
           <div className="flex flex-grow text-7xl font-bold text-white text-center justify-center items-center">
-            END
+            {`</body>`}
           </div>
           {/* FOOTER */}
           <div className="flex flex-col w-full h-8 justify-center items-center bg-black text-sm font-bold text-white text-center">
-            BRUH
+            Copyright © 2024 - Artur Melo Catunda
           </div>
         </ScrollSnapContainer>
       </section>

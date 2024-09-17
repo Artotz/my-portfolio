@@ -7,14 +7,12 @@ export const ScrollSnapContainer: React.FC<
   React.PropsWithChildren<ScrollSnapContainerProps>
 > = ({
   children,
-  size = "80vh",
+  size = "100vh",
   snap = "center",
   ...props
 }: React.PropsWithChildren<ScrollSnapContainerProps>) => {
   return (
-    <div
-      className={`flex flex-col w-full h-full snap-${snap} snap-always overflow-clip`}
-    >
+    <div className={`flex flex-col w-full `} style={{ height: size }}>
       {children}
     </div>
   );

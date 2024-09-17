@@ -3,6 +3,7 @@ type HeaderProps = {
   headerColor: "filled" | "transparent";
   scrollRatio: number;
   itemList: string[];
+  scrollFunction: (e: any) => void;
 };
 
 export default function Header(props: HeaderProps) {
@@ -10,9 +11,14 @@ export default function Header(props: HeaderProps) {
     return (
       <button
         key={i}
-        className="flex p-1 px-2 border-black hover:border-white border-2 rounded-full duration-500 text-black hover:scale-110 hover:text-white bg-white hover:bg-black"
+        className={
+          props.headerColor !== "filled"
+            ? "flex p-1 px-2 border-2 duration-500 bg-white text-black border-black hover:bg-black hover:text-white hover:border-white"
+            : "flex p-1 px-2 border-2 duration-500 bg-black text-white border-white hover:bg-white hover:text-black hover:border-black"
+        }
         onClick={() => {
           document.getElementById(id)?.scrollIntoView();
+          props.scrollFunction(null);
         }}
       >
         {id}
@@ -21,7 +27,7 @@ export default function Header(props: HeaderProps) {
   };
 
   return (
-    <header>
+    <header className="fixed w-full z-[999]">
       <title>{props.title}</title>
       <div
         className="flex flex-col sticky w-full h-12 top-0 border-black border-b-2 duration-1000 z-[999] overflow-clip"
@@ -53,11 +59,11 @@ export default function Header(props: HeaderProps) {
                     }
               }
             >
-              BRUH
+              HEADER
             </div>
           </div>
           {/* DIREITA */}
-          <div className="flex gap-4 px-4 justify-around items-center text-xs">
+          <div className="flex gap-2 px-2 justify-around items-center text-xs">
             {props.itemList.map((v, i) => headerItemList(v, i))}
           </div>
         </div>
