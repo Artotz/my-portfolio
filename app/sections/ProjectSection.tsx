@@ -1,6 +1,7 @@
 import { ProjectType } from "@/utils/types";
 import { motion } from "framer-motion";
 import { translations } from "@/utils/translations";
+import Image from "next/image";
 
 type PortfolioSectionProps = {
   project: ProjectType;
@@ -76,7 +77,12 @@ export default function PortfolioSection(props: PortfolioSectionProps) {
           viewport={{ once: true }}
           transition={{ delay: scrollDelay + 0.25, duration: 0.5 }}
         >
-          <img src={props.project.image} alt="Imagem do Projeto" />
+          <Image
+            src={props.project.image}
+            width={600}
+            height={600}
+            alt="Imagem do Projeto"
+          />
         </motion.div>
       </div>
 

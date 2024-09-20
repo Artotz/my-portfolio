@@ -91,8 +91,9 @@ export default function AboutSection() {
           return (
             <motion.div
               className="flex"
-              initial={{ opacity: 0, x: i % 2 == 0 ? 20 : -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              key={i}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.25 + 0.25, duration: 0.5 }}
             >
@@ -131,6 +132,7 @@ export default function AboutSection() {
             return (
               <motion.div
                 className="flex"
+                key={i}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
