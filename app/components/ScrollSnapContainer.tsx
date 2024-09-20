@@ -12,7 +12,10 @@ export const ScrollSnapContainer: React.FC<
   ...props
 }: React.PropsWithChildren<ScrollSnapContainerProps>) => {
   return (
-    <div className={`flex flex-col w-full `} style={{ height: size }}>
+    <div
+      className={`flex flex-col w-full justify-center items-center`}
+      style={{ height: size }}
+    >
       {children}
     </div>
   );

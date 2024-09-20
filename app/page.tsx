@@ -1,15 +1,17 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import PortfolioSection from "@/components/PortfolioSection";
-import Header from "@/components/Header";
-import SectionTitle from "@/components/SectionTitle";
+import PortfolioSection from "@/app/sections/ProjectSection";
+import Header from "@/app/components/Header";
+import SectionTitle from "@/app/components/SectionTitle";
 import { projects } from "@/utils/projects/projectsList-br";
 import { translations } from "@/utils/translations";
-import SkillsSection from "@/components/SkillsSection";
-import { ScrollSnapContainer } from "@/components/ScrollSnapContainer";
+import SkillsSection from "@/app/sections/SkillsSection";
+import { ScrollSnapContainer } from "@/app/components/ScrollSnapContainer";
 
 import prismaWebSS from "../assets/prismaweb.png";
+import AboutSection from "./sections/AboutSection";
+import HeroSection from "./sections/HeroSection";
 
 export default function Home() {
   const [inicialColor, setInitialColor] = useState("#CCF");
@@ -87,7 +89,7 @@ export default function Home() {
       className="flex flex-col w-full h-screen no-scrollbar scroll-smooth overflow-y-scroll"
     >
       <Header
-        title="My Portfolio"
+        title="Portfolio - Artur Melo Catunda"
         headerColor={headerColor}
         scrollRatio={scrollRatio}
         itemList={[...titles]}
@@ -101,9 +103,7 @@ export default function Home() {
         {/* INÍCIO */}
         <div id={titles[0]} className="flex"></div>
         <ScrollSnapContainer>
-          <div className="flex flex-grow text-7xl font-bold text-white text-center justify-center items-center">
-            HERO
-          </div>
+          <HeroSection />
         </ScrollSnapContainer>
 
         {/* SOBRE */}
@@ -111,9 +111,7 @@ export default function Home() {
           <div id={titles[1]} className="flex">
             <SectionTitle title={titles[1]} />
           </div>
-          <div className="flex flex-grow text-3xl font-bold text-white text-center justify-center items-center">
-            é sobre
-          </div>
+          <AboutSection />
         </ScrollSnapContainer>
 
         {/* HABILIDADES */}
