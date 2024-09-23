@@ -20,12 +20,12 @@ Este é o meu portfólio pessoal, desenvolvido com **Next.js**, **React**, **Typ
 ## 📂 Estrutura do Projeto
 
 ```bash
-├── public/                # Arquivos estáticos e imagens
-├── src/
-│   ├── components/        # Componentes reutilizáveis
-│   ├── pages/             # Páginas e rotas (Next.js)
-│   ├── styles/            # Estilização global e Tailwind
-│   └── utils/             # Funções utilitárias
+├── app/
+│   ├── components/           # Componentes reutilizáveis
+│   ├── sections/             # Seções da página principal
+│   └── utils/                # Funções utilitárias
+├── assets/                 # Arquivos estáticos e imagens
+├── public/                 # Diretório de arquivos para download
 ├── tailwind.config.js      # Configurações do TailwindCSS
 └── tsconfig.json           # Configurações do TypeScript
 ```
