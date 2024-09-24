@@ -1,8 +1,8 @@
 import { ProjectType } from "../types";
 
-import prismaWebSS from "../../assets/prismaweb.png";
-import taskAppSS from "../../assets/taskapp.jpg";
-import myPortfolioSS from "../../assets/myportfolio.png";
+import prismaWebSS from "../../../assets/prismaweb.png";
+import taskAppSS from "../../../assets/taskapp.jpg";
+import myPortfolioSS from "../../../assets/myportfolio.png";
 
 export const projects: ProjectType[] = [
   {
@@ -44,7 +44,7 @@ export const projects: ProjectType[] = [
     ],
   },
   {
-    title: "Portfolio",
+    title: "My Portfolio",
     image: myPortfolioSS.src,
     description:
       "Portfólio criado para melhor apresentar os projetos que fiz, com minhas informações, currículo, dados de contato, etc.",

@@ -4,8 +4,8 @@ import { useCallback, useEffect, useState } from "react";
 import PortfolioSection from "@/app/sections/ProjectSection";
 import Header from "@/app/components/Header";
 import SectionTitle from "@/app/components/SectionTitle";
-import { projects } from "@/utils/projects/projectsList-br";
-import { translations } from "@/utils/translations";
+import { projects } from "@/app/utils/projects/projectsList-br";
+import { translations } from "@/app/utils/translations";
 import SkillsSection from "@/app/sections/SkillsSection";
 import { ScrollSnapContainer } from "@/app/components/ScrollSnapContainer";
 
@@ -30,53 +30,55 @@ export default function Home() {
 
   const projectsList = projects;
 
-  const clamp = (num: number, min: number, max: number) =>
-    Math.min(Math.max(num, min), max);
+  const clamp = (num: number, min: number, max: number) => {
+    return Math.min(Math.max(num, min), max);
+  };
 
-  const onScroll = useCallback(
-    (_event: Event) => {
-      let _ratio = 0;
+  const onScroll = useCallback(() => {
+    let _ratio = 0;
 
-      const sectionHelper = document.getElementsByTagName("main")[0];
+    const sectionHelper =
+      document.documentElement || document.body.parentNode || document.body;
 
-      setScrollHeight(sectionHelper.scrollHeight);
-      setScrollTop(sectionHelper.scrollTop);
+    setScrollHeight(sectionHelper.scrollHeight);
+    setScrollTop(sectionHelper.scrollTop);
+    // setScrollTop(_scrollTop);
 
-      _ratio = clamp(
-        Math.floor((scrollTop / (scrollHeight - window.innerHeight)) * 100),
-        0,
-        100
-      );
+    _ratio = clamp(
+      Math.floor((scrollTop / (scrollHeight - window.innerHeight)) * 100),
+      0,
+      100
+    );
 
-      // _ratio = _ratio < 5 ? 0 : _ratio;
-      _ratio = _ratio > 95 ? 100 : _ratio;
+    _ratio = _ratio < 1 ? 0 : _ratio;
+    _ratio = _ratio > 99 ? 100 : _ratio;
 
-      if (_ratio > 0) setHeaderColor("filled");
-      else setHeaderColor("transparent");
+    if (_ratio > 0) setHeaderColor("filled");
+    else setHeaderColor("transparent");
 
-      setScrollRatio(_ratio);
+    setScrollRatio(_ratio);
 
-      console.log(
-        "Top",
-        scrollTop,
-        "Height",
-        scrollHeight - window.innerHeight,
-        "Ratio",
-        scrollRatio
-      );
-    },
-    [scrollTop, scrollHeight, scrollRatio]
-  );
+    console.log(
+      "Top",
+      scrollTop,
+      "Height",
+      scrollHeight - window.innerHeight,
+      "Ratio",
+      scrollRatio
+    );
+  }, [scrollTop, scrollHeight, scrollRatio]);
 
   useEffect(() => {
     //add eventlistener to window
     document
-      .getElementsByTagName("main")[0]
+      // .getElementsByTagName("section")[0]
       .addEventListener("scroll", onScroll, { passive: true });
+
+    onScroll();
     // remove event on unmount to prevent a memory leak with the cleanup
     return () => {
       document
-        .getElementsByTagName("main")[0]
+        // .getElementsByTagName("section")[0]
         .removeEventListener("scroll", onScroll, {
           passive: true,
         } as EventListenerOptions);
@@ -86,10 +88,10 @@ export default function Home() {
   return (
     <main
       id="main"
-      className="flex flex-col w-full h-screen no-scrollbar scroll-smooth overflow-y-scroll"
+      className="flex flex-col w-full h-full no-scrollbar scroll-smooth overflow-x-clip"
     >
       <Header
-        title="Portfolio - Artur Melo Catunda"
+        title="My Portfolio"
         headerColor={headerColor}
         scrollRatio={scrollRatio}
         itemList={[...titles]}
