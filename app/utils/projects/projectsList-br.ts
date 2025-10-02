@@ -3,6 +3,7 @@ import { ProjectType } from "../types";
 import prismaWebSS from "../../../assets/prismaweb.png";
 import taskAppSS from "../../../assets/taskapp.jpg";
 import myPortfolioSS from "../../../assets/myportfolio.png";
+import operaxSS from "../../../assets/operax.png";
 
 export const projects: ProjectType[] = [
   {
@@ -10,7 +11,8 @@ export const projects: ProjectType[] = [
     image: prismaWebSS.src,
     description:
       "Site de nossa empresa de Soluções Digitais, onde oferecemos serviços de desenvolvimento e manutenção de aplicações, sites, páginas de redes sociais, etc.",
-    demo: "https://prismaweb.com.br/",
+    // demo: "https://prismaweb.com.br/",
+    demo: "",
     source: "https://github.com/WixeI/prisma-web",
     technologies: [
       "Next.js",
@@ -25,6 +27,22 @@ export const projects: ProjectType[] = [
       "Nodemailer",
       "Axios",
       "Jest",
+    ],
+  },
+  {
+    title: "OperaX",
+    image: operaxSS.src,
+    description:
+      "Aplicativo focado em cálculos de produção, eficiência e custos em operações com máquinas e transporte de materiais.",
+    demo: "",
+    source: "https://github.com/Artotz/daniel-calculos-app",
+    technologies: [
+      "React Native",
+      "Typescript",
+      "Expo",
+      "Expo Application Services",
+      "TailwindCSS",
+      "i18n",
     ],
   },
   {

@@ -7,7 +7,7 @@ import {
 export default function AboutSection() {
   return (
     <div className="flex flex-col flex-grow justify-center items-center gap-4">
-      <div className="flex flex-col flex-grow sm:w-1/2 px-4 sm:px-0 font-semibold text-sm sm:text-2xl text-center justify-center items-center gap-4">
+      <div className="flex flex-col flex-grow sm:w-1/2 px-4 sm:pb-16 sm:px-0 font-semibold text-sm sm:text-xl text-center justify-center items-center gap-4">
         {[
           <p key={0}>{`Meu nome é Artur Melo Catunda.`}</p>,
           <p
@@ -25,9 +25,13 @@ export default function AboutSection() {
               className="flex"
               key={i}
               initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              whileInView={{
+                opacity: 1,
+                y: 0,
+                transition: { delay: 0.25 + 0.25, duration: 0.5 },
+              }}
               // viewport={{ once: true }}
-              transition={{ delay: 0.25 + 0.25, duration: 0.5 }}
+              transition={{ delay: 0, duration: 0 }}
             >
               {v}
             </motion.div>
@@ -65,9 +69,13 @@ export default function AboutSection() {
                 className="flex"
                 key={i}
                 initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                whileInView={{
+                  opacity: 1,
+                  y: 0,
+                  transition: { delay: 1 + 0.05 * i, duration: 0.5 },
+                }}
                 // viewport={{ once: true }}
-                transition={{ delay: 1 + 0.05 * i, duration: 0.5 }}
+                transition={{ delay: 0, duration: 0 }}
               >
                 {v}
               </motion.div>

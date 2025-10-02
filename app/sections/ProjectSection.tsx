@@ -29,9 +29,13 @@ export default function PortfolioSection(props: PortfolioSectionProps) {
         <motion.div
           className="flex"
           initial={{ opacity: 0, x: -50 }}
-          whileInView={{ opacity: 1, x: 0 }}
+          whileInView={{
+            opacity: 1,
+            x: 0,
+            transition: { delay: scrollDelay + 0.25, duration: 0.5 },
+          }}
           // viewport={{ once: true }}
-          transition={{ delay: scrollDelay + 0.25, duration: 0.5 }}
+          transition={{ delay: 0, duration: 0 }}
         >
           <Image
             src={props.project.image}
@@ -48,9 +52,13 @@ export default function PortfolioSection(props: PortfolioSectionProps) {
         <motion.div
           className="flex text-3xl font-bold text-white text-center justify-center items-center"
           initial={{ opacity: 0, x: 50 }}
-          whileInView={{ opacity: 1, x: 0 }}
+          whileInView={{
+            opacity: 1,
+            x: 0,
+            transition: { delay: scrollDelay + 0.25, duration: 0.5 },
+          }}
           // viewport={{ once: true }}
-          transition={{ delay: scrollDelay + 0.25, duration: 0.5 }}
+          transition={{ delay: 0, duration: 0 }}
           animate
         >
           {props.project.title}
@@ -60,9 +68,13 @@ export default function PortfolioSection(props: PortfolioSectionProps) {
         <motion.div
           className="flex w-full text-xs sm:text-xl text-white text-justify sm:px-4 justify-center items-center"
           initial={{ opacity: 0, x: 50 }}
-          whileInView={{ opacity: 1, x: 0 }}
+          whileInView={{
+            opacity: 1,
+            x: 0,
+            transition: { delay: scrollDelay + 0.25, duration: 0.5 },
+          }}
           // viewport={{ once: true }}
-          transition={{ delay: scrollDelay + 0.25, duration: 0.5 }}
+          transition={{ delay: 0, duration: 0 }}
         >
           {props.project.description}
         </motion.div>
@@ -72,9 +84,13 @@ export default function PortfolioSection(props: PortfolioSectionProps) {
           <motion.div
             className="text-3xl font-bold text-white text-justify px-4"
             initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            whileInView={{
+              opacity: 1,
+              x: 0,
+              transition: { delay: scrollDelay + 0.25, duration: 0.5 },
+            }}
             // viewport={{ once: true }}
-            transition={{ delay: scrollDelay + 0.25, duration: 0.5 }}
+            transition={{ delay: 0, duration: 0 }}
           >
             {translations.br.PortfolioSection.Technologies}
           </motion.div>
@@ -86,11 +102,18 @@ export default function PortfolioSection(props: PortfolioSectionProps) {
                   key={i}
                   className="flex"
                   initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                  whileInView={{
+                    opacity: 1,
+                    y: 0,
+                    transition: {
+                      delay: scrollDelay + 0.25 + i * 0.1,
+                      duration: 0.5,
+                    },
+                  }}
                   // viewport={{ once: true }}
                   transition={{
-                    delay: scrollDelay + 0.25 + i * 0.1,
-                    duration: 0.5,
+                    delay: 0,
+                    duration: 0,
                   }}
                 >
                   {TechnologiesBadge(v)}
@@ -105,9 +128,13 @@ export default function PortfolioSection(props: PortfolioSectionProps) {
           <motion.div
             className="flex"
             initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            whileInView={{
+              opacity: 1,
+              y: 0,
+              transition: { delay: scrollDelay + 0.25, duration: 0.5 },
+            }}
             // viewport={{ once: true }}
-            transition={{ delay: scrollDelay + 0.25, duration: 0.5 }}
+            transition={{ delay: 0, duration: 0 }}
           >
             <CustomIconButton
               icon="source"
@@ -118,9 +145,13 @@ export default function PortfolioSection(props: PortfolioSectionProps) {
           <motion.div
             className={props.project.demo == "" ? "hidden" : "flex"}
             initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            whileInView={{
+              opacity: 1,
+              y: 0,
+              transition: { delay: scrollDelay + 0.3, duration: 0.5 },
+            }}
             // viewport={{ once: true }}
-            transition={{ delay: scrollDelay + 0.3, duration: 0.5 }}
+            transition={{ delay: 0, duration: 0 }}
           >
             <CustomIconButton icon="demo" size="30" link={props.project.demo} />
           </motion.div>
