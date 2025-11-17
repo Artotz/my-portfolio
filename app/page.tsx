@@ -127,20 +127,16 @@ export default function Home() {
         {/* PROJETOS */}
 
         {/* LISTA DE PROJETOS */}
-        <ScrollSnapContainer>
-          <div id={titles[3]} className="flex">
-            <SectionTitle title={titles[3]} />
-          </div>
-          <PortfolioSection project={projectsList[0]} />
-        </ScrollSnapContainer>
-
-        <ScrollSnapContainer>
-          <PortfolioSection project={projectsList[1]} />
-        </ScrollSnapContainer>
-
-        <ScrollSnapContainer>
-          <PortfolioSection project={projectsList[2]} />
-        </ScrollSnapContainer>
+        {projectsList.map((project, i) => (
+          <ScrollSnapContainer key={i}>
+            {i === 0 && (
+              <div id={titles[3]} className="flex">
+                <SectionTitle title={titles[3]} />
+              </div>
+            )}
+            <PortfolioSection project={project} />
+          </ScrollSnapContainer>
+        ))}
 
         {/* END */}
         <ScrollSnapContainer>

@@ -4,6 +4,8 @@ import prismaWebSS from "../../../assets/prismaweb.png";
 import taskAppSS from "../../../assets/taskapp.jpg";
 import myPortfolioSS from "../../../assets/myportfolio.png";
 import operaxSS from "../../../assets/operax.png";
+import sampleManagerSS from "../../../assets/sample-manager.png";
+import pmpPWASS from "../../../assets/pmp-pwa.png";
 
 export const projects: ProjectType[] = [
   {
@@ -59,6 +61,41 @@ export const projects: ProjectType[] = [
       "ContextAPI",
       "styled-components",
       "React Hook Form",
+    ],
+  },
+  {
+    title: "Sample Manager",
+    image: sampleManagerSS.src,
+    description:
+      "Aplicativo em React Native (Expo) para escaneamento e gerenciamento de amostras, com acesso nativo à câmera e ao armazenamento local.",
+    demo: "",
+    source: "https://github.com/Artotz/sample-manager-expo",
+    technologies: [
+      "React Native",
+      "Expo",
+      "TypeScript",
+      "Expo Router",
+      "Async Storage",
+      "TailwindCSS",
+    ],
+  },
+  {
+    title: "Plano de Manutenção",
+    image: pmpPWASS.src,
+    description:
+      "Aplicação PWA para criação de propostas comerciais de Plano de Manutenção, com autenticação via Firebase, cache offline e geração de PDFs profissionais.",
+    demo: "",
+    source: "https://github.com/Artotz/pmp-pwa",
+    technologies: [
+      "React",
+      "TypeScript",
+      "Vite",
+      "TailwindCSS",
+      "Firebase Auth",
+      "i18next",
+      "jsPDF",
+      "Workbox",
+      "PWA",
     ],
   },
   {
