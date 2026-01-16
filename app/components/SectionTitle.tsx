@@ -5,12 +5,12 @@ type SectionTitleProps = {
 
 export default function SectionTitle(props: SectionTitleProps) {
   return (
-    <div className="flex w-full flex-col items-center justify-center gap-2 pt-12 text-center">
-      <h2 className="text-4xl sm:text-5xl font-bold text-white">
+    <div className="mx-auto flex w-full max-w-6xl flex-col gap-2 px-6">
+      <h2 className="text-3xl font-bold text-white sm:text-4xl">
         {props.title}
       </h2>
       {props.subtitle && (
-        <p className="max-w-2xl text-sm sm:text-base text-zinc-300">
+        <p className="max-w-2xl text-sm text-zinc-400 sm:text-base">
           {props.subtitle}
         </p>
       )}

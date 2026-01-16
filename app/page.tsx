@@ -1,116 +1,106 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
-import PortfolioSection from "@/app/sections/ProjectSection";
+import { useEffect, useState } from "react";
 import Header from "@/app/components/Header";
 import SectionTitle from "@/app/components/SectionTitle";
 import { projects } from "@/app/utils/projects/projectsList-br";
 import { translations } from "@/app/utils/translations";
-import SkillsSection from "@/app/sections/SkillsSection";
-import { ScrollSnapContainer } from "@/app/components/ScrollSnapContainer";
-
 import AboutSection from "./sections/AboutSection";
 import HeroSection from "./sections/HeroSection";
+import ProjectSection from "./sections/ProjectSection";
+import SkillsSection from "./sections/SkillsSection";
+import ProcessSection from "./sections/ProcessSection";
 
 export default function Home() {
-  const [headerColor, setHeaderColor] = useState<"filled" | "transparent">(
-    "transparent"
-  );
-
+  const [scrolled, setScrolled] = useState(false);
   const titles = translations.br.Home.titles;
 
-  const projectsList = projects;
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 8);
+    };
 
-  const onScroll = useCallback(() => {
-    const scrollTop =
-      window.scrollY ||
-      document.documentElement.scrollTop ||
-      document.body.scrollTop ||
-      0;
-    setHeaderColor(scrollTop > 16 ? "filled" : "transparent");
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  useEffect(() => {
-    window.addEventListener("scroll", onScroll, { passive: true });
-
-    onScroll();
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-    };
-  }, [onScroll]);
-
   return (
-    <main
-      id="main"
-      className="flex flex-col w-full h-full no-scrollbar scroll-smooth overflow-x-clip"
-    >
-      <Header
-        title="Artur Catunda"
-        headerColor={headerColor}
-        itemList={[...titles]}
-        scrollFunction={onScroll}
-      ></Header>
+    <main className="min-h-screen bg-zinc-950 text-white">
+      <Header title="Artur Catunda" itemList={titles} scrolled={scrolled} />
 
-      <section
-        id="sections"
-        className="flex-auto flex-col w-full no-scrollbar scroll-smooth bg-gradient-to-b from-transparent to-[#000]"
-      >
-        {/* INÍCIO */}
-        <div id={titles[0]} className="flex"></div>
-        <ScrollSnapContainer fullScreen>
-          <HeroSection />
-        </ScrollSnapContainer>
-
-        {/* SOBRE */}
-        <ScrollSnapContainer>
-          <div id={titles[1]} className="flex">
-            <SectionTitle
-              title={titles[1]}
-              subtitle="Um pouco do meu contexto e de como trabalho no dia a dia."
-            />
-          </div>
-          <AboutSection />
-        </ScrollSnapContainer>
-
-        {/* HABILIDADES */}
-        <ScrollSnapContainer>
-          <div id={titles[2]} className="flex">
-            <SectionTitle
-              title={titles[2]}
-              subtitle="Tecnologias que uso para construir produtos escaláveis."
-            />
-          </div>
-          <SkillsSection />
-        </ScrollSnapContainer>
-
-        {/* PROJETOS */}
-
-        {/* LISTA DE PROJETOS */}
-        {projectsList.map((project, i) => (
-          <ScrollSnapContainer key={i}>
-            {i === 0 && (
-              <div id={titles[3]} className="flex">
-                <SectionTitle
-                  title={titles[3]}
-                  subtitle="Cases selecionados com foco em problema, solução e impacto."
-                />
-              </div>
-            )}
-            <PortfolioSection project={project} />
-          </ScrollSnapContainer>
-        ))}
-
-        {/* END */}
-        <ScrollSnapContainer>
-          <div className="flex flex-grow text-7xl font-bold text-white text-center justify-center items-center">
-            {`</body>`}
-          </div>
-          {/* FOOTER */}
-          <div className="flex flex-col w-full h-8 justify-center items-center bg-black text-sm font-bold text-white text-center">
-            Copyright © 2024 - Artur Melo Catunda
-          </div>
-        </ScrollSnapContainer>
+      <section id="In\u00edcio" className="pb-16 sm:pb-24">
+        <HeroSection />
       </section>
+
+      <section id="Sobre" className="py-16 sm:py-24">
+        <SectionTitle
+          title="Sobre"
+          subtitle="Um resumo direto sobre como trabalho e o que valorizo."
+        />
+        <div className="mt-10">
+          <AboutSection />
+        </div>
+      </section>
+
+      <section id="Projetos" className="py-16 sm:py-24">
+        <ProjectSection projects={projects} />
+      </section>
+
+      <section id="Habilidades" className="py-16 sm:py-24">
+        <SectionTitle
+          title="Habilidades"
+          subtitle="Stack organizada por dom\u00ednio para leitura r\u00e1pida."
+        />
+        <div className="mt-10">
+          <SkillsSection />
+        </div>
+      </section>
+
+      <section className="py-16 sm:py-24">
+        <SectionTitle
+          title="Como eu trabalho"
+          subtitle="Processo simples, comunica\u00e7\u00e3o clara e evolu\u00e7\u00e3o constante."
+        />
+        <div className="mt-10">
+          <ProcessSection />
+        </div>
+      </section>
+
+      <section className="py-16 sm:py-24">
+        <div className="mx-auto flex w-full max-w-6xl flex-col gap-6 px-6 text-left">
+          <h2 className="text-3xl font-bold text-white sm:text-4xl">
+            Vamos conversar?
+          </h2>
+          <p className="max-w-2xl text-sm text-zinc-300 sm:text-base">
+            Estou dispon\u00edvel para projetos, parcerias e conversas sobre produto,
+            frontend e mobile.
+          </p>
+          <div className="flex flex-wrap items-center gap-3">
+            <a
+              href="mailto:arturmcatunda@gmail.com"
+              className="rounded-full bg-indigo-500 px-5 py-2 text-sm font-semibold text-white transition hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400"
+            >
+              Enviar e-mail
+            </a>
+            <a
+              href="https://www.linkedin.com/in/arturmcatunda/"
+              target="_blank"
+              rel="noreferrer"
+              className="rounded-full border border-white/10 px-5 py-2 text-sm font-semibold text-zinc-100 transition hover:border-white/20 hover:bg-white/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400"
+            >
+              LinkedIn
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <footer className="border-t border-white/10 py-8">
+        <div className="mx-auto flex w-full max-w-6xl flex-col gap-2 px-6 text-sm text-zinc-500 sm:flex-row sm:items-center sm:justify-between">
+          <span>\u00a9 2024 Artur Melo Catunda</span>
+          <span>Constru\u00eddo com Next.js, Tailwind e framer-motion.</span>
+        </div>
+      </footer>
     </main>
   );
 }

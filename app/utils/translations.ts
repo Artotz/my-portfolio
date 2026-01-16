@@ -1,8 +1,8 @@
 export const translations = {
   br: {
-    Home: { titles: ["Início", "Sobre", "Habilidades", "Projetos"] },
+    Home: { titles: ["In\u00edcio", "Sobre", "Projetos", "Habilidades"] },
     // Header: {
-    //   HomeButton: "Início",
+    //   HomeButton: "In\u00edcio",
     //   SkillButton: "Habilidades",
     //   ProjectsButton: "Projetos",
     // },

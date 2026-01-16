@@ -2,103 +2,88 @@ import { useState } from "react";
 
 type HeaderProps = {
   title: string;
-  headerColor: "filled" | "transparent";
   itemList: string[];
-  scrollFunction: (e: any) => void;
+  scrolled: boolean;
 };
 
-export default function Header(props: HeaderProps) {
+export default function Header({ title, itemList, scrolled }: HeaderProps) {
   const [isHamburgerOpen, setIsHamburgerOpen] = useState(false);
-  const isFilled = props.headerColor === "filled";
 
-  const headerItemClasses =
-    "flex items-center justify-center rounded-full border border-zinc-700 px-3 py-1 text-xs font-semibold text-zinc-100 transition hover:border-zinc-500 hover:bg-zinc-900/70";
-
-  const headerItemList = (id: string, i: number) => {
-    return (
-      <button
-        key={i}
-        tabIndex={-1}
-        className={headerItemClasses}
-        onClick={() => {
-          document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-          props.scrollFunction(null);
-          setIsHamburgerOpen(false);
-        }}
-      >
-        {id}
-      </button>
-    );
-  };
-
-  const headerItemListMobile = (id: string, i: number) => {
-    return (
-      <button
-        key={i}
-        tabIndex={-1}
-        className="flex w-full items-center border-b border-zinc-800 px-4 py-3 text-left text-sm font-semibold text-zinc-100 transition hover:bg-zinc-900/70"
-        onClick={() => {
-          document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-          props.scrollFunction(null);
-          setIsHamburgerOpen(false);
-        }}
-      >
-        {id}
-      </button>
-    );
-  };
+  const linkClasses =
+    "inline-flex items-center rounded-full border border-white/10 px-4 py-2 text-sm font-semibold text-zinc-100 transition hover:border-white/20 hover:bg-white/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400";
 
   return (
     <header className="fixed top-0 z-[999] w-full">
-      <title>{props.title}</title>
       <div
-        className={`flex h-14 w-full items-center border-b transition-colors duration-500 ${
-          isFilled
-            ? "border-zinc-800 bg-zinc-950/90 backdrop-blur"
-            : "border-transparent bg-transparent"
+        className={`flex h-16 w-full items-center transition-colors duration-300 ${
+          scrolled
+            ? "border-b border-white/10 bg-zinc-950/70 backdrop-blur"
+            : "border-b border-transparent bg-transparent"
         }`}
       >
-        <div className="flex w-full items-center justify-between px-4">
-          <div className="text-lg font-bold text-white sm:text-xl">
-            {props.title}
-          </div>
+        <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-6">
+          <a
+            href="#In\u00edcio"
+            className="text-lg font-semibold text-white transition hover:text-indigo-200"
+          >
+            {title}
+          </a>
 
-          <div className="hidden items-center gap-2 sm:flex">
-            {props.itemList.map((v, i) => headerItemList(v, i))}
-          </div>
+          <nav className="hidden items-center gap-2 sm:flex">
+            {itemList.map((item) => (
+              <a key={item} href={`#${item}`} className={linkClasses}>
+                {item}
+              </a>
+            ))}
+          </nav>
 
-          <div className="flex sm:hidden">
-            <button
-              tabIndex={-1}
-              className="flex h-10 w-10 flex-col items-center justify-center gap-[5px]"
-              onClick={() => setIsHamburgerOpen(!isHamburgerOpen)}
-            >
+          <button
+            type="button"
+            aria-label="Abrir menu"
+            className="flex h-10 w-10 items-center justify-center sm:hidden"
+            onClick={() => setIsHamburgerOpen(!isHamburgerOpen)}
+          >
+            <span className="sr-only">Menu</span>
+            <div className="flex flex-col gap-1">
               <span
-                className={`h-[3px] w-[22px] rounded-full bg-white transition-transform duration-300 ${
-                  isHamburgerOpen ? "translate-y-[7px] rotate-45" : ""
+                className={`h-[2px] w-6 rounded-full bg-white transition-transform ${
+                  isHamburgerOpen ? "translate-y-[6px] rotate-45" : ""
                 }`}
               />
               <span
-                className={`h-[3px] w-[22px] rounded-full bg-white transition-all duration-300 ${
-                  isHamburgerOpen ? "scale-x-0 opacity-0" : ""
+                className={`h-[2px] w-6 rounded-full bg-white transition-opacity ${
+                  isHamburgerOpen ? "opacity-0" : "opacity-100"
                 }`}
               />
               <span
-                className={`h-[3px] w-[22px] rounded-full bg-white transition-transform duration-300 ${
-                  isHamburgerOpen ? "-translate-y-[7px] -rotate-45" : ""
+                className={`h-[2px] w-6 rounded-full bg-white transition-transform ${
+                  isHamburgerOpen ? "-translate-y-[6px] -rotate-45" : ""
                 }`}
               />
-            </button>
-          </div>
+            </div>
+          </button>
         </div>
       </div>
 
       <div
-        className={`absolute right-4 top-14 flex w-44 flex-col overflow-hidden rounded-xl border border-zinc-800 bg-zinc-950/95 shadow-xl transition-transform duration-300 sm:hidden ${
-          isHamburgerOpen ? "translate-x-0" : "translate-x-[120%]"
+        className={`absolute right-6 top-16 w-48 overflow-hidden rounded-2xl border border-white/10 bg-zinc-950/90 shadow-xl backdrop-blur transition-all duration-300 sm:hidden ${
+          isHamburgerOpen
+            ? "translate-y-0 opacity-100"
+            : "-translate-y-4 opacity-0 pointer-events-none"
         }`}
       >
-        {props.itemList.map((v, i) => headerItemListMobile(v, i))}
+        <div className="flex flex-col py-2">
+          {itemList.map((item) => (
+            <a
+              key={item}
+              href={`#${item}`}
+              className="px-4 py-2 text-sm font-semibold text-zinc-100 transition hover:bg-white/5"
+              onClick={() => setIsHamburgerOpen(false)}
+            >
+              {item}
+            </a>
+          ))}
+        </div>
       </div>
     </header>
   );

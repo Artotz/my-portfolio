@@ -1,50 +1,58 @@
 import { motion } from "framer-motion";
 
+const proofItems = [
+  "React",
+  "Next.js",
+  "React Native",
+  "Tailwind",
+  "TypeScript",
+];
+
 export default function HeroSection() {
   return (
-    <div className="relative w-full">
-      <div className="pointer-events-none absolute -right-16 -top-24 h-64 w-64 rounded-full bg-zinc-800/40 blur-3xl" />
+    <div className="mx-auto w-full max-w-6xl px-6 pt-24 sm:pt-28">
       <motion.div
-        className="relative mx-auto flex w-full max-w-6xl flex-col gap-6 rounded-3xl border border-zinc-800/70 bg-zinc-950/70 px-6 py-12 text-left sm:px-12"
+        className="flex flex-col gap-6 text-left"
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
       >
         <p className="text-xs font-semibold uppercase tracking-[0.35em] text-zinc-400">
-          React • Mobile • Produto
+          Desenvolvimento de produtos digitais
         </p>
-        <h1 className="text-3xl font-bold text-white sm:text-5xl">
-          Desenvolvedor focado em React, mobile e produtos bem construídos.
+        <h1 className="text-balance text-4xl font-bold text-white sm:text-5xl">
+          Solu\u00e7\u00f5es React e mobile com foco em clareza, performance e evolu\u00e7\u00e3o.
         </h1>
-        <p className="max-w-2xl text-sm text-zinc-300 sm:text-lg">
-          Entrego experiências digitais prontas para o mundo real: rápidas,
-          sustentáveis e fáceis de evoluir, do protótipo ao lançamento.
+        <p className="max-w-2xl text-base text-zinc-300 sm:text-lg">
+          Eu construo produtos confi\u00e1veis para equipes e neg\u00f3cios, com c\u00f3digo
+          limpo, ritmo sustent\u00e1vel e entregas que fazem sentido para o usu\u00e1rio.
         </p>
         <div className="flex flex-wrap items-center gap-3">
           <a
             href="#Projetos"
-            className="rounded-full bg-white px-5 py-2 text-sm font-semibold text-zinc-900 transition hover:bg-zinc-200"
+            className="rounded-full bg-indigo-500 px-5 py-2 text-sm font-semibold text-white transition hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400"
           >
             Ver projetos
           </a>
           <a
-            href="https://github.com/Artotz"
-            target="_blank"
-            rel="noreferrer"
-            className="rounded-full border border-zinc-700 px-5 py-2 text-sm font-semibold text-zinc-100 transition hover:border-zinc-500 hover:bg-zinc-900/70"
+            href="mailto:arturmcatunda@gmail.com"
+            className="rounded-full border border-white/10 px-5 py-2 text-sm font-semibold text-zinc-100 transition hover:border-white/20 hover:bg-white/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400"
           >
-            GitHub
-          </a>
-          <a
-            href="https://www.linkedin.com/in/arturmcatunda/"
-            target="_blank"
-            rel="noreferrer"
-            className="rounded-full border border-zinc-700 px-5 py-2 text-sm font-semibold text-zinc-100 transition hover:border-zinc-500 hover:bg-zinc-900/70"
-          >
-            LinkedIn
+            Contato
           </a>
         </div>
       </motion.div>
+
+      <div className="mt-10 flex flex-wrap gap-3">
+        {proofItems.map((item) => (
+          <span
+            key={item}
+            className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-semibold text-zinc-200"
+          >
+            {item}
+          </span>
+        ))}
+      </div>
     </div>
   );
 }
