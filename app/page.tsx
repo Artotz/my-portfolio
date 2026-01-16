@@ -9,79 +9,33 @@ import { translations } from "@/app/utils/translations";
 import SkillsSection from "@/app/sections/SkillsSection";
 import { ScrollSnapContainer } from "@/app/components/ScrollSnapContainer";
 
-import prismaWebSS from "../assets/prismaweb.png";
 import AboutSection from "./sections/AboutSection";
 import HeroSection from "./sections/HeroSection";
 
 export default function Home() {
-  const [inicialColor, setInitialColor] = useState("#CCF");
-  const [finalColor, setFinalColor] = useState("#004");
-
   const [headerColor, setHeaderColor] = useState<"filled" | "transparent">(
     "transparent"
   );
-
-  const [scrollRatio, setScrollRatio] = useState(0);
-
-  const [scrollTop, setScrollTop] = useState(0);
-  const [scrollHeight, setScrollHeight] = useState(0);
 
   const titles = translations.br.Home.titles;
 
   const projectsList = projects;
 
-  const clamp = (num: number, min: number, max: number) => {
-    return Math.min(Math.max(num, min), max);
-  };
-
   const onScroll = useCallback(() => {
-    let _ratio = 0;
-
-    const sectionHelper =
-      document.documentElement || document.body.parentNode || document.body;
-
-    setScrollHeight(sectionHelper.scrollHeight);
-    setScrollTop(sectionHelper.scrollTop);
-    // setScrollTop(_scrollTop);
-
-    _ratio = clamp(
-      Math.floor((scrollTop / (scrollHeight - window.innerHeight)) * 100),
-      0,
-      100
-    );
-
-    _ratio = _ratio < 1 ? 0 : _ratio;
-    _ratio = _ratio > 99 ? 100 : _ratio;
-
-    if (_ratio > 0) setHeaderColor("filled");
-    else setHeaderColor("transparent");
-
-    setScrollRatio(_ratio);
-
-    console.log(
-      "Top",
-      scrollTop,
-      "Height",
-      scrollHeight - window.innerHeight,
-      "Ratio",
-      scrollRatio
-    );
-  }, [scrollTop, scrollHeight, scrollRatio]);
+    const scrollTop =
+      window.scrollY ||
+      document.documentElement.scrollTop ||
+      document.body.scrollTop ||
+      0;
+    setHeaderColor(scrollTop > 16 ? "filled" : "transparent");
+  }, []);
 
   useEffect(() => {
-    //add eventlistener to window
-    document
-      // .getElementsByTagName("section")[0]
-      .addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("scroll", onScroll, { passive: true });
 
     onScroll();
-    // remove event on unmount to prevent a memory leak with the cleanup
     return () => {
-      document
-        // .getElementsByTagName("section")[0]
-        .removeEventListener("scroll", onScroll, {
-          passive: true,
-        } as EventListenerOptions);
+      window.removeEventListener("scroll", onScroll);
     };
   }, [onScroll]);
 
@@ -91,9 +45,8 @@ export default function Home() {
       className="flex flex-col w-full h-full no-scrollbar scroll-smooth overflow-x-clip"
     >
       <Header
-        title="My Portfolio"
+        title="Artur Catunda"
         headerColor={headerColor}
-        scrollRatio={scrollRatio}
         itemList={[...titles]}
         scrollFunction={onScroll}
       ></Header>
@@ -104,14 +57,17 @@ export default function Home() {
       >
         {/* INÍCIO */}
         <div id={titles[0]} className="flex"></div>
-        <ScrollSnapContainer>
+        <ScrollSnapContainer fullScreen>
           <HeroSection />
         </ScrollSnapContainer>
 
         {/* SOBRE */}
         <ScrollSnapContainer>
           <div id={titles[1]} className="flex">
-            <SectionTitle title={titles[1]} />
+            <SectionTitle
+              title={titles[1]}
+              subtitle="Um pouco do meu contexto e de como trabalho no dia a dia."
+            />
           </div>
           <AboutSection />
         </ScrollSnapContainer>
@@ -119,7 +75,10 @@ export default function Home() {
         {/* HABILIDADES */}
         <ScrollSnapContainer>
           <div id={titles[2]} className="flex">
-            <SectionTitle title={titles[2]} />
+            <SectionTitle
+              title={titles[2]}
+              subtitle="Tecnologias que uso para construir produtos escaláveis."
+            />
           </div>
           <SkillsSection />
         </ScrollSnapContainer>
@@ -131,7 +90,10 @@ export default function Home() {
           <ScrollSnapContainer key={i}>
             {i === 0 && (
               <div id={titles[3]} className="flex">
-                <SectionTitle title={titles[3]} />
+                <SectionTitle
+                  title={titles[3]}
+                  subtitle="Cases selecionados com foco em problema, solução e impacto."
+                />
               </div>
             )}
             <PortfolioSection project={project} />

@@ -1,88 +1,52 @@
 import { motion } from "framer-motion";
-import {
-  CustomIconButton,
-  // CustomIconDownloadButton,
-} from "../components/CustomIconButton";
+import { CustomIconButton } from "../components/CustomIconButton";
 
 export default function AboutSection() {
   return (
-    <div className="flex flex-col flex-grow justify-center items-center gap-4">
-      <div className="flex flex-col flex-grow sm:w-1/2 px-4 sm:pb-16 sm:px-0 font-semibold text-sm sm:text-xl text-center justify-center items-center gap-4">
-        {[
-          <p key={0}>{`Meu nome é Artur Melo Catunda.`}</p>,
-          <p
-            key={1}
-          >{`Sou Desenvolvedor Web especializado em React.js, React Native e Tailwind CSS, mas com sólida experiência também em back-end utilizando Express e Spring. Também tenho familiaridade com o uso de Docker, GitHub Actions e AWS para criação de ambientes de desenvolvimento e hospedagem.`}</p>,
-          <p
-            key={2}
-          >{`Trabalho com metodologias ágeis e boas práticas de desenvolvimento. Minhas principais habilidades incluem foco, resiliência, comprometimento, organização e solução de problemas, características que sempre aplico em meus projetos para entregar soluções eficientes e bem estruturadas.`}</p>,
-          <p
-            key={3}
-          >{`No meu tempo livre, adoro desenvolver jogos, assistir filmes de terror e jogar jogos de tabuleiro e cartas. Se precisar de um currículo ou quiser bater um papo, fico à disposição!`}</p>,
-        ].map((v, i) => {
-          return (
-            <motion.div
-              className="flex"
-              key={i}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{
-                opacity: 1,
-                y: 0,
-                transition: { delay: 0.25 + 0.25, duration: 0.5 },
-              }}
-              // viewport={{ once: true }}
-              transition={{ delay: 0, duration: 0 }}
-            >
-              {v}
-            </motion.div>
-          );
-        })}
-        <div className="flex flex-row justify-center items-center gap-8 mt-8">
-          {[
-            <CustomIconButton
-              key={0}
-              icon="source"
-              size="30"
-              link="https://github.com/Artotz"
-            />,
-            <CustomIconButton
-              key={1}
-              icon="linkedin"
-              size="30"
-              link="https://www.linkedin.com/in/arturmcatunda/"
-            />,
-            <CustomIconButton
-              key={2}
-              icon="mail"
-              size="30"
-              link="mailto:arturmcatunda@gmail.com"
-            />,
-            <CustomIconButton
-              key={3}
-              icon="curriculum"
-              size="30"
-              link="curriculo.pdf"
-            />,
-          ].map((v, i) => {
-            return (
-              <motion.div
-                className="flex"
-                key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{
-                  opacity: 1,
-                  y: 0,
-                  transition: { delay: 1 + 0.05 * i, duration: 0.5 },
-                }}
-                // viewport={{ once: true }}
-                transition={{ delay: 0, duration: 0 }}
-              >
-                {v}
-              </motion.div>
-            );
-          })}
-        </div>
-      </div>
+    <div className="flex w-full flex-col items-center gap-8">
+      <motion.div
+        className="flex w-full max-w-3xl flex-col gap-4 px-6 text-center text-sm font-semibold text-zinc-200 sm:text-lg"
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0, transition: { duration: 0.5 } }}
+        viewport={{ once: true }}
+      >
+        <p>Sou Artur Melo Catunda, desenvolvedor focado em React e mobile.</p>
+        <p>
+          Transformo ideias em produtos reais, com atenção a performance,
+          manutenção e experiência do usuário.
+        </p>
+        <p>
+          Gosto de trabalhar com código limpo, boas práticas e colaboração
+          próxima ao time e ao negócio.
+        </p>
+        <p>
+          No tempo livre, curto desenvolver jogos, assistir filmes de terror e
+          jogar jogos de tabuleiro. Se quiser conversar, estou à disposição.
+        </p>
+      </motion.div>
+      <motion.div
+        className="flex flex-wrap items-center justify-center gap-4"
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0, transition: { duration: 0.4 } }}
+        viewport={{ once: true }}
+      >
+        <CustomIconButton
+          icon="source"
+          size="30"
+          link="https://github.com/Artotz"
+        />
+        <CustomIconButton
+          icon="linkedin"
+          size="30"
+          link="https://www.linkedin.com/in/arturmcatunda/"
+        />
+        <CustomIconButton
+          icon="mail"
+          size="30"
+          link="mailto:arturmcatunda@gmail.com"
+        />
+        <CustomIconButton icon="curriculum" size="30" link="curriculo.pdf" />
+      </motion.div>
     </div>
   );
 }

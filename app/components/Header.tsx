@@ -3,26 +3,25 @@ import { useState } from "react";
 type HeaderProps = {
   title: string;
   headerColor: "filled" | "transparent";
-  scrollRatio: number;
   itemList: string[];
   scrollFunction: (e: any) => void;
 };
 
 export default function Header(props: HeaderProps) {
   const [isHamburgerOpen, setIsHamburgerOpen] = useState(false);
+  const isFilled = props.headerColor === "filled";
+
+  const headerItemClasses =
+    "flex items-center justify-center rounded-full border border-zinc-700 px-3 py-1 text-xs font-semibold text-zinc-100 transition hover:border-zinc-500 hover:bg-zinc-900/70";
 
   const headerItemList = (id: string, i: number) => {
     return (
       <button
         key={i}
         tabIndex={-1}
-        className={
-          props.headerColor !== "filled"
-            ? "flex p-1 px-2 border-2 rounded-md duration-500 bg-white text-black border-black hover-hover:hover:bg-black hover-hover:hover:text-white hover-hover:hover:border-white"
-            : "flex p-1 px-2 border-2 rounded-md duration-500 bg-black text-white border-white hover-hover:hover:bg-white hover-hover:hover:text-black hover-hover:hover:border-black"
-        }
+        className={headerItemClasses}
         onClick={() => {
-          document.getElementById(id)?.scrollIntoView();
+          document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
           props.scrollFunction(null);
           setIsHamburgerOpen(false);
         }}
@@ -37,13 +36,9 @@ export default function Header(props: HeaderProps) {
       <button
         key={i}
         tabIndex={-1}
-        className={
-          props.headerColor !== "filled"
-            ? "flex p-1 px-2 border-t-2 last:border-b-2 duration-500 bg-white text-black border-black"
-            : "flex p-1 px-2 border-t-2 last:border-b-2 duration-500 bg-black text-white border-white"
-        }
+        className="flex w-full items-center border-b border-zinc-800 px-4 py-3 text-left text-sm font-semibold text-zinc-100 transition hover:bg-zinc-900/70"
         onClick={() => {
-          document.getElementById(id)?.scrollIntoView();
+          document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
           props.scrollFunction(null);
           setIsHamburgerOpen(false);
         }}
@@ -54,121 +49,54 @@ export default function Header(props: HeaderProps) {
   };
 
   return (
-    <header className="fixed w-full z-[999]">
+    <header className="fixed top-0 z-[999] w-full">
       <title>{props.title}</title>
       <div
-        className="flex flex-col sticky w-full h-12 top-0 rounded-b-lg border-black border-b-2 duration-1000 z-[999] overflow-clip"
-        style={
-          props.headerColor == "filled"
-            ? {
-                backgroundColor: "#000",
-                borderColor: "black",
-              }
-            : {
-                backgroundColor: "transparent",
-                borderColor: "transparent",
-              }
-        }
+        className={`flex h-14 w-full items-center border-b transition-colors duration-500 ${
+          isFilled
+            ? "border-zinc-800 bg-zinc-950/90 backdrop-blur"
+            : "border-transparent bg-transparent"
+        }`}
       >
-        {/* ITEMS */}
-        <div className="flex flex-grow w-full h-full justify-between items-center text-xs">
-          {/* ESQUERDA */}
-          <div className="flex flex-grow px-4 justify-start items-center text-xs">
-            <div
-              className="text-3xl font-bold duration-1000"
-              style={
-                props.headerColor == "filled"
-                  ? {
-                      color: "white",
-                    }
-                  : {
-                      color: "black",
-                    }
-              }
-            >
-              HEADER
-            </div>
+        <div className="flex w-full items-center justify-between px-4">
+          <div className="text-lg font-bold text-white sm:text-xl">
+            {props.title}
           </div>
 
-          {/* DIREITA */}
-          {/* LISTA */}
-          <div className="hidden sm:flex gap-2 px-2 justify-around items-center text-xs">
+          <div className="hidden items-center gap-2 sm:flex">
             {props.itemList.map((v, i) => headerItemList(v, i))}
           </div>
-          {/* HAMBURGER */}
-          <div className="flex flex-col h-full sm:hidden gap-2 px-2 justify-center items-center text-xs">
+
+          <div className="flex sm:hidden">
             <button
               tabIndex={-1}
-              className={
-                props.headerColor !== "filled"
-                  ? "flex h-full flex-col gap-[4px] justify-center items-center duration-500"
-                  : "flex h-full flex-col gap-[4px] justify-center items-center duration-500"
-              }
-              onClick={() => {
-                setIsHamburgerOpen(!isHamburgerOpen);
-              }}
+              className="flex h-10 w-10 flex-col items-center justify-center gap-[5px]"
+              onClick={() => setIsHamburgerOpen(!isHamburgerOpen)}
             >
-              <div
-                className={
-                  props.headerColor !== "filled"
-                    ? "flex w-[24px] h-[4px] duration-500 bg-black"
-                    : "flex w-[24px] h-[4px] duration-500 bg-white"
-                }
-                style={
-                  isHamburgerOpen
-                    ? { translate: "0 200%", transform: "rotate(-45deg)" }
-                    : { translate: "0", transform: "rotate(0deg)" }
-                }
-              ></div>
-              <div
-                className={
-                  props.headerColor !== "filled"
-                    ? "flex w-[24px] h-[4px] duration-500 bg-black"
-                    : "flex w-[24px] h-[4px] duration-500 bg-white"
-                }
-                style={
-                  isHamburgerOpen
-                    ? { translate: "12.5%", scale: "0 100%", opacity: 100 }
-                    : { translate: "0", scale: "100% 100%", opacity: 100 }
-                }
-              ></div>
-              <div
-                className={
-                  props.headerColor !== "filled"
-                    ? "flex w-[24px] h-[4px] duration-500 bg-black"
-                    : "flex w-[24px] h-[4px] duration-500 bg-white"
-                }
-                style={
-                  isHamburgerOpen
-                    ? { translate: "0 -200%", transform: "rotate(45deg)" }
-                    : { translate: "0", transform: "rotate(0deg)" }
-                }
-              ></div>
+              <span
+                className={`h-[3px] w-[22px] rounded-full bg-white transition-transform duration-300 ${
+                  isHamburgerOpen ? "translate-y-[7px] rotate-45" : ""
+                }`}
+              />
+              <span
+                className={`h-[3px] w-[22px] rounded-full bg-white transition-all duration-300 ${
+                  isHamburgerOpen ? "scale-x-0 opacity-0" : ""
+                }`}
+              />
+              <span
+                className={`h-[3px] w-[22px] rounded-full bg-white transition-transform duration-300 ${
+                  isHamburgerOpen ? "-translate-y-[7px] -rotate-45" : ""
+                }`}
+              />
             </button>
           </div>
         </div>
-
-        {/* SCROLL PROGRESS BAR */}
-        <div
-          className="flex h-2 bg-red-500/75"
-          style={{
-            width: `${props.scrollRatio}%`,
-            transition: "1s",
-          }}
-        ></div>
       </div>
 
       <div
-        className="flex sm:hidden rounded-b-lg absolute flex-col w-full h-fit overflow-hidden duration-500"
-        style={
-          isHamburgerOpen
-            ? {
-                left: "65vw",
-              }
-            : {
-                left: "100vw",
-              }
-        }
+        className={`absolute right-4 top-14 flex w-44 flex-col overflow-hidden rounded-xl border border-zinc-800 bg-zinc-950/95 shadow-xl transition-transform duration-300 sm:hidden ${
+          isHamburgerOpen ? "translate-x-0" : "translate-x-[120%]"
+        }`}
       >
         {props.itemList.map((v, i) => headerItemListMobile(v, i))}
       </div>
