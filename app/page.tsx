@@ -59,7 +59,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-16 sm:py-24">
+      {/* <section className="py-16 sm:py-24">
         <SectionTitle
           title={t.Sections.process.title}
           // subtitle={t.Sections.process.subtitle}
@@ -67,7 +67,7 @@ export default function Home() {
         <div className="mt-10">
           <ProcessSection steps={t.Process.steps} />
         </div>
-      </section>
+      </section> */}
 
       <section className="py-16 sm:py-24">
         <div className="mx-auto flex w-full max-w-6xl flex-col gap-6 px-6 text-left">
