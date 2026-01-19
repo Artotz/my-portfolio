@@ -16,15 +16,30 @@ type ProjectSectionProps = {
 
 function ProjectCard({
   project,
-  index,
   labels,
   imageAlt,
 }: {
   project: ProjectType;
-  index: number;
   labels: { codeLabel: string; demoLabel: string };
   imageAlt: string;
 }) {
+  const techContainer = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: { staggerChildren: 0.08, delayChildren: 0.2 },
+    },
+  };
+
+  const techItem = {
+    hidden: { opacity: 0, y: 10 },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.4, ease: "easeOut" },
+    },
+  };
+
   const highlights =
     project.highlights && project.highlights.length > 0
       ? project.highlights
@@ -34,13 +49,19 @@ function ProjectCard({
 
   return (
     <motion.article
-      className="flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-zinc-900/40 transition hover:-translate-y-1 hover:border-indigo-400/40 hover:shadow-lg hover:shadow-indigo-500/10"
-      initial={{ opacity: 0, y: 18 }}
+      className="flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-zinc-900/40 transition-colors transition-shadow hover:border-indigo-400/40 hover:shadow-lg hover:shadow-indigo-500/10"
+      initial={{ opacity: 0, y: 16 }}
       whileInView={{
         opacity: 1,
         y: 0,
-        transition: { duration: 0.4, delay: index * 0.05 },
+        transition: {
+          duration: 0.45,
+          ease: "easeOut",
+          type: "tween",
+        },
       }}
+      whileHover={{ y: -4 }}
+      transition={{ duration: 0.2, ease: "easeOut", type: "tween" }}
       viewport={{ once: true, amount: 0.3 }}
     >
       <div className="relative h-48 w-full overflow-hidden bg-zinc-900">
@@ -79,16 +100,23 @@ function ProjectCard({
           ))}
         </ul>
 
-        <div className="flex flex-wrap gap-2">
+        <motion.div
+          className="flex flex-wrap gap-2"
+          variants={techContainer}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.3 }}
+        >
           {project.technologies.map((tech) => (
-            <span
+            <motion.span
               key={tech}
-              className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-zinc-200"
+              className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-semibold text-zinc-200 transition hover:border-white/20 hover:bg-white/10"
+              variants={techItem}
             >
               {tech}
-            </span>
+            </motion.span>
           ))}
-        </div>
+        </motion.div>
 
         <div className="mt-auto flex flex-wrap gap-3">
           <a
@@ -128,11 +156,10 @@ export default function ProjectSection({
       <SectionTitle title={title} subtitle={subtitle} />
 
       <div className="mx-auto grid w-full max-w-6xl gap-6 px-6 md:grid-cols-2">
-        {projects.map((project, index) => (
+        {projects.map((project) => (
           <ProjectCard
             key={project.title}
             project={project}
-            index={index}
             labels={{ codeLabel, demoLabel }}
             imageAlt={imageAlt}
           />

@@ -18,6 +18,23 @@ export default function AboutSection({
   paragraphs,
   buttons,
 }: AboutSectionProps) {
+  const buttonsContainer = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: { staggerChildren: 0.08, delayChildren: 0.2 },
+    },
+  };
+
+  const buttonItem = {
+    hidden: { opacity: 0, y: 10 },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.4, ease: "easeOut" },
+    },
+  };
+
   return (
     <div className="mx-auto flex w-full max-w-6xl flex-col gap-8 px-6">
       <motion.div
@@ -35,35 +52,46 @@ export default function AboutSection({
 
       <motion.div
         className="flex flex-wrap items-center gap-3"
-        initial={{ opacity: 0, y: 16 }}
-        whileInView={{ opacity: 1, y: 0, transition: { duration: 0.4 } }}
-        viewport={{ once: true }}
+        variants={buttonsContainer}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.3 }}
       >
-        <CustomIconButton
-          icon="source"
-          link="https://github.com/Artotz"
-          label={buttons.source}
-        />
-        <CustomIconButton
-          icon="linkedin"
-          link="https://www.linkedin.com/in/arturmcatunda/"
-          label={buttons.linkedin}
-        />
-        <CustomIconButton
-          icon="mail"
-          link="mailto:arturmcatunda@gmail.com"
-          label={buttons.mail}
-        />
-        <CustomIconButton
-          icon="whatsapp"
-          link="https://wa.me/558582011193"
-          label={buttons.whatsapp}
-        />
-        <CustomIconButton
-          icon="curriculum"
-          link="curriculo.pdf"
-          label={buttons.curriculum}
-        />
+        <motion.div variants={buttonItem}>
+          <CustomIconButton
+            icon="source"
+            link="https://github.com/Artotz"
+            label={buttons.source}
+          />
+        </motion.div>
+        <motion.div variants={buttonItem}>
+          <CustomIconButton
+            icon="linkedin"
+            link="https://www.linkedin.com/in/arturmcatunda/"
+            label={buttons.linkedin}
+          />
+        </motion.div>
+        <motion.div variants={buttonItem}>
+          <CustomIconButton
+            icon="mail"
+            link="mailto:arturmcatunda@gmail.com"
+            label={buttons.mail}
+          />
+        </motion.div>
+        <motion.div variants={buttonItem}>
+          <CustomIconButton
+            icon="whatsapp"
+            link="https://wa.me/558582011193"
+            label={buttons.whatsapp}
+          />
+        </motion.div>
+        <motion.div variants={buttonItem}>
+          <CustomIconButton
+            icon="curriculum"
+            link="curriculo.pdf"
+            label={buttons.curriculum}
+          />
+        </motion.div>
       </motion.div>
     </div>
   );

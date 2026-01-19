@@ -94,8 +94,8 @@ export function CustomIconButton(props: CustomIconButtonProps) {
   const size = props.size ?? "18";
   const variantClasses =
     props.variant === "primary"
-      ? "border-indigo-400 bg-indigo-500 text-white hover:bg-indigo-400"
-      : "border-zinc-700 bg-zinc-950 text-zinc-100 hover:border-zinc-500 hover:bg-zinc-900/70";
+      ? "border-transparent bg-indigo-500 text-white hover:bg-indigo-400"
+      : "border-white/10 bg-transparent text-zinc-100 hover:border-white/20 hover:bg-white/5";
 
   return (
     <a
