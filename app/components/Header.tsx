@@ -86,7 +86,7 @@ export default function Header({ title, itemList, labels }: HeaderProps) {
         className={`absolute right-6 top-16 w-48 overflow-hidden rounded-2xl border border-white/10 bg-zinc-950/90 shadow-xl backdrop-blur transition-all duration-300 sm:hidden ${
           isHamburgerOpen
             ? "translate-y-0 opacity-100"
-            : "-translate-y-4 opacity-0 pointer-events-none"
+            : "pointer-events-none -translate-y-4 opacity-0"
         }`}
       >
         <div className="flex flex-col py-2">

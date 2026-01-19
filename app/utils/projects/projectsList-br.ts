@@ -13,7 +13,8 @@ export const projects: ProjectType[] = [
     image: prismaWebSS.src,
     description:
       "Site de nossa empresa de Solu\u00e7\u00f5es Digitais, onde oferecemos servi\u00e7os de desenvolvimento e manuten\u00e7\u00e3o de aplica\u00e7\u00f5es, sites, p\u00e1ginas de redes sociais, etc.",
-    context: "Site institucional e gera\u00e7\u00e3o de leads para servi\u00e7os digitais.",
+    context:
+      "Site institucional e gera\u00e7\u00e3o de leads para servi\u00e7os digitais.",
     problem:
       "A empresa precisava de uma presen\u00e7a digital clara e confi\u00e1vel para explicar os servi\u00e7os e captar novos clientes.",
     solution:

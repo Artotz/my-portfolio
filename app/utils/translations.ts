@@ -34,12 +34,14 @@ export const translations = {
       },
       process: {
         title: "Como eu trabalho",
-        subtitle: "Processo simples, comunica\u00e7\u00e3o clara e evolu\u00e7\u00e3o constante.",
+        subtitle:
+          "Processo simples, comunica\u00e7\u00e3o clara e evolu\u00e7\u00e3o constante.",
       },
     },
     Projects: {
       title: "Projetos",
-      subtitle: "Cases selecionados com foco em contexto, impacto e execu\u00e7\u00e3o.",
+      subtitle:
+        "Cases selecionados com foco em contexto, impacto e execu\u00e7\u00e3o.",
       codeLabel: "C\u00f3digo",
       demoLabel: "Demo",
       imageAlt: "Imagem do projeto",
@@ -48,7 +50,13 @@ export const translations = {
       groups: [
         {
           title: "Frontend",
-          items: ["React", "Next.js", "TypeScript", "Tailwind", "Framer Motion"],
+          items: [
+            "React",
+            "Next.js",
+            "TypeScript",
+            "Tailwind",
+            "Framer Motion",
+          ],
         },
         {
           title: "Mobile",

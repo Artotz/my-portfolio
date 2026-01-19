@@ -36,7 +36,11 @@ function ProjectCard({
     <motion.article
       className="flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-zinc-900/40 transition hover:-translate-y-1 hover:border-indigo-400/40 hover:shadow-lg hover:shadow-indigo-500/10"
       initial={{ opacity: 0, y: 18 }}
-      whileInView={{ opacity: 1, y: 0, transition: { duration: 0.4, delay: index * 0.05 } }}
+      whileInView={{
+        opacity: 1,
+        y: 0,
+        transition: { duration: 0.4, delay: index * 0.05 },
+      }}
       viewport={{ once: true, amount: 0.3 }}
     >
       <div className="relative h-48 w-full overflow-hidden bg-zinc-900">
@@ -52,7 +56,9 @@ function ProjectCard({
       <div className="flex flex-1 flex-col gap-4 p-6">
         <div className="flex items-start justify-between gap-4">
           <div>
-            <h3 className="text-lg font-semibold text-white">{project.title}</h3>
+            <h3 className="text-lg font-semibold text-white">
+              {project.title}
+            </h3>
             <p className="mt-1 text-sm text-zinc-400">
               {project.context ?? project.description}
             </p>
