@@ -8,7 +8,7 @@ import SectionTitle from "../components/SectionTitle";
 type ProjectSectionProps = {
   projects: ProjectType[];
   title: string;
-  subtitle: string;
+  subtitle?: string;
   codeLabel: string;
   demoLabel: string;
   imageAlt: string;
