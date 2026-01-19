@@ -9,6 +9,7 @@ type AboutSectionProps = {
     source: string;
     linkedin: string;
     mail: string;
+    whatsapp: string;
     curriculum: string;
   };
 };
@@ -52,6 +53,11 @@ export default function AboutSection({
           icon="mail"
           link="mailto:arturmcatunda@gmail.com"
           label={buttons.mail}
+        />
+        <CustomIconButton
+          icon="whatsapp"
+          link="https://wa.me/558582011193"
+          label={buttons.whatsapp}
         />
         <CustomIconButton
           icon="curriculum"

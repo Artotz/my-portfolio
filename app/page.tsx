@@ -16,15 +16,15 @@ export default function Home() {
     <main className="min-h-screen bg-zinc-950 text-white">
       <Header title={t.Profile.name} itemList={titles} labels={t.Header} />
 
-      <section id={titles[0]} className="pb-16 sm:pb-24">
+      <section
+        id={titles[0]}
+        className="flex min-h-[100svh] items-center py-16 sm:py-24"
+      >
         <HeroSection
           badge={t.Hero.badge}
           headline={t.Hero.headline}
           subheadline={t.Hero.subheadline}
-          ctaProjects={t.Hero.ctaProjects}
-          ctaContact={t.Hero.ctaContact}
           proof={t.Hero.proof}
-          projectsAnchor={titles[2]}
         />
       </section>
 
@@ -83,6 +83,14 @@ export default function Home() {
               className="rounded-full bg-indigo-500 px-5 py-2 text-sm font-semibold text-white transition hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400"
             >
               {t.Cta.emailLabel}
+            </a>
+            <a
+              href="https://wa.me/558582011193"
+              target="_blank"
+              rel="noreferrer"
+              className="rounded-full border border-white/10 px-5 py-2 text-sm font-semibold text-zinc-100 transition hover:border-white/20 hover:bg-white/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400"
+            >
+              {t.Cta.whatsappLabel}
             </a>
             <a
               href="https://www.linkedin.com/in/arturmcatunda/"

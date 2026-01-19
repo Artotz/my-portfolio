@@ -95,6 +95,7 @@ export const translations = {
       title: "Vamos conversar?",
       body: "Estou dispon\u00edvel para projetos, parcerias e conversas sobre produto, frontend e mobile.",
       emailLabel: "Enviar e-mail",
+      whatsappLabel: "WhatsApp",
       linkedinLabel: "LinkedIn",
     },
     Footer: {
@@ -105,6 +106,7 @@ export const translations = {
       source: "Github",
       linkedin: "LinkedIn",
       mail: "E-mail",
+      whatsapp: "WhatsApp",
       demo: "Demo",
       curriculum: "Curr\u00edculo",
     },
