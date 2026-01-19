@@ -1,5 +1,5 @@
 declare module "i18n" {
-  type I18nCatalogValue = string | I18nCatalog;
+  type I18nCatalogValue = string | I18nCatalog | I18nCatalogValue[];
   interface I18nCatalog {
     [key: string]: I18nCatalogValue;
   }
