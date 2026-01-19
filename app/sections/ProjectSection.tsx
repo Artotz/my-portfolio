@@ -39,6 +39,7 @@ function ProjectCard({
         y: 0,
         transition: {
           duration: 0.35,
+          delay: 0.25,
           ease: "easeOut",
           type: "tween",
         },

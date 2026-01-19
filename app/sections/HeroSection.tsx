@@ -23,7 +23,12 @@ export default function HeroSection({
         animate={{
           opacity: 1,
           y: 0,
-          transition: { duration: 0.35, ease: "easeOut", type: "tween" },
+          transition: {
+            duration: 0.35,
+            delay: 0.25,
+            ease: "easeOut",
+            type: "tween",
+          },
         }}
       >
         <p className="text-xs font-semibold uppercase tracking-[0.35em] text-zinc-400">
@@ -43,7 +48,12 @@ export default function HeroSection({
         animate={{
           opacity: 1,
           y: 0,
-          transition: { duration: 0.35, ease: "easeOut", type: "tween" },
+          transition: {
+            duration: 0.35,
+            delay: 0.25,
+            ease: "easeOut",
+            type: "tween",
+          },
         }}
       >
         {proof.map((item) => (

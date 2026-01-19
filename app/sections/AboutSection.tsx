@@ -24,12 +24,17 @@ export default function AboutSection({
     <div className="mx-auto flex w-full max-w-6xl flex-col gap-8 px-6">
       <div className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
         <motion.div
-          className="order-first mx-auto h-52 w-52 overflow-hidden rounded-full border border-white/10 bg-white/5 sm:h-60 sm:w-60 md:order-last md:mx-0 md:ml-10 md:-mt-12"
+          className="order-first mx-auto h-52 w-52 overflow-hidden rounded-full border border-white/10 bg-white/5 sm:h-60 sm:w-60 md:order-last md:mx-0 md:-mt-12 md:ml-10"
           initial={{ opacity: 0, y: 12 }}
           whileInView={{
             opacity: 1,
             y: 0,
-            transition: { duration: 0.35, ease: "easeOut", type: "tween" },
+            transition: {
+              duration: 0.35,
+              delay: 0.25,
+              ease: "easeOut",
+              type: "tween",
+            },
           }}
           viewport={{ once: true, amount: 0.3 }}
         >
@@ -49,7 +54,12 @@ export default function AboutSection({
             whileInView={{
               opacity: 1,
               y: 0,
-              transition: { duration: 0.35, ease: "easeOut", type: "tween" },
+              transition: {
+                duration: 0.35,
+                delay: 0.25,
+                ease: "easeOut",
+                type: "tween",
+              },
             }}
             viewport={{ once: true }}
           >
@@ -66,7 +76,12 @@ export default function AboutSection({
             whileInView={{
               opacity: 1,
               y: 0,
-              transition: { duration: 0.35, ease: "easeOut", type: "tween" },
+              transition: {
+                duration: 0.35,
+                delay: 0.25,
+                ease: "easeOut",
+                type: "tween",
+              },
             }}
             viewport={{ once: true, amount: 0.3 }}
           >

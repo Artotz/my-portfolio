@@ -31,7 +31,7 @@ export default function Home() {
       <section id={titles[1]} className="py-16 sm:py-24">
         <SectionTitle
           title={t.Sections.about.title}
-          subtitle={t.Sections.about.subtitle}
+          // subtitle={t.Sections.about.subtitle}
         />
         <div className="mt-10">
           <AboutSection paragraphs={t.About.paragraphs} buttons={t.Buttons} />
@@ -42,7 +42,7 @@ export default function Home() {
         <ProjectSection
           projects={projects}
           title={t.Projects.title}
-          subtitle={t.Projects.subtitle}
+          // subtitle={t.Projects.subtitle}
           codeLabel={t.Projects.codeLabel}
           demoLabel={t.Projects.demoLabel}
           imageAlt={t.Projects.imageAlt}
@@ -52,7 +52,7 @@ export default function Home() {
       <section id={titles[3]} className="py-16 sm:py-24">
         <SectionTitle
           title={t.Sections.skills.title}
-          subtitle={t.Sections.skills.subtitle}
+          // subtitle={t.Sections.skills.subtitle}
         />
         <div className="mt-10">
           <SkillsSection groups={t.Skills.groups} />
@@ -62,7 +62,7 @@ export default function Home() {
       <section className="py-16 sm:py-24">
         <SectionTitle
           title={t.Sections.process.title}
-          subtitle={t.Sections.process.subtitle}
+          // subtitle={t.Sections.process.subtitle}
         />
         <div className="mt-10">
           <ProcessSection steps={t.Process.steps} />
@@ -74,9 +74,9 @@ export default function Home() {
           <h2 className="text-3xl font-bold text-white sm:text-4xl">
             {t.Cta.title}
           </h2>
-          <p className="max-w-2xl text-sm text-zinc-300 sm:text-base">
+          {/* <p className="max-w-2xl text-sm text-zinc-300 sm:text-base">
             {t.Cta.body}
-          </p>
+          </p> */}
           <div className="flex flex-wrap items-center gap-3">
             <a
               href="mailto:arturmcatunda@gmail.com"
