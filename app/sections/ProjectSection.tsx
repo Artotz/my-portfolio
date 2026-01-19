@@ -1,161 +1,136 @@
+"use client";
+
 import { ProjectType } from "@/app/utils/types";
 import { motion } from "framer-motion";
-import { translations } from "@/app/utils/translations";
 import Image from "next/image";
-import { CustomIconButton } from "../components/CustomIconButton";
+import SectionTitle from "../components/SectionTitle";
 
-type PortfolioSectionProps = {
-  project: ProjectType;
+type ProjectSectionProps = {
+  projects: ProjectType[];
+  title: string;
+  subtitle: string;
+  codeLabel: string;
+  demoLabel: string;
+  imageAlt: string;
 };
 
-function TechnologiesBadge(text: string) {
+function ProjectCard({
+  project,
+  index,
+  labels,
+  imageAlt,
+}: {
+  project: ProjectType;
+  index: number;
+  labels: { codeLabel: string; demoLabel: string };
+  imageAlt: string;
+}) {
+  const highlights =
+    project.highlights && project.highlights.length > 0
+      ? project.highlights
+      : project.problem
+        ? [project.problem]
+        : [project.description];
+
   return (
-    <div
-      className="flex justify-center items-center px-2 py-1 mb-2 mr-2 text-xs font-semibold text-white bg-black rounded-full 
-        duration-100 hover:scale-110 cursor-default"
+    <motion.article
+      className="flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-zinc-900/40 transition hover:-translate-y-1 hover:border-indigo-400/40 hover:shadow-lg hover:shadow-indigo-500/10"
+      initial={{ opacity: 0, y: 18 }}
+      whileInView={{ opacity: 1, y: 0, transition: { duration: 0.4, delay: index * 0.05 } }}
+      viewport={{ once: true, amount: 0.3 }}
     >
-      {text}
-    </div>
+      <div className="relative h-48 w-full overflow-hidden bg-zinc-900">
+        <Image
+          src={project.image}
+          alt={`${imageAlt} ${project.title}`}
+          fill
+          sizes="(min-width: 768px) 50vw, 100vw"
+          className="object-cover"
+        />
+      </div>
+
+      <div className="flex flex-1 flex-col gap-4 p-6">
+        <div className="flex items-start justify-between gap-4">
+          <div>
+            <h3 className="text-lg font-semibold text-white">{project.title}</h3>
+            <p className="mt-1 text-sm text-zinc-400">
+              {project.context ?? project.description}
+            </p>
+          </div>
+          {project.year && (
+            <span className="rounded-full border border-white/10 px-3 py-1 text-xs text-zinc-400">
+              {project.year}
+            </span>
+          )}
+        </div>
+
+        <ul className="grid gap-2 text-sm text-zinc-200">
+          {highlights.slice(0, 3).map((item, idx) => (
+            <li key={idx} className="flex items-start gap-2">
+              <span className="mt-1 text-xs text-indigo-300">-</span>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+
+        <div className="flex flex-wrap gap-2">
+          {project.technologies.map((tech) => (
+            <span
+              key={tech}
+              className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-zinc-200"
+            >
+              {tech}
+            </span>
+          ))}
+        </div>
+
+        <div className="mt-auto flex flex-wrap gap-3">
+          <a
+            href={project.source}
+            target="_blank"
+            rel="noreferrer"
+            className="rounded-full border border-white/10 px-4 py-2 text-sm font-semibold text-zinc-100 transition hover:border-white/20 hover:bg-white/5"
+          >
+            {labels.codeLabel}
+          </a>
+          {project.demo && (
+            <a
+              href={project.demo}
+              target={project.demo.startsWith("http") ? "_blank" : undefined}
+              rel={project.demo.startsWith("http") ? "noreferrer" : undefined}
+              className="rounded-full border border-white/10 px-4 py-2 text-sm font-semibold text-zinc-100 transition hover:border-white/20 hover:bg-white/5"
+            >
+              {labels.demoLabel}
+            </a>
+          )}
+        </div>
+      </div>
+    </motion.article>
   );
 }
 
-export default function PortfolioSection(props: PortfolioSectionProps) {
-  const scrollDelay = 0.25;
-
+export default function ProjectSection({
+  projects,
+  title,
+  subtitle,
+  codeLabel,
+  demoLabel,
+  imageAlt,
+}: ProjectSectionProps) {
   return (
-    <div className="flex flex-col md:flex-row w-full h-full justify-center items-center sm:px-16 gap-4">
-      {/* DIV ESQUERDA */}
-      <div className="flex flex-col w-full px-4 sm:px-0 justify-center items-center">
-        <motion.div
-          className="flex"
-          initial={{ opacity: 0, x: -50 }}
-          whileInView={{
-            opacity: 1,
-            x: 0,
-            transition: { delay: scrollDelay + 0.25, duration: 0.5 },
-          }}
-          // viewport={{ once: true }}
-          transition={{ delay: 0, duration: 0 }}
-        >
-          <Image
-            src={props.project.image}
-            width={600}
-            height={600}
-            alt="Imagem do Projeto"
+    <div className="flex flex-col gap-10">
+      <SectionTitle title={title} subtitle={subtitle} />
+
+      <div className="mx-auto grid w-full max-w-6xl gap-6 px-6 md:grid-cols-2">
+        {projects.map((project, index) => (
+          <ProjectCard
+            key={project.title}
+            project={project}
+            index={index}
+            labels={{ codeLabel, demoLabel }}
+            imageAlt={imageAlt}
           />
-        </motion.div>
-      </div>
-
-      {/* DIV DIREITA */}
-      <div className="flex flex-col w-full px-4 sm:p-16 gap-4 justify-center items-center">
-        {/* TITULO */}
-        <motion.div
-          className="flex text-3xl font-bold text-white text-center justify-center items-center"
-          initial={{ opacity: 0, x: 50 }}
-          whileInView={{
-            opacity: 1,
-            x: 0,
-            transition: { delay: scrollDelay + 0.25, duration: 0.5 },
-          }}
-          // viewport={{ once: true }}
-          transition={{ delay: 0, duration: 0 }}
-          animate
-        >
-          {props.project.title}
-        </motion.div>
-
-        {/* DESCRICAO */}
-        <motion.div
-          className="flex w-full text-xs sm:text-xl text-white text-justify sm:px-4 justify-center items-center"
-          initial={{ opacity: 0, x: 50 }}
-          whileInView={{
-            opacity: 1,
-            x: 0,
-            transition: { delay: scrollDelay + 0.25, duration: 0.5 },
-          }}
-          // viewport={{ once: true }}
-          transition={{ delay: 0, duration: 0 }}
-        >
-          {props.project.description}
-        </motion.div>
-
-        {/* TECNOLOGIAS */}
-        <div className="flex flex-col w-full h-full gap-4 justify-center items-center">
-          <motion.div
-            className="text-3xl font-bold text-white text-justify px-4"
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{
-              opacity: 1,
-              x: 0,
-              transition: { delay: scrollDelay + 0.25, duration: 0.5 },
-            }}
-            // viewport={{ once: true }}
-            transition={{ delay: 0, duration: 0 }}
-          >
-            {translations.br.PortfolioSection.Technologies}
-          </motion.div>
-
-          <div className="flex flex-row flex-wrap justify-center items-center">
-            {props.project.technologies.map((v, i) => {
-              return (
-                <motion.div
-                  key={i}
-                  className="flex"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{
-                    opacity: 1,
-                    y: 0,
-                    transition: {
-                      delay: scrollDelay + 0.25 + i * 0.1,
-                      duration: 0.5,
-                    },
-                  }}
-                  // viewport={{ once: true }}
-                  transition={{
-                    delay: 0,
-                    duration: 0,
-                  }}
-                >
-                  {TechnologiesBadge(v)}
-                </motion.div>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* ICONES */}
-        <div className="flex flex-row justify-center items-center gap-8">
-          <motion.div
-            className="flex"
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{
-              opacity: 1,
-              y: 0,
-              transition: { delay: scrollDelay + 0.25, duration: 0.5 },
-            }}
-            // viewport={{ once: true }}
-            transition={{ delay: 0, duration: 0 }}
-          >
-            <CustomIconButton
-              icon="source"
-              size="30"
-              link={props.project.source}
-            />
-          </motion.div>
-          <motion.div
-            className={props.project.demo == "" ? "hidden" : "flex"}
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{
-              opacity: 1,
-              y: 0,
-              transition: { delay: scrollDelay + 0.3, duration: 0.5 },
-            }}
-            // viewport={{ once: true }}
-            transition={{ delay: 0, duration: 0 }}
-          >
-            <CustomIconButton icon="demo" size="30" link={props.project.demo} />
-          </motion.div>
-        </div>
+        ))}
       </div>
     </div>
   );

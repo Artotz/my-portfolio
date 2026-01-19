@@ -1,20 +1,29 @@
 type ScrollSnapContainerProps = {
-  size?: string;
-  snap?: "start" | "center" | "end";
+  fullScreen?: boolean;
+  snap?: "start" | "center" | "end" | "none";
+  className?: string;
 };
 
 export const ScrollSnapContainer: React.FC<
   React.PropsWithChildren<ScrollSnapContainerProps>
 > = ({
   children,
-  size = "100vh",
-  snap = "center",
-  ...props
+  fullScreen = false,
+  snap = "none",
+  className,
 }: React.PropsWithChildren<ScrollSnapContainerProps>) => {
+  const snapClassMap = {
+    start: "snap-start",
+    center: "snap-center",
+    end: "snap-end",
+    none: "",
+  };
+  const snapClass = snapClassMap[snap];
+  const sizeClass = fullScreen ? "min-h-screen" : "py-16 sm:py-24";
+
   return (
     <div
-      className={`flex flex-col w-full justify-center items-center`}
-      style={{ height: size }}
+      className={`flex w-full flex-col items-center justify-center ${sizeClass} ${snapClass} ${className ?? ""}`}
     >
       {children}
     </div>

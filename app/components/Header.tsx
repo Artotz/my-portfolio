@@ -1,176 +1,106 @@
-import { useState } from "react";
+"use client";
+
+import { useEffect, useState } from "react";
 
 type HeaderProps = {
   title: string;
-  headerColor: "filled" | "transparent";
-  scrollRatio: number;
   itemList: string[];
-  scrollFunction: (e: any) => void;
+  labels: {
+    openMenuLabel: string;
+    menuLabel: string;
+  };
 };
 
-export default function Header(props: HeaderProps) {
+export default function Header({ title, itemList, labels }: HeaderProps) {
   const [isHamburgerOpen, setIsHamburgerOpen] = useState(false);
+  const homeAnchor = itemList[0] ? `#${itemList[0]}` : "#";
+  const [scrolled, setScrolled] = useState(false);
 
-  const headerItemList = (id: string, i: number) => {
-    return (
-      <button
-        key={i}
-        tabIndex={-1}
-        className={
-          props.headerColor !== "filled"
-            ? "flex p-1 px-2 border-2 rounded-md duration-500 bg-white text-black border-black hover-hover:hover:bg-black hover-hover:hover:text-white hover-hover:hover:border-white"
-            : "flex p-1 px-2 border-2 rounded-md duration-500 bg-black text-white border-white hover-hover:hover:bg-white hover-hover:hover:text-black hover-hover:hover:border-black"
-        }
-        onClick={() => {
-          document.getElementById(id)?.scrollIntoView();
-          props.scrollFunction(null);
-          setIsHamburgerOpen(false);
-        }}
-      >
-        {id}
-      </button>
-    );
-  };
+  const linkClasses =
+    "inline-flex items-center rounded-full border border-white/10 px-4 py-2 text-sm font-semibold text-zinc-100 transition hover:border-white/20 hover:bg-white/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400";
 
-  const headerItemListMobile = (id: string, i: number) => {
-    return (
-      <button
-        key={i}
-        tabIndex={-1}
-        className={
-          props.headerColor !== "filled"
-            ? "flex p-1 px-2 border-t-2 last:border-b-2 duration-500 bg-white text-black border-black"
-            : "flex p-1 px-2 border-t-2 last:border-b-2 duration-500 bg-black text-white border-white"
-        }
-        onClick={() => {
-          document.getElementById(id)?.scrollIntoView();
-          props.scrollFunction(null);
-          setIsHamburgerOpen(false);
-        }}
-      >
-        {id}
-      </button>
-    );
-  };
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 8);
+    };
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
-    <header className="fixed w-full z-[999]">
-      <title>{props.title}</title>
+    <header className="fixed top-0 z-[999] w-full">
       <div
-        className="flex flex-col sticky w-full h-12 top-0 rounded-b-lg border-black border-b-2 duration-1000 z-[999] overflow-clip"
-        style={
-          props.headerColor == "filled"
-            ? {
-                backgroundColor: "#000",
-                borderColor: "black",
-              }
-            : {
-                backgroundColor: "transparent",
-                borderColor: "transparent",
-              }
-        }
+        className={`flex h-16 w-full items-center transition-colors duration-300 ${
+          scrolled
+            ? "border-b border-white/10 bg-zinc-950/70 backdrop-blur"
+            : "border-b border-transparent bg-transparent"
+        }`}
       >
-        {/* ITEMS */}
-        <div className="flex flex-grow w-full h-full justify-between items-center text-xs">
-          {/* ESQUERDA */}
-          <div className="flex flex-grow px-4 justify-start items-center text-xs">
-            <div
-              className="text-3xl font-bold duration-1000"
-              style={
-                props.headerColor == "filled"
-                  ? {
-                      color: "white",
-                    }
-                  : {
-                      color: "black",
-                    }
-              }
-            >
-              HEADER
+        <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-6">
+          <a
+            href={homeAnchor}
+            className="text-lg font-semibold text-white transition hover:text-indigo-200"
+          >
+            {title}
+          </a>
+
+          <nav className="hidden items-center gap-2 sm:flex">
+            {itemList.map((item) => (
+              <a key={item} href={`#${item}`} className={linkClasses}>
+                {item}
+              </a>
+            ))}
+          </nav>
+
+          <button
+            type="button"
+            aria-label={labels.openMenuLabel}
+            className="flex h-10 w-10 items-center justify-center sm:hidden"
+            onClick={() => setIsHamburgerOpen(!isHamburgerOpen)}
+          >
+            <span className="sr-only">{labels.menuLabel}</span>
+            <div className="flex flex-col gap-1">
+              <span
+                className={`h-[2px] w-6 rounded-full bg-white transition-transform ${
+                  isHamburgerOpen ? "translate-y-[6px] rotate-45" : ""
+                }`}
+              />
+              <span
+                className={`h-[2px] w-6 rounded-full bg-white transition-opacity ${
+                  isHamburgerOpen ? "opacity-0" : "opacity-100"
+                }`}
+              />
+              <span
+                className={`h-[2px] w-6 rounded-full bg-white transition-transform ${
+                  isHamburgerOpen ? "-translate-y-[6px] -rotate-45" : ""
+                }`}
+              />
             </div>
-          </div>
-
-          {/* DIREITA */}
-          {/* LISTA */}
-          <div className="hidden sm:flex gap-2 px-2 justify-around items-center text-xs">
-            {props.itemList.map((v, i) => headerItemList(v, i))}
-          </div>
-          {/* HAMBURGER */}
-          <div className="flex flex-col h-full sm:hidden gap-2 px-2 justify-center items-center text-xs">
-            <button
-              tabIndex={-1}
-              className={
-                props.headerColor !== "filled"
-                  ? "flex h-full flex-col gap-[4px] justify-center items-center duration-500"
-                  : "flex h-full flex-col gap-[4px] justify-center items-center duration-500"
-              }
-              onClick={() => {
-                setIsHamburgerOpen(!isHamburgerOpen);
-              }}
-            >
-              <div
-                className={
-                  props.headerColor !== "filled"
-                    ? "flex w-[24px] h-[4px] duration-500 bg-black"
-                    : "flex w-[24px] h-[4px] duration-500 bg-white"
-                }
-                style={
-                  isHamburgerOpen
-                    ? { translate: "0 200%", transform: "rotate(-45deg)" }
-                    : { translate: "0", transform: "rotate(0deg)" }
-                }
-              ></div>
-              <div
-                className={
-                  props.headerColor !== "filled"
-                    ? "flex w-[24px] h-[4px] duration-500 bg-black"
-                    : "flex w-[24px] h-[4px] duration-500 bg-white"
-                }
-                style={
-                  isHamburgerOpen
-                    ? { translate: "12.5%", scale: "0 100%", opacity: 100 }
-                    : { translate: "0", scale: "100% 100%", opacity: 100 }
-                }
-              ></div>
-              <div
-                className={
-                  props.headerColor !== "filled"
-                    ? "flex w-[24px] h-[4px] duration-500 bg-black"
-                    : "flex w-[24px] h-[4px] duration-500 bg-white"
-                }
-                style={
-                  isHamburgerOpen
-                    ? { translate: "0 -200%", transform: "rotate(45deg)" }
-                    : { translate: "0", transform: "rotate(0deg)" }
-                }
-              ></div>
-            </button>
-          </div>
+          </button>
         </div>
-
-        {/* SCROLL PROGRESS BAR */}
-        <div
-          className="flex h-2 bg-red-500/75"
-          style={{
-            width: `${props.scrollRatio}%`,
-            transition: "1s",
-          }}
-        ></div>
       </div>
 
       <div
-        className="flex sm:hidden rounded-b-lg absolute flex-col w-full h-fit overflow-hidden duration-500"
-        style={
+        className={`absolute right-6 top-16 w-48 overflow-hidden rounded-2xl border border-white/10 bg-zinc-950/90 shadow-xl backdrop-blur transition-all duration-300 sm:hidden ${
           isHamburgerOpen
-            ? {
-                left: "65vw",
-              }
-            : {
-                left: "100vw",
-              }
-        }
+            ? "translate-y-0 opacity-100"
+            : "-translate-y-4 opacity-0 pointer-events-none"
+        }`}
       >
-        {props.itemList.map((v, i) => headerItemListMobile(v, i))}
+        <div className="flex flex-col py-2">
+          {itemList.map((item) => (
+            <a
+              key={item}
+              href={`#${item}`}
+              className="px-4 py-2 text-sm font-semibold text-zinc-100 transition hover:bg-white/5"
+              onClick={() => setIsHamburgerOpen(false)}
+            >
+              {item}
+            </a>
+          ))}
+        </div>
       </div>
     </header>
   );
