@@ -13,7 +13,7 @@ export default function ProcessSection({ steps }: ProcessSectionProps) {
   return (
     <div className="mx-auto w-full max-w-6xl px-6">
       <div className="grid gap-6 md:grid-cols-3">
-        {steps.map((step, index) => (
+        {steps.map((step) => (
           <motion.div
             key={step.title}
             className="rounded-2xl border border-white/10 bg-zinc-900/40 p-6"
@@ -22,8 +22,7 @@ export default function ProcessSection({ steps }: ProcessSectionProps) {
               opacity: 1,
               y: 0,
               transition: {
-                duration: 0.4,
-                delay: index * 0.05,
+                duration: 0.35,
                 ease: "easeOut",
                 type: "tween",
               },

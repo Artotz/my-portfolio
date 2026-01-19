@@ -15,30 +15,16 @@ export default function HeroSection({
   subheadline,
   proof,
 }: HeroSectionProps) {
-  const badgesContainer = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: { staggerChildren: 0.08, delayChildren: 0.2 },
-    },
-  };
-
-  const badgeItem = {
-    hidden: { opacity: 0, y: 10 },
-    show: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.4, ease: "easeOut" },
-    },
-  };
-
   return (
     <div className="mx-auto w-full max-w-6xl px-6 py-8 sm:py-12">
       <motion.div
         className="flex flex-col gap-6 text-left"
         initial={{ opacity: 0, y: 24 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
+        animate={{
+          opacity: 1,
+          y: 0,
+          transition: { duration: 0.35, ease: "easeOut", type: "tween" },
+        }}
       >
         <p className="text-xs font-semibold uppercase tracking-[0.35em] text-zinc-400">
           {badge}
@@ -53,18 +39,20 @@ export default function HeroSection({
 
       <motion.div
         className="mt-10 flex flex-wrap gap-3"
-        variants={badgesContainer}
-        initial="hidden"
-        animate="show"
+        initial={{ opacity: 0, y: 12 }}
+        animate={{
+          opacity: 1,
+          y: 0,
+          transition: { duration: 0.35, ease: "easeOut", type: "tween" },
+        }}
       >
         {proof.map((item) => (
-          <motion.span
+          <span
             key={item}
             className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-semibold text-zinc-200"
-            variants={badgeItem}
           >
             {item}
-          </motion.span>
+          </span>
         ))}
       </motion.div>
     </div>

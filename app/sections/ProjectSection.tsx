@@ -23,23 +23,6 @@ function ProjectCard({
   labels: { codeLabel: string; demoLabel: string };
   imageAlt: string;
 }) {
-  const techContainer = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: { staggerChildren: 0.08, delayChildren: 0.2 },
-    },
-  };
-
-  const techItem = {
-    hidden: { opacity: 0, y: 10 },
-    show: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.4, ease: "easeOut" },
-    },
-  };
-
   const highlights =
     project.highlights && project.highlights.length > 0
       ? project.highlights
@@ -55,7 +38,7 @@ function ProjectCard({
         opacity: 1,
         y: 0,
         transition: {
-          duration: 0.45,
+          duration: 0.35,
           ease: "easeOut",
           type: "tween",
         },
@@ -100,23 +83,16 @@ function ProjectCard({
           ))}
         </ul>
 
-        <motion.div
-          className="flex flex-wrap gap-2"
-          variants={techContainer}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.3 }}
-        >
+        <div className="flex flex-wrap gap-2">
           {project.technologies.map((tech) => (
-            <motion.span
+            <span
               key={tech}
               className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-semibold text-zinc-200 transition hover:border-white/20 hover:bg-white/10"
-              variants={techItem}
             >
               {tech}
-            </motion.span>
+            </span>
           ))}
-        </motion.div>
+        </div>
 
         <div className="mt-auto flex flex-wrap gap-3">
           <a
