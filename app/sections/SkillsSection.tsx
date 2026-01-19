@@ -1,27 +1,15 @@
-const skills = [
-  {
-    title: "Frontend",
-    items: ["React", "Next.js", "TypeScript", "Tailwind", "Framer Motion"],
-  },
-  {
-    title: "Mobile",
-    items: ["React Native", "Expo", "Expo Router", "Async Storage"],
-  },
-  {
-    title: "Backend",
-    items: ["Node.js", "Express", "Spring", "Firebase", "REST APIs"],
-  },
-  {
-    title: "Infra/Tooling",
-    items: ["Git", "GitHub Actions", "Docker", "Vite", "Jest"],
-  },
-];
+type SkillsSectionProps = {
+  groups: {
+    title: string;
+    items: string[];
+  }[];
+};
 
-export default function SkillsSection() {
+export default function SkillsSection({ groups }: SkillsSectionProps) {
   return (
     <div className="mx-auto w-full max-w-6xl px-6">
       <div className="grid gap-6 md:grid-cols-2">
-        {skills.map((group) => (
+        {groups.map((group) => (
           <div
             key={group.title}
             className="rounded-2xl border border-white/10 bg-zinc-900/40 p-6"

@@ -2,6 +2,7 @@ type CustomIconButtonProps = {
   icon: "source" | "demo" | "linkedin" | "mail" | "curriculum";
   size?: string;
   link: string;
+  label: string;
   variant?: "primary" | "secondary";
 };
 
@@ -77,13 +78,6 @@ function buttonSVGs(svg: string, size: string) {
 }
 
 export function CustomIconButton(props: CustomIconButtonProps) {
-  const labels = {
-    source: "Github",
-    linkedin: "LinkedIn",
-    mail: "E-mail",
-    demo: "Demo",
-    curriculum: "Curr\u00edculo",
-  };
   const isExternal = props.link.startsWith("http");
   const size = props.size ?? "18";
   const variantClasses =
@@ -101,7 +95,7 @@ export function CustomIconButton(props: CustomIconButtonProps) {
       <span className="flex h-5 w-5 items-center justify-center">
         {buttonSVGs(props.icon, size)}
       </span>
-      {labels[props.icon]}
+      {props.label}
     </a>
   );
 }

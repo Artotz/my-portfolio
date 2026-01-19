@@ -1,7 +1,19 @@
+"use client";
+
 import { motion } from "framer-motion";
 import { CustomIconButton } from "../components/CustomIconButton";
 
-export default function AboutSection() {
+type AboutSectionProps = {
+  paragraphs: string[];
+  buttons: {
+    source: string;
+    linkedin: string;
+    mail: string;
+    curriculum: string;
+  };
+};
+
+export default function AboutSection({ paragraphs, buttons }: AboutSectionProps) {
   return (
     <div className="mx-auto flex w-full max-w-6xl flex-col gap-8 px-6">
       <motion.div
@@ -10,18 +22,11 @@ export default function AboutSection() {
         whileInView={{ opacity: 1, y: 0, transition: { duration: 0.5 } }}
         viewport={{ once: true }}
       >
-        <p>
-          Sou Artur Melo Catunda, desenvolvedor focado em React e mobile,
-          apaixonado por produtos bem estruturados.
-        </p>
-        <p className="mt-4">
-          Trabalho para transformar ideias em experi\u00eancias digitais com boa
-          performance, manuten\u00e7\u00e3o simples e impacto real no neg\u00f3cio.
-        </p>
-        <p className="mt-4">
-          Gosto de colaborar de perto com times e stakeholders para tomar
-          decis\u00f5es claras e entregar evolu\u00e7\u00f5es consistentes.
-        </p>
+        {paragraphs.map((paragraph, index) => (
+          <p key={paragraph} className={index === 0 ? "" : "mt-4"}>
+            {paragraph}
+          </p>
+        ))}
       </motion.div>
 
       <motion.div
@@ -30,13 +35,26 @@ export default function AboutSection() {
         whileInView={{ opacity: 1, y: 0, transition: { duration: 0.4 } }}
         viewport={{ once: true }}
       >
-        <CustomIconButton icon="source" link="https://github.com/Artotz" />
+        <CustomIconButton
+          icon="source"
+          link="https://github.com/Artotz"
+          label={buttons.source}
+        />
         <CustomIconButton
           icon="linkedin"
           link="https://www.linkedin.com/in/arturmcatunda/"
+          label={buttons.linkedin}
         />
-        <CustomIconButton icon="mail" link="mailto:arturmcatunda@gmail.com" />
-        <CustomIconButton icon="curriculum" link="curriculo.pdf" />
+        <CustomIconButton
+          icon="mail"
+          link="mailto:arturmcatunda@gmail.com"
+          label={buttons.mail}
+        />
+        <CustomIconButton
+          icon="curriculum"
+          link="curriculo.pdf"
+          label={buttons.curriculum}
+        />
       </motion.div>
     </div>
   );

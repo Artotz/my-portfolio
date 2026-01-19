@@ -1,3 +1,5 @@
+"use client";
+
 import { ProjectType } from "@/app/utils/types";
 import { motion } from "framer-motion";
 import Image from "next/image";
@@ -5,9 +7,24 @@ import SectionTitle from "../components/SectionTitle";
 
 type ProjectSectionProps = {
   projects: ProjectType[];
+  title: string;
+  subtitle: string;
+  codeLabel: string;
+  demoLabel: string;
+  imageAlt: string;
 };
 
-function ProjectCard({ project, index }: { project: ProjectType; index: number }) {
+function ProjectCard({
+  project,
+  index,
+  labels,
+  imageAlt,
+}: {
+  project: ProjectType;
+  index: number;
+  labels: { codeLabel: string; demoLabel: string };
+  imageAlt: string;
+}) {
   const highlights =
     project.highlights && project.highlights.length > 0
       ? project.highlights
@@ -25,7 +42,7 @@ function ProjectCard({ project, index }: { project: ProjectType; index: number }
       <div className="relative h-48 w-full overflow-hidden bg-zinc-900">
         <Image
           src={project.image}
-          alt={`Imagem do projeto ${project.title}`}
+          alt={`${imageAlt} ${project.title}`}
           fill
           sizes="(min-width: 768px) 50vw, 100vw"
           className="object-cover"
@@ -50,7 +67,7 @@ function ProjectCard({ project, index }: { project: ProjectType; index: number }
         <ul className="grid gap-2 text-sm text-zinc-200">
           {highlights.slice(0, 3).map((item, idx) => (
             <li key={idx} className="flex items-start gap-2">
-              <span className="mt-1 text-xs text-indigo-300">?</span>
+              <span className="mt-1 text-xs text-indigo-300">-</span>
               <span>{item}</span>
             </li>
           ))}
@@ -74,7 +91,7 @@ function ProjectCard({ project, index }: { project: ProjectType; index: number }
             rel="noreferrer"
             className="rounded-full border border-white/10 px-4 py-2 text-sm font-semibold text-zinc-100 transition hover:border-white/20 hover:bg-white/5"
           >
-            C\u00f3digo
+            {labels.codeLabel}
           </a>
           {project.demo && (
             <a
@@ -83,7 +100,7 @@ function ProjectCard({ project, index }: { project: ProjectType; index: number }
               rel={project.demo.startsWith("http") ? "noreferrer" : undefined}
               className="rounded-full border border-white/10 px-4 py-2 text-sm font-semibold text-zinc-100 transition hover:border-white/20 hover:bg-white/5"
             >
-              Demo
+              {labels.demoLabel}
             </a>
           )}
         </div>
@@ -92,17 +109,27 @@ function ProjectCard({ project, index }: { project: ProjectType; index: number }
   );
 }
 
-export default function ProjectSection({ projects }: ProjectSectionProps) {
+export default function ProjectSection({
+  projects,
+  title,
+  subtitle,
+  codeLabel,
+  demoLabel,
+  imageAlt,
+}: ProjectSectionProps) {
   return (
     <div className="flex flex-col gap-10">
-      <SectionTitle
-        title="Projetos"
-        subtitle="Cases selecionados com foco em contexto, impacto e execu\u00e7\u00e3o."
-      />
+      <SectionTitle title={title} subtitle={subtitle} />
 
       <div className="mx-auto grid w-full max-w-6xl gap-6 px-6 md:grid-cols-2">
         {projects.map((project, index) => (
-          <ProjectCard key={project.title} project={project} index={index} />
+          <ProjectCard
+            key={project.title}
+            project={project}
+            index={index}
+            labels={{ codeLabel, demoLabel }}
+            imageAlt={imageAlt}
+          />
         ))}
       </div>
     </div>

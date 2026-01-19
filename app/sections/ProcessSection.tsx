@@ -1,22 +1,11 @@
-const steps = [
-  {
-    title: "Arquitetura clara",
-    description:
-      "Defino estruturas simples e escal\u00e1veis para facilitar manuten\u00e7\u00e3o e evolu\u00e7\u00e3o.",
-  },
-  {
-    title: "Comunica\u00e7\u00e3o objetiva",
-    description:
-      "Alinho expectativas, proponho solu\u00e7\u00f5es e reporto progresso com transpar\u00eancia.",
-  },
-  {
-    title: "Entrega incremental",
-    description:
-      "Entrego em ciclos curtos para validar cedo e reduzir riscos.",
-  },
-];
+type ProcessSectionProps = {
+  steps: {
+    title: string;
+    description: string;
+  }[];
+};
 
-export default function ProcessSection() {
+export default function ProcessSection({ steps }: ProcessSectionProps) {
   return (
     <div className="mx-auto w-full max-w-6xl px-6">
       <div className="grid gap-6 md:grid-cols-3">

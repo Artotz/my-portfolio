@@ -1,16 +1,33 @@
-import { useState } from "react";
+"use client";
+
+import { useEffect, useState } from "react";
 
 type HeaderProps = {
   title: string;
   itemList: string[];
-  scrolled: boolean;
+  labels: {
+    openMenuLabel: string;
+    menuLabel: string;
+  };
 };
 
-export default function Header({ title, itemList, scrolled }: HeaderProps) {
+export default function Header({ title, itemList, labels }: HeaderProps) {
   const [isHamburgerOpen, setIsHamburgerOpen] = useState(false);
+  const homeAnchor = itemList[0] ? `#${itemList[0]}` : "#";
+  const [scrolled, setScrolled] = useState(false);
 
   const linkClasses =
     "inline-flex items-center rounded-full border border-white/10 px-4 py-2 text-sm font-semibold text-zinc-100 transition hover:border-white/20 hover:bg-white/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400";
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 8);
+    };
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <header className="fixed top-0 z-[999] w-full">
@@ -23,7 +40,7 @@ export default function Header({ title, itemList, scrolled }: HeaderProps) {
       >
         <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-6">
           <a
-            href="#In\u00edcio"
+            href={homeAnchor}
             className="text-lg font-semibold text-white transition hover:text-indigo-200"
           >
             {title}
@@ -39,11 +56,11 @@ export default function Header({ title, itemList, scrolled }: HeaderProps) {
 
           <button
             type="button"
-            aria-label="Abrir menu"
+            aria-label={labels.openMenuLabel}
             className="flex h-10 w-10 items-center justify-center sm:hidden"
             onClick={() => setIsHamburgerOpen(!isHamburgerOpen)}
           >
-            <span className="sr-only">Menu</span>
+            <span className="sr-only">{labels.menuLabel}</span>
             <div className="flex flex-col gap-1">
               <span
                 className={`h-[2px] w-6 rounded-full bg-white transition-transform ${
