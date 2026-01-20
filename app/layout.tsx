@@ -6,8 +6,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Artur Catunda | Desenvolvedor React & Mobile",
-  description:
-    "Portf\u00f3lio de Artur Catunda com projetos em React, Next.js e React Native. Foco em produtos digitais com performance e manuten\u00e7\u00e3o.",
+  description: "Portf\u00f3lio de Artur Catunda.",
 };
 
 export default function RootLayout({
