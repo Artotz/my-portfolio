@@ -32,7 +32,7 @@ function ProjectCard({
 
   return (
     <motion.article
-      className="flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-zinc-900/40 spectrum-card"
+      className="spectrum-card flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-zinc-900/40 p-1"
       initial={{ opacity: 0, y: 16 }}
       whileInView={{
         opacity: 1,
@@ -46,7 +46,7 @@ function ProjectCard({
       }}
       viewport={{ once: true, amount: 0.3 }}
     >
-      <div className="relative h-48 w-full overflow-hidden bg-zinc-900">
+      <div className="relative h-48 w-full overflow-hidden rounded-t-xl bg-zinc-900">
         <Image
           src={project.image}
           alt={`${imageAlt} ${project.title}`}

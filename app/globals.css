@@ -112,15 +112,9 @@
     content: "";
     position: absolute;
     inset: 0;
-    background-image: linear-gradient(
-        rgba(255, 255, 255, 0.035) 1px,
-        transparent 1px
-      ),
-      linear-gradient(
-        90deg,
-        rgba(255, 255, 255, 0.035) 1px,
-        transparent 1px
-      );
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
     background-size: 80px 80px;
     opacity: 0.1;
     pointer-events: none;
@@ -136,53 +130,76 @@
     -webkit-background-clip: text;
   }
 
+  .spectrum-text-animate {
+    background-image: var(--spectrum-gradient);
+    background-size: 300% 100%;
+    background-position: 0% 50%;
+    background-clip: text;
+    color: transparent;
+    -webkit-background-clip: text;
+    animation: spectrum-text-flow 6s ease-in-out infinite;
+    will-change: background-position;
+  }
+
   /* Idea 3: Prism card outline */
-  @property --spectrum-angle {
-    syntax: "<angle>";
-    inherits: false;
-    initial-value: 0deg;
-  }
-
-  @property --spectrum-pulse {
-    syntax: "<number>";
-    inherits: false;
-    initial-value: 1;
-  }
-
   .spectrum-card {
-    --spectrum-angle: 0deg;
-    --spectrum-pulse: 1;
     position: relative;
     border-radius: 1rem;
-    border: 1px solid transparent;
-    background:
-      linear-gradient(rgba(24, 24, 27, 0.55), rgba(24, 24, 27, 0.55))
-        padding-box,
-      conic-gradient(
-          from var(--spectrum-angle),
-          var(--spectrum-1),
-          var(--spectrum-2),
-          var(--spectrum-3),
-          var(--spectrum-4),
-          var(--spectrum-5),
-          var(--spectrum-1)
-        )
-        border-box;
-    background-clip: padding-box, border-box;
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background-color: transparent;
     transition: box-shadow 0.2s ease;
     overflow: hidden;
   }
 
+  .spectrum-card::before {
+    content: "";
+    position: absolute;
+    inset: -999px;
+    border-radius: inherit;
+    background: conic-gradient(
+      from 180deg,
+      var(--spectrum-1),
+      var(--spectrum-2),
+      var(--spectrum-3),
+      var(--spectrum-4),
+      var(--spectrum-5),
+      var(--spectrum-1)
+    );
+    opacity: 0;
+    pointer-events: none;
+    transform-origin: 50% 50%;
+    transform: rotate(0deg);
+    transition: opacity 0.2s ease;
+    will-change: transform, opacity;
+    z-index: 0;
+  }
+
+  .spectrum-card::after {
+    content: "";
+    position: absolute;
+    inset: 2px;
+    border-radius: calc(1rem - 1px);
+    background-color: #18181b;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .spectrum-card > * {
+    position: relative;
+    z-index: 2;
+  }
+
+  .spectrum-card:hover::before,
+  .spectrum-card:focus-within::before {
+    opacity: 0.85;
+    animation: spectrum-spin 2.8s linear infinite;
+  }
+
   .spectrum-card:hover,
   .spectrum-card:focus-within {
-    animation:
-      spectrum-spin 2.8s linear infinite,
-      spectrum-breathe 2.2s ease-in-out infinite;
     box-shadow:
-      inset 0 0 0 1px rgba(255, 255, 255, 0.08),
-      0 0 calc(14px * var(--spectrum-pulse)) rgba(236, 72, 153, 0.2),
-      0 0 calc(22px * var(--spectrum-pulse)) rgba(34, 211, 238, 0.22);
+      0 0 18px rgba(236, 72, 153, 0.2),
+      0 0 34px rgba(34, 211, 238, 0.24);
   }
 
   /* Idea 4: Spectrum pills and buttons */
@@ -233,24 +250,29 @@
   }
 }
 
-@keyframes spectrum-spin {
-  to {
-    --spectrum-angle: 360deg;
+@keyframes spectrum-text-flow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
   }
 }
 
-@keyframes spectrum-breathe {
-  0%,
-  100% {
-    --spectrum-pulse: 0.94;
-  }
-  50% {
-    --spectrum-pulse: 1.06;
+@keyframes spectrum-spin {
+  to {
+    transform: rotate(360deg);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .spectrum-surface::before,
+  .spectrum-text-animate,
+  .spectrum-card:hover::before,
+  .spectrum-card:focus-within::before,
   .spectrum-card:hover,
   .spectrum-card:focus-within {
     animation: none !important;
