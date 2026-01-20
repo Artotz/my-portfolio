@@ -94,7 +94,7 @@ export const translations = {
     Cta: {
       title: "Vamos conversar?",
       body: "Estou dispon\u00edvel para projetos, parcerias e conversas sobre produto, frontend e mobile.",
-      emailLabel: "Enviar e-mail",
+      emailLabel: "E-mail",
       whatsappLabel: "WhatsApp",
       linkedinLabel: "LinkedIn",
     },

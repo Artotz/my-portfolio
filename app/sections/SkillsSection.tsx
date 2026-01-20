@@ -35,7 +35,7 @@ export default function SkillsSection({ groups }: SkillsSectionProps) {
               {group.items.map((item) => (
                 <span
                   key={item}
-                  className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-semibold text-zinc-200 transition hover:border-white/20 hover:bg-white/10 spectrum-pill"
+                  className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-semibold text-zinc-200 transition hover:border-white/20 hover:bg-white/10"
                 >
                   {item}
                 </span>
