@@ -17,7 +17,7 @@ export default function Header({ title, itemList, labels }: HeaderProps) {
   const [scrolled, setScrolled] = useState(false);
 
   const linkClasses =
-    "inline-flex items-center rounded-full border border-white/10 px-4 py-2 text-sm font-semibold text-zinc-100 transition hover:border-white/20 hover:bg-white/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400 spectrum-hover-parent";
+    "inline-flex items-center rounded-full border border-white/10 px-4 py-2 text-sm font-semibold text-zinc-100 transition hover:border-white/20  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400 spectrum-hover-parent";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -41,7 +41,7 @@ export default function Header({ title, itemList, labels }: HeaderProps) {
         <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-6">
           <a
             href={homeAnchor}
-            className="text-lg font-semibold text-white transition spectrum-hover-parent"
+            className="spectrum-hover-parent text-lg font-semibold text-white transition"
           >
             <span className="spectrum-text-hover">{title}</span>
           </a>
@@ -94,7 +94,7 @@ export default function Header({ title, itemList, labels }: HeaderProps) {
             <a
               key={item}
               href={`#${item}`}
-              className="px-4 py-2 text-sm font-semibold text-zinc-100 transition hover:bg-white/5"
+              className="px-4 py-2 text-sm font-semibold text-zinc-100 transition"
               onClick={() => setIsHamburgerOpen(false)}
             >
               {item}

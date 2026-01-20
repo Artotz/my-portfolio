@@ -95,14 +95,14 @@ export function CustomIconButton(props: CustomIconButtonProps) {
   const variantClasses =
     props.variant === "primary"
       ? "border-transparent bg-indigo-500 text-white hover:bg-indigo-400"
-      : "border-white/10 bg-transparent text-zinc-100 hover:border-white/20 hover:bg-white/5";
+      : "border-white/10 bg-transparent text-zinc-100 hover:border-white/20 ";
 
   return (
     <a
       href={props.link}
       target={isExternal ? "_blank" : undefined}
       rel={isExternal ? "noreferrer" : undefined}
-      className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400 spectrum-hover-parent ${variantClasses}`}
+      className={`spectrum-hover-parent inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400 ${variantClasses}`}
     >
       <span className="flex h-5 w-5 items-center justify-center">
         {buttonSVGs(props.icon, size)}

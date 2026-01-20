@@ -98,7 +98,7 @@ function ProjectCard({
             href={project.source}
             target="_blank"
             rel="noreferrer"
-            className="spectrum-hover-parent rounded-full border border-white/10 px-4 py-2 text-sm font-semibold text-zinc-100 transition hover:border-white/20 hover:bg-white/5"
+            className="spectrum-hover-parent rounded-full border border-white/10 px-4 py-2 text-sm font-semibold text-zinc-100 transition hover:border-white/20"
           >
             <span className="spectrum-text-hover">{labels.codeLabel}</span>
           </a>
@@ -107,7 +107,7 @@ function ProjectCard({
               href={project.demo}
               target={project.demo.startsWith("http") ? "_blank" : undefined}
               rel={project.demo.startsWith("http") ? "noreferrer" : undefined}
-              className="spectrum-hover-parent rounded-full border border-white/10 px-4 py-2 text-sm font-semibold text-zinc-100 transition hover:border-white/20 hover:bg-white/5"
+              className="spectrum-hover-parent rounded-full border border-white/10 px-4 py-2 text-sm font-semibold text-zinc-100 transition hover:border-white/20"
             >
               <span className="spectrum-text-hover">{labels.demoLabel}</span>
             </a>
