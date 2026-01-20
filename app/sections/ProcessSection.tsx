@@ -16,7 +16,7 @@ export default function ProcessSection({ steps }: ProcessSectionProps) {
         {steps.map((step) => (
           <motion.div
             key={step.title}
-            className="rounded-2xl border border-white/10 bg-zinc-900/40 p-6"
+            className="rounded-2xl border border-white/10 bg-zinc-900/40 p-6 spectrum-card"
             initial={{ opacity: 0, y: 16 }}
             whileInView={{
               opacity: 1,

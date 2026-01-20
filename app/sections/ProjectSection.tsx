@@ -32,7 +32,7 @@ function ProjectCard({
 
   return (
     <motion.article
-      className="flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-zinc-900/40 transition-colors transition-shadow hover:border-indigo-400/40 hover:shadow-lg hover:shadow-indigo-500/10"
+      className="flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-zinc-900/40 transition-colors transition-shadow hover:border-indigo-400/40 hover:shadow-lg hover:shadow-indigo-500/10 spectrum-card"
       initial={{ opacity: 0, y: 16 }}
       whileInView={{
         opacity: 1,
@@ -88,7 +88,7 @@ function ProjectCard({
           {project.technologies.map((tech) => (
             <span
               key={tech}
-              className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-semibold text-zinc-200 transition hover:border-white/20 hover:bg-white/10"
+              className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-semibold text-zinc-200 transition hover:border-white/20 hover:bg-white/10 spectrum-pill"
             >
               {tech}
             </span>

@@ -16,7 +16,7 @@ export default function SkillsSection({ groups }: SkillsSectionProps) {
         {groups.map((group) => (
           <motion.div
             key={group.title}
-            className="rounded-2xl border border-white/10 bg-zinc-900/40 p-6"
+            className="rounded-2xl border border-white/10 bg-zinc-900/40 p-6 spectrum-card"
             initial={{ opacity: 0, y: 16 }}
             whileInView={{
               opacity: 1,
@@ -35,7 +35,7 @@ export default function SkillsSection({ groups }: SkillsSectionProps) {
               {group.items.map((item) => (
                 <span
                   key={item}
-                  className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-semibold text-zinc-200 transition hover:border-white/20 hover:bg-white/10"
+                  className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-semibold text-zinc-200 transition hover:border-white/20 hover:bg-white/10 spectrum-pill"
                 >
                   {item}
                 </span>

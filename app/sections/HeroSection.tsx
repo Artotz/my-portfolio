@@ -34,7 +34,7 @@ export default function HeroSection({
         <p className="text-xs font-semibold uppercase tracking-[0.35em] text-zinc-400">
           {badge}
         </p>
-        <h1 className="text-balance text-4xl font-bold text-white sm:text-5xl">
+        <h1 className="text-balance text-4xl font-bold text-white sm:text-5xl spectrum-text">
           {headline}
         </h1>
         <p className="max-w-2xl text-base text-zinc-300 sm:text-lg">
@@ -59,7 +59,7 @@ export default function HeroSection({
         {proof.map((item) => (
           <span
             key={item}
-            className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-semibold text-zinc-200"
+            className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-semibold text-zinc-200 spectrum-pill"
           >
             {item}
           </span>
