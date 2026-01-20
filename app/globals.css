@@ -23,6 +23,35 @@
     background: #6366f1;
     color: #ffffff;
   }
+
+  body {
+    cursor: default;
+  }
+
+  p,
+  span,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  li {
+    cursor: default;
+    user-select: none;
+  }
+
+  a,
+  button {
+    cursor: pointer;
+    user-select: none;
+  }
+
+  input,
+  textarea {
+    cursor: text;
+    user-select: text;
+  }
 }
 
 @layer utilities {

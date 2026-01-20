@@ -44,8 +44,6 @@ function ProjectCard({
           type: "tween",
         },
       }}
-      whileHover={{ y: -4 }}
-      transition={{ duration: 0.2, ease: "easeOut", type: "tween" }}
       viewport={{ once: true, amount: 0.3 }}
     >
       <div className="relative h-48 w-full overflow-hidden bg-zinc-900">
