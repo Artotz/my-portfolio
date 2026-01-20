@@ -17,7 +17,7 @@ export default function Header({ title, itemList, labels }: HeaderProps) {
   const [scrolled, setScrolled] = useState(false);
 
   const linkClasses =
-    "inline-flex items-center rounded-full border border-white/10 px-4 py-2 text-sm font-semibold text-zinc-100 transition hover:border-white/20 hover:bg-white/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400";
+    "inline-flex items-center rounded-full border border-white/10 px-4 py-2 text-sm font-semibold text-zinc-100 transition hover:border-white/20 hover:bg-white/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400 spectrum-hover-parent";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -41,15 +41,15 @@ export default function Header({ title, itemList, labels }: HeaderProps) {
         <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-6">
           <a
             href={homeAnchor}
-            className="text-lg font-semibold text-white transition hover:text-indigo-200"
+            className="text-lg font-semibold text-white transition spectrum-hover-parent"
           >
-            {title}
+            <span className="spectrum-text-hover">{title}</span>
           </a>
 
           <nav className="hidden items-center gap-2 sm:flex">
             {itemList.map((item) => (
               <a key={item} href={`#${item}`} className={linkClasses}>
-                {item}
+                <span className="spectrum-text-hover">{item}</span>
               </a>
             ))}
           </nav>

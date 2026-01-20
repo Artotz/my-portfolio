@@ -141,13 +141,35 @@
     will-change: background-position;
   }
 
+  .spectrum-text-hover {
+    background-image: var(--spectrum-gradient);
+    background-size: 300% 100%;
+    background-position: 0% 50%;
+    background-clip: text;
+    color: inherit;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: currentColor;
+    transition:
+      color 0.35s ease-out,
+      -webkit-text-fill-color 0.35s ease-out;
+  }
+
+  .spectrum-hover-parent:hover .spectrum-text-hover,
+  .spectrum-hover-parent:focus-visible .spectrum-text-hover,
+  .spectrum-hover-parent:focus-within .spectrum-text-hover {
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    animation: spectrum-text-flow 6s ease-in-out infinite;
+    transition-timing-function: ease-in;
+  }
+
   /* Idea 3: Prism card outline */
   .spectrum-card {
     position: relative;
     border-radius: 1rem;
     border: 1px solid rgba(255, 255, 255, 0.08);
     background-color: transparent;
-    transition: box-shadow 0.2s ease;
+    transition: box-shadow 0.35s ease-in-out;
     overflow: hidden;
   }
 
@@ -169,7 +191,7 @@
     pointer-events: none;
     transform-origin: 50% 50%;
     transform: rotate(0deg);
-    transition: opacity 0.2s ease;
+    transition: opacity 0.35s ease-in-out;
     will-change: transform, opacity;
     z-index: 0;
   }
@@ -271,6 +293,9 @@
 @media (prefers-reduced-motion: reduce) {
   .spectrum-surface::before,
   .spectrum-text-animate,
+  .spectrum-hover-parent:hover .spectrum-text-hover,
+  .spectrum-hover-parent:focus-visible .spectrum-text-hover,
+  .spectrum-hover-parent:focus-within .spectrum-text-hover,
   .spectrum-card:hover::before,
   .spectrum-card:focus-within::before,
   .spectrum-card:hover,

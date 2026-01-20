@@ -102,12 +102,12 @@ export function CustomIconButton(props: CustomIconButtonProps) {
       href={props.link}
       target={isExternal ? "_blank" : undefined}
       rel={isExternal ? "noreferrer" : undefined}
-      className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400 ${variantClasses}`}
+      className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400 spectrum-hover-parent ${variantClasses}`}
     >
       <span className="flex h-5 w-5 items-center justify-center">
         {buttonSVGs(props.icon, size)}
       </span>
-      {props.label}
+      <span className="spectrum-text-hover">{props.label}</span>
     </a>
   );
 }
