@@ -1,5 +1,6 @@
 import Header from "@/app/components/Header";
 import SectionTitle from "@/app/components/SectionTitle";
+import { CustomIconButton } from "@/app/components/CustomIconButton";
 import { getTranslations } from "@/app/utils/i18n";
 import { projects } from "@/app/utils/projects/projectsList-br";
 import AboutSection from "./sections/AboutSection";
@@ -78,28 +79,21 @@ export default function Home() {
             {t.Cta.body}
           </p> */}
           <div className="flex flex-wrap items-center gap-3">
-            <a
-              href="mailto:arturmcatunda@gmail.com"
-              className="spectrum-hover-parent rounded-full border border-white/10 px-5 py-2 text-sm font-semibold text-zinc-100 transition hover:border-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400"
-            >
-              <span className="spectrum-text-hover">{t.Cta.emailLabel}</span>
-            </a>
-            <a
-              href="https://wa.me/558582011193"
-              target="_blank"
-              rel="noreferrer"
-              className="spectrum-hover-parent rounded-full border border-white/10 px-5 py-2 text-sm font-semibold text-zinc-100 transition hover:border-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400"
-            >
-              <span className="spectrum-text-hover">{t.Cta.whatsappLabel}</span>
-            </a>
-            <a
-              href="https://www.linkedin.com/in/arturmcatunda/"
-              target="_blank"
-              rel="noreferrer"
-              className="spectrum-hover-parent rounded-full border border-white/10 px-5 py-2 text-sm font-semibold text-zinc-100 transition hover:border-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400"
-            >
-              <span className="spectrum-text-hover">{t.Cta.linkedinLabel}</span>
-            </a>
+            <CustomIconButton
+              icon="mail"
+              link="mailto:arturmcatunda@gmail.com"
+              label={t.Cta.emailLabel}
+            />
+            <CustomIconButton
+              icon="whatsapp"
+              link="https://wa.me/558582011193"
+              label={t.Cta.whatsappLabel}
+            />
+            <CustomIconButton
+              icon="linkedin"
+              link="https://www.linkedin.com/in/arturmcatunda/"
+              label={t.Cta.linkedinLabel}
+            />
           </div>
         </div>
       </section>

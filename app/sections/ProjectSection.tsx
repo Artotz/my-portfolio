@@ -52,7 +52,7 @@ function ProjectCard({
           alt={`${imageAlt} ${project.title}`}
           fill
           sizes="(min-width: 768px) 50vw, 100vw"
-          className="object-cover"
+          className="object-cover brightness-[0.9]"
         />
       </div>
 
