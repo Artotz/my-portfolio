@@ -17,7 +17,7 @@ export default function Header({ title, itemList, labels }: HeaderProps) {
   const [scrolled, setScrolled] = useState(false);
 
   const linkClasses =
-    "inline-flex items-center rounded-full border border-white/10 px-4 py-2 text-sm font-semibold text-zinc-100 transition hover:border-white/20  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400 spectrum-hover-parent";
+    "inline-flex items-center rounded-full px-4 py-2 text-sm font-semibold text-zinc-100 transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400 spectrum-hover-parent spectrum-button";
 
   useEffect(() => {
     const handleScroll = () => {

@@ -11,7 +11,7 @@ export function CustomIconButton(props: CustomIconButtonProps) {
       href={props.link}
       target={isExternal ? "_blank" : undefined}
       rel={isExternal ? "noreferrer" : undefined}
-      className="spectrum-hover-parent rounded-full border border-white/10 px-4 py-2 text-sm font-semibold text-zinc-100 transition hover:border-white/20"
+      className="spectrum-hover-parent spectrum-button inline-flex items-center rounded-full px-4 py-2 text-sm font-semibold text-zinc-100 transition"
     >
       <span className="spectrum-text-hover" data-text={props.label}>
         {props.label}

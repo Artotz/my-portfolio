@@ -261,23 +261,56 @@
   }
 
   .spectrum-button {
-    border: 1px solid transparent;
-    background:
-      linear-gradient(
-          90deg,
-          rgba(249, 115, 22, 0.9),
-          rgba(236, 72, 153, 0.9),
-          rgba(139, 92, 246, 0.9),
-          rgba(34, 211, 238, 0.9)
-        )
-        padding-box,
-      var(--spectrum-gradient) border-box;
-    box-shadow: 0 12px 30px -18px rgba(34, 211, 238, 0.65);
-    color: #ffffff;
+    position: relative;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: transparent;
+    overflow: hidden;
   }
 
-  .spectrum-button:hover {
-    filter: brightness(1.05);
+  .spectrum-button::before {
+    content: "";
+    position: absolute;
+    inset: -999px;
+    border-radius: inherit;
+    background: conic-gradient(
+      from 180deg,
+      var(--spectrum-1),
+      var(--spectrum-2),
+      var(--spectrum-3),
+      var(--spectrum-4),
+      var(--spectrum-5),
+      var(--spectrum-1)
+    );
+    opacity: 0;
+    pointer-events: none;
+    transform-origin: 50% 50%;
+    transform: rotate(0deg);
+    transition: opacity 0.35s ease-in-out;
+    will-change: transform, opacity;
+    z-index: 0;
+  }
+
+  .spectrum-button::after {
+    content: "";
+    position: absolute;
+    inset: 2px;
+    border-radius: inherit;
+    background-color: #18181b;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .spectrum-button > * {
+    position: relative;
+    z-index: 2;
+  }
+
+  .spectrum-button:hover::before,
+  .spectrum-button:focus-visible::before,
+  .spectrum-button:focus-within::before {
+    opacity: 0.85;
+    animation: spectrum-spin 2.8s linear infinite;
   }
 }
 
@@ -315,6 +348,9 @@
   .spectrum-hover-parent:hover .spectrum-text-hover::after,
   .spectrum-hover-parent:focus-visible .spectrum-text-hover::after,
   .spectrum-hover-parent:focus-within .spectrum-text-hover::after,
+  .spectrum-button:hover::before,
+  .spectrum-button:focus-visible::before,
+  .spectrum-button:focus-within::before,
   .spectrum-card:hover::before,
   .spectrum-card:focus-within::before,
   .spectrum-card:hover,
