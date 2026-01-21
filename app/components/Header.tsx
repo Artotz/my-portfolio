@@ -40,6 +40,26 @@ export default function Header({
 
   const homeAnchor = itemList[0] ? buildAnchorHref(itemList[0]) : "#";
 
+  const scrollToId = (targetId: string) => {
+    const target = document.getElementById(targetId);
+    if (!target) {
+      return;
+    }
+
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    const headerHeight =
+      document.querySelector("header")?.getBoundingClientRect().height ?? 64;
+    const yOffset = -headerHeight;
+    const y = target.getBoundingClientRect().top + window.scrollY + yOffset;
+
+    window.scrollTo({
+      top: y,
+      behavior: prefersReducedMotion ? "auto" : "smooth",
+    });
+  };
+
   const handleAnchorClick = (
     event: MouseEvent<HTMLAnchorElement>,
     targetId: string | undefined,
@@ -49,40 +69,13 @@ export default function Header({
       return;
     }
 
-    if (
-      event.defaultPrevented ||
-      event.button !== 0 ||
-      event.metaKey ||
-      event.altKey ||
-      event.ctrlKey ||
-      event.shiftKey
-    ) {
-      return;
-    }
-
     event.preventDefault();
 
     if (closeMenu) {
       setIsHamburgerOpen(false);
     }
 
-    const target = document.getElementById(targetId);
-    if (!target) {
-      window.history.pushState(null, "", buildAnchorHref(targetId));
-      return;
-    }
-
-    const prefersReducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
-
-    target.scrollIntoView({
-      behavior: prefersReducedMotion ? "auto" : "smooth",
-      block: "start",
-      // inline: "start",
-    });
-
-    window.history.pushState(null, "", buildAnchorHref(targetId));
+    scrollToId(targetId);
   };
 
   useEffect(() => {
