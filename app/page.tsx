@@ -17,7 +17,12 @@ export default function Home() {
 
   return (
     <main className="spectrum-surface min-h-screen bg-zinc-950 text-white">
-      <Header title={t.Profile.name} itemList={titles} labels={t.Header} />
+      <Header
+        title={t.Profile.name}
+        itemList={titles}
+        labels={t.Header}
+        locale={locale}
+      />
 
       <section
         id={titles[0]}

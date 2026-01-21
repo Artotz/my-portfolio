@@ -1,4 +1,4 @@
-import type { Locale } from "../i18n";
+import type { Locale } from "../locales";
 import { projects as projectsBr } from "./projectsList-br";
 import { projects as projectsEn } from "./projectsList-en";
 

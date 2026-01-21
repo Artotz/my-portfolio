@@ -1,12 +1,8 @@
 import "server-only";
 import i18n from "i18n";
-import { headers } from "next/headers";
+import { cookies, headers } from "next/headers";
+import { defaultLocale, supportedLocales, type Locale } from "./locales";
 import { translations } from "./translations";
-
-export const supportedLocales = ["pt-BR", "en-US"] as const;
-export type Locale = (typeof supportedLocales)[number];
-
-const defaultLocale: Locale = "en-US";
 
 const resolveLocale = (acceptLanguage?: string | null): Locale => {
   if (!acceptLanguage) {
@@ -33,6 +29,11 @@ const resolveLocale = (acceptLanguage?: string | null): Locale => {
 };
 
 export function getLocale() {
+  const cookieLocale = cookies().get("locale")?.value;
+  if (cookieLocale && supportedLocales.includes(cookieLocale as Locale)) {
+    return cookieLocale as Locale;
+  }
+
   return resolveLocale(headers().get("accept-language"));
 }
 

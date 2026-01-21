@@ -34,7 +34,7 @@ export default function HeroSection({
         <p className="text-xs font-semibold uppercase tracking-[0.35em] text-zinc-400">
           {badge}
         </p>
-        <h1 className="text-balance text-4xl font-bold text-white sm:text-5xl spectrum-text-animate">
+        <h1 className="spectrum-text-animate text-balance py-1 text-4xl font-bold text-white sm:text-5xl">
           {headline}
         </h1>
         <p className="max-w-2xl text-base text-zinc-300 sm:text-lg">

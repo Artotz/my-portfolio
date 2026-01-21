@@ -1,6 +1,17 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, type MouseEvent } from "react";
+
+type Locale = "pt-BR" | "en-US";
+
+const localeOptions: {
+  code: Locale;
+  label: string;
+  flagSrc: string;
+}[] = [
+  { code: "pt-BR", label: "Portuguese", flagSrc: "/flag-br.svg" },
+  { code: "en-US", label: "English", flagSrc: "/flag-us.svg" },
+];
 
 type HeaderProps = {
   title: string;
@@ -9,15 +20,70 @@ type HeaderProps = {
     openMenuLabel: string;
     menuLabel: string;
   };
+  locale: Locale;
 };
 
-export default function Header({ title, itemList, labels }: HeaderProps) {
+export default function Header({
+  title,
+  itemList,
+  labels,
+  locale,
+}: HeaderProps) {
   const [isHamburgerOpen, setIsHamburgerOpen] = useState(false);
-  const homeAnchor = itemList[0] ? `#${itemList[0]}` : "#";
   const [scrolled, setScrolled] = useState(false);
 
   const linkClasses =
     "inline-flex items-center rounded-full px-4 py-2 text-sm font-semibold text-zinc-100 transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400 spectrum-hover-parent spectrum-button";
+
+  const buildAnchorHref = (targetId: string) =>
+    `#${encodeURIComponent(targetId)}`;
+
+  const homeAnchor = itemList[0] ? buildAnchorHref(itemList[0]) : "#";
+
+  const handleAnchorClick = (
+    event: MouseEvent<HTMLAnchorElement>,
+    targetId: string | undefined,
+    closeMenu = false,
+  ) => {
+    if (!targetId) {
+      return;
+    }
+
+    if (
+      event.defaultPrevented ||
+      event.button !== 0 ||
+      event.metaKey ||
+      event.altKey ||
+      event.ctrlKey ||
+      event.shiftKey
+    ) {
+      return;
+    }
+
+    event.preventDefault();
+
+    if (closeMenu) {
+      setIsHamburgerOpen(false);
+    }
+
+    const target = document.getElementById(targetId);
+    if (!target) {
+      window.history.pushState(null, "", buildAnchorHref(targetId));
+      return;
+    }
+
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    target.scrollIntoView({
+      behavior: prefersReducedMotion ? "auto" : "smooth",
+      block: "start",
+      // inline: "start",
+    });
+
+    window.history.pushState(null, "", buildAnchorHref(targetId));
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -28,6 +94,15 @@ export default function Header({ title, itemList, labels }: HeaderProps) {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const handleLocaleChange = (nextLocale: Locale) => {
+    if (nextLocale === locale) {
+      return;
+    }
+
+    document.cookie = `locale=${nextLocale}; path=/; max-age=31536000; SameSite=Lax`;
+    window.location.reload();
+  };
 
   return (
     <header className="fixed top-0 z-[999] w-full">
@@ -42,47 +117,83 @@ export default function Header({ title, itemList, labels }: HeaderProps) {
           <a
             href={homeAnchor}
             className="spectrum-hover-parent text-lg font-semibold text-white transition"
+            onClick={(event) => handleAnchorClick(event, itemList[0])}
           >
             <span className="spectrum-text-hover" data-text={title}>
               {title}
             </span>
           </a>
 
-          <nav className="hidden items-center gap-2 sm:flex">
-            {itemList.map((item) => (
-              <a key={item} href={`#${item}`} className={linkClasses}>
-                <span className="spectrum-text-hover" data-text={item}>
-                  {item}
-                </span>
-              </a>
-            ))}
-          </nav>
+          <div className="flex items-center gap-3">
+            <nav className="hidden items-center gap-2 sm:flex">
+              {itemList.map((item) => (
+                <a
+                  key={item}
+                  href={buildAnchorHref(item)}
+                  className={linkClasses}
+                  onClick={(event) => handleAnchorClick(event, item)}
+                >
+                  <span className="spectrum-text-hover" data-text={item}>
+                    {item}
+                  </span>
+                </a>
+              ))}
+            </nav>
 
-          <button
-            type="button"
-            aria-label={labels.openMenuLabel}
-            className="flex h-10 w-10 items-center justify-center sm:hidden"
-            onClick={() => setIsHamburgerOpen(!isHamburgerOpen)}
-          >
-            <span className="sr-only">{labels.menuLabel}</span>
-            <div className="flex flex-col gap-1">
-              <span
-                className={`h-[2px] w-6 rounded-full bg-white transition-transform ${
-                  isHamburgerOpen ? "translate-y-[6px] rotate-45" : ""
-                }`}
-              />
-              <span
-                className={`h-[2px] w-6 rounded-full bg-white transition-opacity ${
-                  isHamburgerOpen ? "opacity-0" : "opacity-100"
-                }`}
-              />
-              <span
-                className={`h-[2px] w-6 rounded-full bg-white transition-transform ${
-                  isHamburgerOpen ? "-translate-y-[6px] -rotate-45" : ""
-                }`}
-              />
+            <div className="flex items-center gap-2">
+              {localeOptions.map((option) => {
+                const isActive = option.code === locale;
+                return (
+                  <button
+                    key={option.code}
+                    type="button"
+                    aria-label={`Switch language to ${option.label}`}
+                    aria-pressed={isActive}
+                    title={option.label}
+                    onClick={() => handleLocaleChange(option.code)}
+                    className="flex h-8 w-8 items-center justify-center rounded-full transition focus-visible:outline-none"
+                  >
+                    <img
+                      src={option.flagSrc}
+                      alt=""
+                      aria-hidden="true"
+                      className={`h-5 w-5 transition ${
+                        isActive ? "grayscale-0" : "grayscale"
+                      }`}
+                      loading="lazy"
+                    />
+                    <span className="sr-only">{option.label}</span>
+                  </button>
+                );
+              })}
             </div>
-          </button>
+
+            <button
+              type="button"
+              aria-label={labels.openMenuLabel}
+              className="flex h-10 w-10 items-center justify-center sm:hidden"
+              onClick={() => setIsHamburgerOpen(!isHamburgerOpen)}
+            >
+              <span className="sr-only">{labels.menuLabel}</span>
+              <div className="flex flex-col gap-1">
+                <span
+                  className={`h-[2px] w-6 rounded-full bg-white transition-transform ${
+                    isHamburgerOpen ? "translate-y-[6px] rotate-45" : ""
+                  }`}
+                />
+                <span
+                  className={`h-[2px] w-6 rounded-full bg-white transition-opacity ${
+                    isHamburgerOpen ? "opacity-0" : "opacity-100"
+                  }`}
+                />
+                <span
+                  className={`h-[2px] w-6 rounded-full bg-white transition-transform ${
+                    isHamburgerOpen ? "-translate-y-[6px] -rotate-45" : ""
+                  }`}
+                />
+              </div>
+            </button>
+          </div>
         </div>
       </div>
 
@@ -97,9 +208,9 @@ export default function Header({ title, itemList, labels }: HeaderProps) {
           {itemList.map((item) => (
             <a
               key={item}
-              href={`#${item}`}
+              href={buildAnchorHref(item)}
               className="px-4 py-2 text-sm font-semibold text-zinc-100 transition"
-              onClick={() => setIsHamburgerOpen(false)}
+              onClick={(event) => handleAnchorClick(event, item, true)}
             >
               {item}
             </a>
