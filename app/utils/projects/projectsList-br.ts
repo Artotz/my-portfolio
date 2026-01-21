@@ -25,7 +25,7 @@ export const projects: ProjectType[] = [
       "Formul\u00e1rio com valida\u00e7\u00e3o e envio",
       "Carregamento r\u00e1pido e consistente",
     ],
-    year: "2023",
+    year: "2024",
     // demo: "https://prismaweb.com.br/",
     demo: "",
     source: "https://github.com/WixeI/prisma-web",
@@ -60,7 +60,7 @@ export const projects: ProjectType[] = [
       "Uso simples no celular",
       "Compatibilidade Android/iOS via Expo",
     ],
-    year: "2022",
+    year: "2025",
     demo: "",
     source: "https://github.com/Artotz/daniel-calculos-app",
     technologies: [
@@ -88,7 +88,7 @@ export const projects: ProjectType[] = [
       "Fluxo simples de cria\u00e7\u00e3o e edi\u00e7\u00e3o",
       "Interface direta para rotina di\u00e1ria",
     ],
-    year: "2022",
+    year: "2024",
     demo: "",
     source: "https://github.com/Artotz/task-app",
     technologies: [
@@ -116,7 +116,7 @@ export const projects: ProjectType[] = [
       "Registro r\u00e1pido com c\u00e2mera nativa",
       "Organiza\u00e7\u00e3o simples das amostras",
     ],
-    year: "2021",
+    year: "2025",
     demo: "",
     source: "https://github.com/Artotz/sample-manager-expo",
     technologies: [
@@ -144,7 +144,7 @@ export const projects: ProjectType[] = [
       "Cache offline para uso em campo",
       "Autentica\u00e7\u00e3o com Firebase",
     ],
-    year: "2023",
+    year: "2025",
     demo: "",
     source: "https://github.com/Artotz/pmp-pwa",
     technologies: [
@@ -153,7 +153,7 @@ export const projects: ProjectType[] = [
       "Vite",
       "TailwindCSS",
       "Firebase Auth",
-      "i18next",
+      "i18n",
       "jsPDF",
       "Workbox",
       "PWA",
@@ -171,7 +171,7 @@ export const projects: ProjectType[] = [
       "Portf\u00f3lio com se\u00e7\u00f5es claras, CTAs diretos e estudos de caso.",
     role: "Design e implementa\u00e7\u00e3o do site.",
     highlights: [
-      "Narrativa centrada em resultados",
+      "Design moderno",
       "Layout responsivo",
       "Performance com Next.js",
     ],
@@ -184,6 +184,7 @@ export const projects: ProjectType[] = [
       "TypeScript",
       "TailwindCSS",
       "Framer Motion",
+      "i18n",
     ],
   },
 ];
