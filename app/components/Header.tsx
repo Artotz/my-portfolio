@@ -49,10 +49,7 @@ export default function Header({
     const prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
-    const headerHeight =
-      document.querySelector("header")?.getBoundingClientRect().height ?? 64;
-    const yOffset = -headerHeight;
-    const y = target.getBoundingClientRect().top + window.scrollY + yOffset;
+    const y = target.getBoundingClientRect().top + window.scrollY;
 
     window.scrollTo({
       top: y,
