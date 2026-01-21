@@ -47,6 +47,11 @@
     user-select: none;
   }
 
+  a *,
+  button * {
+    cursor: pointer;
+  }
+
   input,
   textarea {
     cursor: text;
@@ -142,25 +147,39 @@
   }
 
   .spectrum-text-hover {
+    color: inherit;
+    display: inline-block;
+    position: relative;
+    transition: color 0.35s ease;
+  }
+
+  .spectrum-text-hover::after {
+    content: attr(data-text);
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
     background-image: var(--spectrum-gradient);
     background-size: 300% 100%;
     background-position: 0% 50%;
     background-clip: text;
-    color: inherit;
+    color: transparent;
     -webkit-background-clip: text;
-    -webkit-text-fill-color: currentColor;
-    transition:
-      color 0.35s ease-out,
-      -webkit-text-fill-color 0.35s ease-out;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    will-change: opacity, background-position;
+  }
+
+  .spectrum-hover-parent:hover .spectrum-text-hover::after,
+  .spectrum-hover-parent:focus-visible .spectrum-text-hover::after,
+  .spectrum-hover-parent:focus-within .spectrum-text-hover::after {
+    opacity: 1;
+    animation: spectrum-text-flow 6s ease-in-out infinite;
   }
 
   .spectrum-hover-parent:hover .spectrum-text-hover,
   .spectrum-hover-parent:focus-visible .spectrum-text-hover,
   .spectrum-hover-parent:focus-within .spectrum-text-hover {
     color: transparent;
-    -webkit-text-fill-color: transparent;
-    animation: spectrum-text-flow 6s ease-in-out infinite;
-    transition-timing-function: ease-in;
   }
 
   /* Idea 3: Prism card outline */
@@ -293,9 +312,9 @@
 @media (prefers-reduced-motion: reduce) {
   .spectrum-surface::before,
   .spectrum-text-animate,
-  .spectrum-hover-parent:hover .spectrum-text-hover,
-  .spectrum-hover-parent:focus-visible .spectrum-text-hover,
-  .spectrum-hover-parent:focus-within .spectrum-text-hover,
+  .spectrum-hover-parent:hover .spectrum-text-hover::after,
+  .spectrum-hover-parent:focus-visible .spectrum-text-hover::after,
+  .spectrum-hover-parent:focus-within .spectrum-text-hover::after,
   .spectrum-card:hover::before,
   .spectrum-card:focus-within::before,
   .spectrum-card:hover,

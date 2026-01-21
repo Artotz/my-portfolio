@@ -52,7 +52,7 @@ function ProjectCard({
           alt={`${imageAlt} ${project.title}`}
           fill
           sizes="(min-width: 768px) 50vw, 100vw"
-          className="object-cover brightness-[0.9]"
+          className="object-cover brightness-[0.85]"
         />
       </div>
 
@@ -100,7 +100,9 @@ function ProjectCard({
             rel="noreferrer"
             className="spectrum-hover-parent rounded-full border border-white/10 px-4 py-2 text-sm font-semibold text-zinc-100 transition hover:border-white/20"
           >
-            <span className="spectrum-text-hover">{labels.codeLabel}</span>
+            <span className="spectrum-text-hover" data-text={labels.codeLabel}>
+              {labels.codeLabel}
+            </span>
           </a>
           {project.demo && (
             <a
@@ -109,7 +111,12 @@ function ProjectCard({
               rel={project.demo.startsWith("http") ? "noreferrer" : undefined}
               className="spectrum-hover-parent rounded-full border border-white/10 px-4 py-2 text-sm font-semibold text-zinc-100 transition hover:border-white/20"
             >
-              <span className="spectrum-text-hover">{labels.demoLabel}</span>
+              <span
+                className="spectrum-text-hover"
+                data-text={labels.demoLabel}
+              >
+                {labels.demoLabel}
+              </span>
             </a>
           )}
         </div>

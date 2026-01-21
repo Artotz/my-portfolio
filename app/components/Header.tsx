@@ -43,13 +43,17 @@ export default function Header({ title, itemList, labels }: HeaderProps) {
             href={homeAnchor}
             className="spectrum-hover-parent text-lg font-semibold text-white transition"
           >
-            <span className="spectrum-text-hover">{title}</span>
+            <span className="spectrum-text-hover" data-text={title}>
+              {title}
+            </span>
           </a>
 
           <nav className="hidden items-center gap-2 sm:flex">
             {itemList.map((item) => (
               <a key={item} href={`#${item}`} className={linkClasses}>
-                <span className="spectrum-text-hover">{item}</span>
+                <span className="spectrum-text-hover" data-text={item}>
+                  {item}
+                </span>
               </a>
             ))}
           </nav>
