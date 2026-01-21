@@ -86,27 +86,22 @@ export default function AboutSection({
             viewport={{ once: true, amount: 0.3 }}
           >
             <CustomIconButton
-              icon="source"
               link="https://github.com/Artotz"
               label={buttons.source}
             />
             <CustomIconButton
-              icon="linkedin"
               link="https://www.linkedin.com/in/arturmcatunda/"
               label={buttons.linkedin}
             />
             <CustomIconButton
-              icon="mail"
               link="mailto:arturmcatunda@gmail.com"
               label={buttons.mail}
             />
             <CustomIconButton
-              icon="whatsapp"
               link="https://wa.me/558582011193"
               label={buttons.whatsapp}
             />
             <CustomIconButton
-              icon="curriculum"
               link="curriculo.pdf"
               label={buttons.curriculum}
             />

@@ -80,17 +80,14 @@ export default function Home() {
           </p> */}
           <div className="flex flex-wrap items-center gap-3">
             <CustomIconButton
-              icon="mail"
               link="mailto:arturmcatunda@gmail.com"
               label={t.Cta.emailLabel}
             />
             <CustomIconButton
-              icon="whatsapp"
               link="https://wa.me/558582011193"
               label={t.Cta.whatsappLabel}
             />
             <CustomIconButton
-              icon="linkedin"
               link="https://www.linkedin.com/in/arturmcatunda/"
               label={t.Cta.linkedinLabel}
             />
