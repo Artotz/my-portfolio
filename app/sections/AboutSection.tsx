@@ -102,7 +102,7 @@ export default function AboutSection({
               label={buttons.whatsapp}
             />
             <CustomIconButton
-              link="curriculo.pdf"
+              link="Currículo - Artur Melo Catunda.pdf"
               label={buttons.curriculum}
             />
           </motion.div>
