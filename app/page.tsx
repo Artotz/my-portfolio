@@ -1,8 +1,8 @@
 import Header from "@/app/components/Header";
 import SectionTitle from "@/app/components/SectionTitle";
 import { CustomIconButton } from "@/app/components/CustomIconButton";
-import { getTranslations } from "@/app/utils/i18n";
-import { projects } from "@/app/utils/projects/projectsList-br";
+import { getLocale, getTranslations } from "@/app/utils/i18n";
+import { getProjectsByLocale } from "@/app/utils/projects";
 import AboutSection from "./sections/AboutSection";
 import HeroSection from "./sections/HeroSection";
 import ProjectSection from "./sections/ProjectSection";
@@ -10,7 +10,9 @@ import SkillsSection from "./sections/SkillsSection";
 import ProcessSection from "./sections/ProcessSection";
 
 export default function Home() {
-  const t = getTranslations();
+  const locale = getLocale();
+  const t = getTranslations(locale);
+  const projects = getProjectsByLocale(locale);
   const titles = t.Home.titles;
 
   return (
@@ -35,7 +37,12 @@ export default function Home() {
           // subtitle={t.Sections.about.subtitle}
         />
         <div className="mt-10">
-          <AboutSection paragraphs={t.About.paragraphs} buttons={t.Buttons} />
+          <AboutSection
+            paragraphs={t.About.paragraphs}
+            buttons={t.Buttons}
+            photoAlt={t.About.photoAlt}
+            resumeHref={t.About.resumeHref}
+          />
         </div>
       </section>
 

@@ -14,11 +14,15 @@ type AboutSectionProps = {
     whatsapp: string;
     curriculum: string;
   };
+  photoAlt: string;
+  resumeHref: string;
 };
 
 export default function AboutSection({
   paragraphs,
   buttons,
+  photoAlt,
+  resumeHref,
 }: AboutSectionProps) {
   return (
     <div className="mx-auto flex w-full max-w-6xl flex-col gap-8 px-6">
@@ -40,7 +44,7 @@ export default function AboutSection({
         >
           <Image
             src={profilePhoto}
-            alt="Foto de Artur Catunda"
+            alt={photoAlt}
             className="h-full w-full object-cover"
             sizes="(min-width: 768px) 240px, 208px"
             priority={false}
@@ -102,7 +106,7 @@ export default function AboutSection({
               label={buttons.whatsapp}
             />
             <CustomIconButton
-              link="Currículo - Artur Melo Catunda.pdf"
+              link={resumeHref}
               label={buttons.curriculum}
             />
           </motion.div>

@@ -22,6 +22,8 @@ export const translations = {
         "Trabalho para transformar ideias em experi\u00eancias digitais com boa performance, manuten\u00e7\u00e3o simples e impacto real no neg\u00f3cio.",
         "Gosto de colaborar de perto com times e stakeholders para tomar decis\u00f5es claras e entregar evolu\u00e7\u00f5es consistentes.",
       ],
+      photoAlt: "Foto de Artur Catunda",
+      resumeHref: "/Curr\u00edculo - Artur Melo Catunda.pdf",
     },
     Sections: {
       about: {
@@ -112,6 +114,120 @@ export const translations = {
     },
     PortfolioSection: {
       Technologies: "Tecnologias",
+    },
+  },
+  en: {
+    Profile: { name: "Artur Catunda" },
+    Home: { titles: ["Home", "About", "Projects", "Skills"] },
+    Header: {
+      openMenuLabel: "Open menu",
+      menuLabel: "Menu",
+    },
+    Hero: {
+      badge: "Digital product development",
+      headline:
+        "React and mobile solutions focused on clarity, performance, and growth.",
+      subheadline:
+        "I build reliable products for teams and businesses, with clean code, a sustainable cadence, and deliveries that make sense for users.",
+      ctaProjects: "View projects",
+      ctaContact: "WhatsApp",
+      proof: ["React", "Next.js", "React Native", "Tailwind", "TypeScript"],
+    },
+    About: {
+      paragraphs: [
+        "I'm Artur Melo Catunda, a React and mobile developer passionate about well-structured products.",
+        "I help turn ideas into digital experiences with strong performance, simple maintenance, and real business impact.",
+        "I like working closely with teams and stakeholders to make clear decisions and deliver consistent improvements.",
+      ],
+      photoAlt: "Artur Catunda profile photo",
+      resumeHref: "/Curriculum - Artur Melo Catunda.pdf",
+    },
+    Sections: {
+      about: {
+        title: "About",
+        subtitle: "A concise summary of how I work and what I value.",
+      },
+      skills: {
+        title: "Skills",
+        subtitle: "Stack organized by domain for quick scanning.",
+      },
+      process: {
+        title: "How I work",
+        subtitle: "Simple process, clear communication, steady progress.",
+      },
+    },
+    Projects: {
+      title: "Projects",
+      subtitle: "Selected cases focused on context, impact, and execution.",
+      codeLabel: "Code",
+      demoLabel: "Demo",
+      imageAlt: "Project image",
+    },
+    Skills: {
+      groups: [
+        {
+          title: "Frontend",
+          items: [
+            "React",
+            "Next.js",
+            "TypeScript",
+            "Tailwind",
+            "Framer Motion",
+          ],
+        },
+        {
+          title: "Mobile",
+          items: ["React Native", "Expo", "Expo Router", "Async Storage"],
+        },
+        {
+          title: "Backend",
+          items: ["Node.js", "Express", "Spring", "Firebase", "REST APIs"],
+        },
+        {
+          title: "Infrastructure/Tooling",
+          items: ["Git", "GitHub Actions", "Docker", "Vite", "Jest"],
+        },
+      ],
+    },
+    Process: {
+      steps: [
+        {
+          title: "Clear architecture",
+          description:
+            "I define simple, scalable structures to ease maintenance and evolution.",
+        },
+        {
+          title: "Objective communication",
+          description:
+            "I align expectations, propose solutions, and report progress with transparency.",
+        },
+        {
+          title: "Incremental delivery",
+          description: "I deliver in short cycles to validate early and reduce risks.",
+        },
+      ],
+    },
+    Cta: {
+      title: "Let's talk?",
+      body: "I'm available for projects, partnerships, and conversations about product, frontend, and mobile.",
+      emailLabel: "Email",
+      whatsappLabel: "WhatsApp",
+      linkedinLabel: "LinkedIn",
+    },
+    Footer: {
+      copyright: "\u00a9 2024 Artur Melo Catunda",
+      built: "Built with Next.js, Tailwind, and framer-motion.",
+    },
+    Buttons: {
+      source: "GitHub",
+      linkedin: "LinkedIn",
+      mail: "Email",
+      whatsapp: "WhatsApp",
+      demo: "Demo",
+      curriculum: "Resume",
+    },
+    PortfolioSection: {
+      Technologies: "Technologies",
     },
   },
 };
